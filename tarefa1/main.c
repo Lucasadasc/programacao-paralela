@@ -22,35 +22,44 @@ static double calcular_valor_pi(unsigned long long iteracoes) {
 }
 
 int main(void) {
-    const unsigned long long iteracoes[] = {100, 1000, 10000, 100000, 1000000};
-    const int qtd_testes = 5;
-    const double pi_real = 3.14159265358979323846;
+    // const unsigned long long iteracoes[] = {100, 1000, 10000, 100000, 1000000};
+    // const int qtd_testes = 5;
+    // const double pi_real = 3.14159265358979323846;
 
-    printf("Aproximacao de pi usando a serie de Leibniz\n");
-    printf("------------------------------------------------\n");
-    printf("iteracoes | aproximacao | erro absoluto | tempo (ms)\n");
-    printf("------------------------------------------------\n");
+    // printf("Aproximacao de pi usando a serie de Leibniz\n");
+    // printf("------------------------------------------------\n");
+    // printf("iteracoes | aproximacao | erro absoluto | tempo (ms)\n");
+    // printf("------------------------------------------------\n");
 
-    for (int i = 0; i < qtd_testes; ++i) {
-        struct timespec inicio, fim;
-        clock_gettime(CLOCK_MONOTONIC, &inicio);
+    // for (int i = 0; i < qtd_testes; ++i) {
+    //     struct timespec inicio, fim;
+    //     clock_gettime(CLOCK_MONOTONIC, &inicio);
 
-        double aproximacao = calcular_valor_pi(iteracoes[i]);
+    //     double aproximacao = calcular_valor_pi(iteracoes[i]);
 
-        clock_gettime(CLOCK_MONOTONIC, &fim);
+    //     clock_gettime(CLOCK_MONOTONIC, &fim);
 
-        double tempo_ms = (fim.tv_sec - inicio.tv_sec) * 1000.0 +
-                          (fim.tv_nsec - inicio.tv_nsec) / 1000000.0;
-        double erro = fabs(aproximacao - pi_real);
+    //     double tempo_ms = (fim.tv_sec - inicio.tv_sec) * 1000.0 +
+    //                       (fim.tv_nsec - inicio.tv_nsec) / 1000000.0;
+    //     double erro = fabs(aproximacao - pi_real);
 
-        printf("%10llu | %11.10f | %12.10f | %12.6f\n",
-               iteracoes[i], aproximacao, erro, tempo_ms);
-    }
+    //     printf("%10llu | %11.10f | %12.10f | %12.6f\n",
+    //            iteracoes[i], aproximacao, erro, tempo_ms);
+    // }
 
-    printf("------------------------------------------------\n");
-    printf("Analise: quanto mais iteracoes, mais perto da aproximacao de pi\n");
-    printf("O erro tende a diminuir, mas o tempo de execucao cresce.\n");
-    printf("Isso mostra o trade-off entre acuracia e custo computacional.\n");
+    // printf("------------------------------------------------\n");
+    // printf("Analise: quanto mais iteracoes, mais perto da aproximacao de pi\n");
+    // printf("O erro tende a diminuir, mas o tempo de execucao cresce.\n");
+    // printf("Isso mostra o trade-off entre acuracia e custo computacional.\n");
 
-    return 0;
+    // return 0;
+
+    const long long quantidade_iteracoes = 100000000;
+
+    const double valor_calculado = calcular_valor_pi(quantidade_iteracoes);
+
+    printf("Valor calculado de pi com %lld iteracoes: %.15f\n", quantidade_iteracoes, valor_calculado);
 }
+
+// gcc -O2 -Wall -Wextra -std=c11 main.c -lm -o main && ./main
+// time ./main
