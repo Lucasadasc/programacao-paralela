@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
     } 
     
     //Testando diferentes tamanhos de matriz
-    int sizes[] = {5000, 10000, 15000, 20000, 25000};
+    int sizes[] = {10, 100, 1000, 2000, 5000, 10000, 15000, 20000, 25000}; // Com 30000, o wsl foi 'derrubado' por falta de memória
     int num_sizes = sizeof(sizes) / sizeof(sizes[0]);
     
     printf("=====================================================\n");
