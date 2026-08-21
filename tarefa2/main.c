@@ -1,4 +1,4 @@
-#define _POSIX_C_SOURCE 199309L
+#define _POSIX_C_SOURCE 199309L // Necessário para clock_gettime() no Linux
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -6,13 +6,14 @@
 
 // Recuperar tempo de relógio transcorrido (em segundos) conforme orientado na sala de aula
 double recuperar_tempo_instantaneo() {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (double)ts.tv_sec + (double)ts.tv_nsec * 1e-9;
+    struct timespec ts; // Estrutura para armazenar o tempo
+    clock_gettime(CLOCK_MONOTONIC, &ts); // Obtém o tempo de relógio monotônico (não retrocede)
+    return (double)ts.tv_sec + (double)ts.tv_nsec * 1e-9; // Converte para segundos
 }
 
 // Versão A: Acesso por linha (loop interno varia colunas) - Padrão do C
-void multiplicacao_matriz_vetor_linha(const double *restrict A, const double *restrict x, double *restrict y, int N) {
+// O * antes do parametro indica que é um ponteiro para o tipo double, ou seja, é um array de doubles
+void multiplicacao_matriz_vetor_linha(const double *A, const double  *x, double  *y, int N) {
     for (int i = 0; i < N; i++) {
         double soma = 0.0;
         for (int j = 0; j < N; j++) {
@@ -23,7 +24,7 @@ void multiplicacao_matriz_vetor_linha(const double *restrict A, const double *re
 }
 
 // Versão B: Acesso por coluna (loop interno varia linhas) - Estrutura de coluna
-void multiplicacao_matriz_vetor_coluna(const double *restrict A, const double *restrict x, double *restrict y, int N) {
+void multiplicacao_matriz_vetor_coluna(const double *A, const double *x, double *y, int N) {
     for (int i = 0; i < N; i++) {
         y[i] = 0.0;
     }
@@ -35,7 +36,7 @@ void multiplicacao_matriz_vetor_coluna(const double *restrict A, const double *r
     }
 }
 
-// Inicializa matriz e vetor com valores dummy
+// Inicializa matriz e vetor com valores determinísticos para facilitar a verificação de resultados
 void inicializar_matrizes(double *matriz_A, double *vetor_x, int N) {
     for (int i = 0; i < N; i++) {
         vetor_x[i] = (double)i / N;
@@ -46,12 +47,12 @@ void inicializar_matrizes(double *matriz_A, double *vetor_x, int N) {
 }
 
 
-void realizar_benchmark(int N) {
-    printf("Evaluating N = %d...\n", N);
+void realizar_teste(int N) {
+    printf("Calculando com N = %d...\n", N);
     
     // Alocando memória
     double *matriz_A = (double *)malloc((size_t)N * N * sizeof(double));
-    double *vetor_x = (double *)malloc((size_t)N * sizeof(double));
+    double *vetor_x = (double *)malloc((size_t)N * sizeof(double)); // o vetor_x seria 
     double *resultado_em_linha = (double *)malloc((size_t)N * sizeof(double));
     double *resultado_em_coluna = (double *)malloc((size_t)N * sizeof(double));
     
@@ -68,12 +69,8 @@ void realizar_benchmark(int N) {
     double tempo_total_calculo_vetor_coluna = fim_calculo_vetor_coluna - inicio_calculo_vetor_coluna;
     
     // Otimizações
-
-    double ratio = tempo_total_calculo_vetor_coluna / tempo_total_calculo_vetor_linha;
-    
     printf("  Linha:        %10.6f s\n", tempo_total_calculo_vetor_linha);
     printf("  Coluna:       %10.6f s\n", tempo_total_calculo_vetor_coluna);
-    printf("  Razão (Col/Linha): %.2fx\n", ratio);
 
     free(matriz_A);
     free(vetor_x);
@@ -85,29 +82,23 @@ void realizar_benchmark(int N) {
 int main(int argc, char *argv[]) {
     if (argc > 1) {
         // Rodando com um tamanho de matriz específico fornecido como argumento
-        int N = atoi(argv[1]);
+        int N = atoi(argv[1]); // o atoi converte uma string para um inteiro
         if (N <= 0) {
-            fprintf(stderr, "Invalid matrix size: %s\n", argv[1]);
+            fprintf(stderr, "Tamanho inválido: %s\n", argv[1]);
             return 1;
         }
-        realizar_benchmark(N);
+        realizar_teste(N);
 
         return 0;
     } 
     
     //Testando diferentes tamanhos de matriz
-    int sizes[] = {10, 100, 1000, 2000, 5000, 10000, 15000, 20000, 25000}; // Com 30000, o wsl foi 'derrubado' por falta de memória
-    int num_sizes = sizeof(sizes) / sizeof(sizes[0]);
+    int tamanhos[] = {10, 50, 100, 250, 500, 1000, 2000, 5000, 10000, 15000, 20000, 25000};
+    int quantidade_tamanhos = 12;
     
-    printf("=====================================================\n");
-    printf("  Matrix-Vector Multiplication (MxV) Benchmark in C  \n");
-    printf("=====================================================\n\n");
-    
-    for (int i = 0; i < num_sizes; i++) {
-        realizar_benchmark(sizes[i]);
+    for (int i = 0; i < quantidade_tamanhos; i++) {
+        realizar_teste(tamanhos[i]);
     }
         
     return 0;
 }
-
-// Por que com matriz pequena o tempo é o mesmo? Por que o tempo não muda: Tamanho da cache
