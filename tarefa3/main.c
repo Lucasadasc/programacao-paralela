@@ -24,7 +24,7 @@ int main() {
     double inicio, fim;
     double tempo_inicializacao, tempo_soma_dependente, tempo_soma_independente;
 
-    // --- Laço 1: Inicialização do vetor com um cálculo simples ---
+    // 1) Inicialização do vetor com um cálculo simples ---
     inicio = recuperar_tempo_instantaneo();
     for (size_t i = 0; i < N; i++) {
         vetor[i] = (double)i * 0.5;
@@ -32,7 +32,7 @@ int main() {
     fim = recuperar_tempo_instantaneo();
     tempo_inicializacao = fim - inicio;
 
-    // --- Laço 2: Soma acumulativa com dependência forte entre iterações ---
+    // 2) Soma acumulativa com dependência forte entre iterações ---
     double soma_dependente = 0.0;
     inicio = recuperar_tempo_instantaneo();
     for (size_t i = 0; i < N; i++) {
@@ -41,7 +41,7 @@ int main() {
     fim = recuperar_tempo_instantaneo();
     tempo_soma_dependente = fim - inicio;
 
-    // --- Laço 3: Soma acumulativa quebrando a dependência com múltiplas variáveis ---
+    // 3) Soma acumulativa quebrando a dependência com múltiplas variáveis ---
     // Desenrolado por um fator de 4 utilizando 4 acumuladores independentes (ILP)
     double soma_independente1 = 0.0;
     double soma_independente2 = 0.0;
