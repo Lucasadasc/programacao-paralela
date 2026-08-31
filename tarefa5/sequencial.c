@@ -25,7 +25,7 @@ int eh_primo(int n) {
 }
 
 int main(int argc, char *argv[]) {
-    int a = 1000000; // Valor máximo padrão
+    int a = 500000; // Valor máximo padrão
     if (argc > 1) {
         a = atoi(argv[1]);
         if (a < 2) {
