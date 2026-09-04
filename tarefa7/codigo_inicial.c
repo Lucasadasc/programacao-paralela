@@ -1,3 +1,6 @@
+// Compilar: gcc -fopenmp codigo_inicial.c -o codigo_inicial
+// Executar com número de threads definido: export OMP_NUM_THREADS=4; ./codigo_inicial
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
@@ -72,7 +75,7 @@ int main(void) {
             No *no_atual = no;
 
             #pragma omp task
-            printf("Arquivo: %s - Thread: %d\n",  no_atual->nome_arquivo, omp_get_thread_num());
+            printf("Arquivo: %s | Thread: %d\n",  no_atual->nome_arquivo, omp_get_thread_num());
 
             no = no->proximo;
         }
