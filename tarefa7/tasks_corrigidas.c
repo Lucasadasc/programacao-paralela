@@ -77,7 +77,7 @@ int main(void) {
                 
                 // o omp task por padrão faz o comportamento de firstprivate, mas é uma boa prática explicitar.
                 // isso garante que cada tarefa tenha sua própria cópia da variável no_atual, evitando problemas de concorrência.
-				#pragma omp task firstprivate(no_atual)
+				#pragma omp task 
 				printf("Arquivo: %s | Thread: %d\n",
 				       no_atual->nome_arquivo,
 				       omp_get_thread_num());
@@ -87,7 +87,7 @@ int main(void) {
             
             // há um taskwait a seguir... não necessário, apenas garantia. 
             // Se houvesse um nowait, o programa aguardaria a conclusão de todas as tarefas antes de prosseguir.
-			#pragma omp taskwait 
+			// #pragma omp taskwait 
 		}
 	}
 
