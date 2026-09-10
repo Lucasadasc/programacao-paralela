@@ -65,6 +65,7 @@ int main(int argc, char *argv[]) {
         #pragma omp for private(x, y, dist_sq)
         for (long long i = 0; i < total_pontos; i++) {
             x = (double)rand() / (double)RAND_MAX;
+            // RAND_MAX é a constante máxima para rand(), gerando um número entre 0 e 1
             y = (double)rand() / (double)RAND_MAX;
             dist_sq = x * x + y * y;
 
