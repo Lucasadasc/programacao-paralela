@@ -19,14 +19,6 @@
 int main(int argc, char **argv) {
     long long total_pontos = 10000000LL;
 
-    if (argc > 1) {
-        total_pontos = atoll(argv[1]);
-        if (total_pontos <= 0) {
-            fprintf(stderr, "Erro: o numero de pontos deve ser positivo.\n");
-            return EXIT_FAILURE;
-        }
-    }
-
     long long pontos_no_circulo = 0;
     double t_inicio = omp_get_wtime();
 
