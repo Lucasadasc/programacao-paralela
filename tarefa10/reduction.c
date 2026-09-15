@@ -32,8 +32,7 @@ int main(int argc, char **argv) {
 
     #pragma omp parallel shared(total_pontos) reduction(+:pontos_no_circulo)
     {
-        unsigned int seed = (unsigned int)time(NULL) ^
-            (unsigned int)(omp_get_thread_num() + 1);
+        unsigned int seed = (unsigned int)time(NULL) ^ (unsigned int)(omp_get_thread_num() + 1);
 
         #pragma omp for
         for (long long i = 0; i < total_pontos; i++) {
