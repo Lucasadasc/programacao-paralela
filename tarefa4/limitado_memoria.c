@@ -58,7 +58,7 @@ int main() {
     }
 
     // Inicialização simples dos vetores (sem medir tempo)
-    // Usamos um loop paralelo para acelerar e garantir a política de "first-touch"
+    // Usamos um loop paralelo para acelerar e garantir a política de "first-touch" - first touch garante que a página de memória seja alocada no NUMA node da thread que a acessa primeiro, melhorando a localidade de memória.
     #pragma omp parallel for
     for (size_t i = 0; i < N; i++) {
         A[i] = (double)i * 0.1;
@@ -73,7 +73,7 @@ int main() {
     #pragma omp parallel
     {
         // Pega a quantidade de threads configurada apenas uma vez
-        #pragma omp single
+        #pragma omp single // usando o single para evitar que todas as threads façam a mesma chamada
         {
             total_threads = omp_get_num_threads();
         }

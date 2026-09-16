@@ -63,6 +63,7 @@ int main() {
     {
         #pragma omp single
         {
+            // Usamos o pragma single para evitar que todas as threads façam a mesma chamada
             total_threads = omp_get_num_threads();
         }
 
