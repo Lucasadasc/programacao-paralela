@@ -13,7 +13,9 @@ Uso:
 
 import sys
 import os
-import math
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
 
 def gerar_graficos(csv_path="difusao_simulacao.csv", saida_png="evolucao_difusao.png"):
     if not os.path.exists(csv_path):
@@ -23,10 +25,8 @@ def gerar_graficos(csv_path="difusao_simulacao.csv", saida_png="evolucao_difusao
         return 1
 
     try:
-        import matplotlib
         matplotlib.use("Agg")  # Backend sem interface gráfica (headless)
-        import matplotlib.pyplot as plt
-        import numpy as np
+        
     except ImportError:
         print("Aviso: 'matplotlib' ou 'numpy' nao estao instalados.")
         print("Instale-os com: pip install matplotlib numpy")
@@ -75,10 +75,13 @@ def gerar_graficos(csv_path="difusao_simulacao.csv", saida_png="evolucao_difusao
         print("Erro: Nenhum dado valido encontrado no CSV.")
         return 1
 
-    print(f"Encontrados {len(passos_ordenados)} passos gravados: {passos_ordenados}")
+    passo_final = max(passos_ordenados)
+    print(f"Encontrados {len(passos_ordenados)} estados gravados: {passos_ordenados}")
+    print(f"Quantidade total de passos executados: {passo_final}")
 
     fig = plt.figure(figsize=(16, 10))
-    fig.suptitle("Simulação de Navier-Stokes - Difusão Viscosa Pura (∂u/∂t = ν ∇²u)",
+    fig.suptitle("Simulação de Navier-Stokes - Difusão Viscosa Pura (∂u/∂t = ν ∇²u)\n"
+                 f"Total de passos executados: {passo_final}",
                  fontsize=16, fontweight="bold", y=0.98)
 
     # 1. Gráfico de corte central (y próximo de 0.5)
@@ -103,7 +106,8 @@ def gerar_graficos(csv_path="difusao_simulacao.csv", saida_png="evolucao_difusao
             x_corte = xs[filtro_meio]
             u_corte = us[filtro_meio]
             ordem = np.argsort(x_corte)
-            ax1.plot(x_corte[ordem], u_corte[ordem], label=f"t = {d['tempo']:.3f} s",
+            ax1.plot(x_corte[ordem], u_corte[ordem],
+                     label=f"passo {p} (t = {d['tempo']:.3f} s)",
                      color=cores[i], linewidth=2.0)
 
     ax1.legend(loc="upper right", fontsize=9)
@@ -149,16 +153,25 @@ def gerar_graficos(csv_path="difusao_simulacao.csv", saida_png="evolucao_difusao
         "  - Euler Explícito no tempo (FTCS)\n\n"
         "• Critério de Estabilidade:\n"
         "  Δt ≤ h² / (4 ν)\n"
-        "  Garante estabilidade estrita de Von Neumann."
+        "  Garante estabilidade estrita de Von Neumann.\n\n"
+        f"• Passos executados: {passo_final}\n"
+        f"  Estados gravados: {len(passos_ordenados)}"
     )
-    ax3.text(0.05, 0.95, texto_teoria, fontsize=10, verticalalignment="top",
-             family="monospace", bbox=dict(boxstyle="round,pad=0.8", facecolor="#f4f6f8", edgecolor="#ccd1d9"))
+    ax3.text(
+        0.05, 
+        0.95,
+        texto_teoria, 
+        fontsize=10, 
+        verticalalignment="top",
+        family="monospace", 
+        bbox=dict(boxstyle="round,pad=0.8", facecolor="#f4f6f8", edgecolor="#ccd1d9")
+    )
 
     # Mapas de calor 2D para 3 instantes representativos
     instantes_idx = [0, len(passos_ordenados)//2, len(passos_ordenados)-1]
-    titulos_mapa = ["(a) T = 0.000s (Pulso Inicial)",
-                    f"(b) T = {dados_por_passo[passos_ordenados[instantes_idx[1]]]['tempo']:.3f}s (Difundindo)",
-                    f"(c) T = {dados_por_passo[passos_ordenados[instantes_idx[2]]]['tempo']:.3f}s (Dissipado)"]
+    titulos_mapa = [f"(a) Passo {passos_ordenados[instantes_idx[0]]} - T = 0.000s (Pulso Inicial)",
+                    f"(b) Passo {passos_ordenados[instantes_idx[1]]} - T = {dados_por_passo[passos_ordenados[instantes_idx[1]]]['tempo']:.3f}s (Difundindo)",
+                    f"(c) Passo {passos_ordenados[instantes_idx[2]]} - T = {dados_por_passo[passos_ordenados[instantes_idx[2]]]['tempo']:.3f}s (Dissipado)"]
 
     vmax_global = np.max(dados_por_passo[passos_ordenados[0]]["mag"])
 
