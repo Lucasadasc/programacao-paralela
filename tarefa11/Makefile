@@ -14,14 +14,14 @@ all: $(PROGRAMAS)
 1_static: 1_static.c navier_stokes/fluido.c navier_stokes/fluido.h
 	$(CC) $(CFLAGS) 1_static.c navier_stokes/fluido.c -o $@ $(LDFLAGS)
 
-2_static_collapse: 2_static_collapse.c navier_stokes/fluido.c navier_stokes/fluido.h
-	$(CC) $(CFLAGS) 2_static_collapse.c navier_stokes/fluido.c -o $@ $(LDFLAGS)
+2_static_collapse: 4_static_collapse.c navier_stokes/fluido.c navier_stokes/fluido.h
+	$(CC) $(CFLAGS) 4_static_collapse.c navier_stokes/fluido.c -o $@ $(LDFLAGS)
 
 3_dynamic: 2_dynamic.c navier_stokes/fluido.c navier_stokes/fluido.h
 	$(CC) $(CFLAGS) 2_dynamic.c navier_stokes/fluido.c -o $@ $(LDFLAGS)
 
-4_dynamic_collapse: 4_dynamic_collapse.c navier_stokes/fluido.c navier_stokes/fluido.h
-	$(CC) $(CFLAGS) 4_dynamic_collapse.c navier_stokes/fluido.c -o $@ $(LDFLAGS)
+4_dynamic_collapse: 5_dynamic_collapse.c navier_stokes/fluido.c navier_stokes/fluido.h
+	$(CC) $(CFLAGS) 5_dynamic_collapse.c navier_stokes/fluido.c -o $@ $(LDFLAGS)
 
 5_guided: 3_guided.c navier_stokes/fluido.c navier_stokes/fluido.h
 	$(CC) $(CFLAGS) 3_guided.c navier_stokes/fluido.c -o $@ $(LDFLAGS)

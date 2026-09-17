@@ -87,4 +87,9 @@ void inicializar_perturbacao_gaussiana(GradeFluido *grade, double u_base, double
             grade->u_prox[idx] = grade->u_atual[idx];
             grade->v_prox[idx] = grade->v_atual[idx];
     }
+
+    aplicar_condicoes_contorno(grade->nx, grade->u_atual);
+    aplicar_condicoes_contorno(grade->nx, grade->u_prox);
+    aplicar_condicoes_contorno(grade->nx, grade->v_atual);
+    aplicar_condicoes_contorno(grade->nx, grade->v_prox);
 }
