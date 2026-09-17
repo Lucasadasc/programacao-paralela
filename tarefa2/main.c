@@ -37,9 +37,10 @@ void multiplicacao_matriz_vetor_coluna(const double *A, const double *x, double 
 }
 
 // Inicializa matriz e vetor com valores determinísticos para facilitar a verificação de resultados
+// valores determinísticos são importantes para garantir que os resultados sejam consistentes e previsíveis, permitindo a validação correta do algoritmo implementado.
 void inicializar_matrizes(double *matriz_A, double *vetor_x, int N) {
     for (int i = 0; i < N; i++) {
-        vetor_x[i] = (double)i / N;
+        vetor_x[i] = (double)i / N; // Inicializa o vetor x com valores determinísticos (0, 1/N, 2/N, ..., (N-1)/N)
         for (int j = 0; j < N; j++) {
             matriz_A[i * N + j] = (double)(i + j) / N;
         }
@@ -52,7 +53,7 @@ void realizar_teste(int N) {
     
     // Alocando memória
     double *matriz_A = (double *)malloc((size_t)N * N * sizeof(double));
-    double *vetor_x = (double *)malloc((size_t)N * sizeof(double)); // o vetor_x seria 
+    double *vetor_x = (double *)malloc((size_t)N * sizeof(double)); // o vetor_x é um array de tamanho N que armazena os valores do vetor x, ele será usado como entrada para a multiplicação da matriz A pelo vetor x
     double *resultado_em_linha = (double *)malloc((size_t)N * sizeof(double));
     double *resultado_em_coluna = (double *)malloc((size_t)N * sizeof(double));
     

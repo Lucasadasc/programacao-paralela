@@ -41,7 +41,7 @@
 // N pequeno para caber nos caches locais (L1/L2)
 #define N 10000
 // M alto para gerar bilhões de operações aritméticas pesadas
-#define M 50000
+#define M 50000 // m representa o número de iterações do laço interno, aumentando a carga computacional
 
 int main() {
     double *A = (double *)malloc(N * sizeof(double));
@@ -67,7 +67,7 @@ int main() {
             total_threads = omp_get_num_threads();
         }
 
-        #pragma omp for schedule(static)
+        #pragma omp for schedule(static) 
         for (size_t i = 0; i < N; i++) {
             double val = A[i];
             // Laço intensivo de processamento matemático (FPUs)

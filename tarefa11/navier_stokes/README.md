@@ -156,11 +156,19 @@ make cenario3
 make run
 ```
 
+#### 5. Balanceamento entre Threads
+Executa somente o benchmark de escalabilidade, reutilizando o mesmo solver de Navier-Stokes:
+```bash
+./simulacao_viscosidade 5 256 200 1
+# ou via Makefile:
+make balanceamento N=256 PASSOS=200
+```
+
 ### Argumentos da Linha de Comando
 ```bash
 ./simulacao_viscosidade [cenario] [tamanho_malha_N] [passos_tempo] [num_threads]
 ```
-- `cenario`: `1` (repouso), `2` (velocidade constante), `3` (perturbação gaussiana), `4` (suíte completa).
+- `cenario`: `1` (repouso), `2` (velocidade constante), `3` (perturbação gaussiana), `4` (suíte completa), `5` (somente balanceamento).
 - `tamanho_malha_N`: Dimensão da malha $N \times N$ (ex: 64, 128, 256).
 - `passos_tempo`: Quantidade de passos temporais da simulação (ex: 300, 500).
 - `num_threads`: Quantidade de threads do OpenMP (ex: 1, 2, 4, 8).

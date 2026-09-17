@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
     {
         int tid = omp_get_thread_num();
 
-        double x, y, dist_sq; // Variáveis locais à thread (privadas)
+        double x, y, dist_sq; // Variáveis locais à thread (privadas) dist_sq é a distância ao quadrado do ponto (x, y) à origem (0, 0)
 
         // Distribuindo as iterações do loop entre as threads
         #pragma omp for private(x, y, dist_sq)

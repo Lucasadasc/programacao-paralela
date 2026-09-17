@@ -6,7 +6,10 @@ LDFLAGS = -lm
 TARGET = simulacao_viscosidade
 SRC = simulacao_viscosidade.c
 
-.PHONY: all clean run cenario1 cenario2 cenario3 cenario4
+.PHONY: all clean run balanceamento cenario1 cenario2 cenario3 cenario4
+
+N ?= 256
+PASSOS ?= 200
 
 all: $(TARGET)
 
@@ -15,6 +18,9 @@ $(TARGET): $(SRC)
 
 run: $(TARGET)
 	./$(TARGET) 4 64 300 4
+
+balanceamento: $(TARGET)
+	./$(TARGET) 5 $(N) $(PASSOS) 1
 
 cenario1: $(TARGET)
 	./$(TARGET) 1 64 300 4

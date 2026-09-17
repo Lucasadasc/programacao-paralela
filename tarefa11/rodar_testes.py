@@ -21,40 +21,59 @@ def compilar():
         sys.exit(1)
     print("Compilacao concluida com sucesso.\n")
 
+def executar_balanceamento():
+    print("Executando benchmark de balanceamento com a simulacao de Navier-Stokes...")
+    proc = subprocess.run(
+        ["make", "-C", "navier_stokes", "balanceamento",
+         f"N={GRID_SIZE}", f"PASSOS={TIME_STEPS}"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+    if proc.returncode != 0:
+        print(f"Erro no benchmark de balanceamento: {proc.stderr}")
+        return ""
+    return proc.stdout
+
 def executar_benchmark():
-    print(f"[2/3] Executando benchmark completo para threads {THREAD_COUNTS}...")
+    print("[2/3] Executando os programas da Tarefa 11...")
     resultados = {}
 
-    for th in THREAD_COUNTS:
-        print(f"  -> Testando com {th} thread(s)...")
-        cmd = ["./benchmark_completo", str(GRID_SIZE), str(TIME_STEPS), str(th)]
-        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    for nome_programa in ["1_static", "2_static_collapse", "3_dynamic",
+                          "4_dynamic_collapse", "5_guided", "6_guided_collapse"]:
+        proc = subprocess.run(
+            [f"./{nome_programa}", str(GRID_SIZE), str(TIME_STEPS), "4"],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+        )
         if proc.returncode != 0:
-            print(f"Erro ao rodar benchmark para {th} threads: {proc.stderr}")
+            print(f"Erro ao rodar {nome_programa}: {proc.stderr}")
             continue
-        resultados[th] = proc.stdout
+        resultados[nome_programa] = proc.stdout
 
     return resultados
 
-def salvar_relatorio(resultados, output_path="relatorio_desempenho.md"):
+def salvar_relatorio(resultados, balanceamento, output_path="relatorio_desempenho.md"):
     print(f"[3/3] Gerando relatorio consolidado em '{output_path}'...")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("# Relatório de Desempenho - Tarefa 11 (OpenMP Avançado)\n\n")
         f.write(f"- **Malha:** {GRID_SIZE}x{GRID_SIZE} ({GRID_SIZE * GRID_SIZE} pontos)\n")
         f.write(f"- **Passos de Tempo:** {TIME_STEPS}\n")
-        f.write("- **Configurações Testadas:** `#pragma omp sections`, `schedule(static)`, `schedule(dynamic)`, `schedule(guided)`, `collapse(2)`, `#pragma omp simd`.\n\n")
+        f.write("- **Configurações Testadas:** `schedule(static)`, `schedule(dynamic)` e `schedule(guided)`, com e sem `collapse(2)`.\n\n")
 
-        for th in THREAD_COUNTS:
-            if th in resultados:
-                f.write(f"## Execução com {th} Thread(s)\n\n")
-                # Extrai apenas a tabela do output
-                linhas = resultados[th].split("\n")
-                tabela = [l for l in linhas if l.startswith("|")]
-                f.write("\n".join(tabela) + "\n\n")
+        f.write("## Balanceamento da Simulacao de Navier-Stokes\n\n")
+        f.write("Benchmark executado diretamente de `navier_stokes/simulacao_viscosidade.c`:\n\n")
+        f.write("```text\n")
+        f.write(balanceamento)
+        f.write("```\n\n")
+
+        for nome_programa, saida in resultados.items():
+            f.write(f"## Execução de `{nome_programa}`\n\n")
+            f.write("```text\n")
+            f.write(saida)
+            f.write("```\n\n")
 
     print(f"Relatório gerado com sucesso em: {output_path}")
 
 if __name__ == "__main__":
     compilar()
     res = executar_benchmark()
-    salvar_relatorio(res)
+    balanceamento = executar_balanceamento()
+    salvar_relatorio(res, balanceamento)

@@ -79,7 +79,7 @@ int main() {
         }
 
         // Repetimos o cálculo para obter uma medição de tempo mais estável e robusta
-        for (int r = 0; r < REPETICOES; r++) {
+        for (int r = 0; r < REPETICOES; r++) {   //
             #pragma omp for
             for (size_t i = 0; i < N; i++) {
                 C[i] = A[i] + B[i];

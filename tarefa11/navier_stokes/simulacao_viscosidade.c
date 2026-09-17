@@ -18,12 +18,13 @@
  *   2. Fluido com velocidade constante (u = U0, v = V0) -> estabilidade do campo.
  *   3. Perturbação localizada (pulso gaussiano) -> observação da difusão suave.
  *   4. Demonstração completa de todos os cenários e medição de desempenho com OpenMP.
+ *   5. Apenas benchmark de balanceamento entre threads.
  *
  * Compilação:
  *   gcc -std=c17 -O3 -fopenmp simulacao_viscosidade.c -o simulacao_viscosidade -lm
  *
  * Execução:
- *   ./simulacao_viscosidade [cenario: 1, 2, 3 ou 4] [tamanho_malha N] [passos_tempo] [num_threads]
+ *   ./simulacao_viscosidade [cenario: 1, 2, 3, 4 ou 5] [tamanho_malha N] [passos_tempo] [num_threads]
  */
 
 #include <stdio.h>
@@ -646,6 +647,9 @@ int main(int argc, char *argv[]) {
             executar_cenario_repouso(grade);
             executar_cenario_velocidade_constante(grade, 1.5, 0.5);
             executar_cenario_perturbacao(grade, csv_file);
+            benchmark_openmp(N, N, passos);
+            break;
+        case 5:
             benchmark_openmp(N, N, passos);
             break;
     }

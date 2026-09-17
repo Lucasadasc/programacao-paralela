@@ -22,8 +22,8 @@ static double calcular_valor_pi(unsigned long long iteracoes) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Uso: %s <quantidade_iteracoes>\n", argv[0]);
+    if (argc != 2) { // Verifica se o número de argumentos é correto
+        fprintf(stderr, "Uso: %s <quantidade_iteracoes>\n", argv[0]); // Exibe mensagem de erro se o número de argumentos
         return 1;
     }
 
