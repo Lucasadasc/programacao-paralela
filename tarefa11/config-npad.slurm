@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=tarefa12
+#SBATCH --partition=amd-512
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
