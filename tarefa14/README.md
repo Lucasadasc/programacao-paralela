@@ -15,8 +15,8 @@ mpirun -np 2 ./ping_pong > resultados.csv
 O programa realiza 10.000 trocas por tamanho e mede mensagens de 8 B até
 1 MiB, em potências de dois. Esses parâmetros estão fixos no código.
 
-O CSV inclui o tempo total medido, RTT médio por troca e a taxa efetiva,
-considerando os dois percursos da mensagem (ida e volta).
+O CSV inclui o tamanho da mensagem e o tempo total medido para as 10.000
+trocas.
 
 ## Slurm
 
