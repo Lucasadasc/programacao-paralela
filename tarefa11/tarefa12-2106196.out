@@ -1,0 +1,6 @@
+/tmp/ccXnLa12.o: In function `main':
+1_static.c:(.text.startup+0x56): undefined reference to `criar_grade'
+1_static.c:(.text.startup+0x82): undefined reference to `inicializar_perturbacao_gaussiana'
+1_static.c:(.text.startup+0x161): undefined reference to `aplicar_condicoes_contorno'
+1_static.c:(.text.startup+0x1a0): undefined reference to `liberar_grade'
+collect2: error: ld returned 1 exit status

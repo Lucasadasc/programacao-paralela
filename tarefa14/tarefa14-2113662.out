@@ -1,0 +1,13 @@
+mpicc -O3 -std=c17 -Wall -Wextra -Wpedantic ping_pong.c -o ping_pong
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n15
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n16
+  Local device: mlx4_0
+--------------------------------------------------------------------------
