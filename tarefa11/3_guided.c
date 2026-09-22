@@ -38,8 +38,9 @@ int main(int argc, char *argv[]) {
         for (int i = 1; i < tamanho_malha - 1; i++) {
             for (int j = 1; j < tamanho_malha - 1; j++) {
                 int indice_centro = FLUIDO_IDX(i, j, tamanho_malha);
-                double laplaciano = (campo_atual[FLUIDO_IDX(i + 1, j, tamanho_malha)] - 2.0 * campo_atual[indice_centro] + campo_atual[FLUIDO_IDX(i - 1, j, tamanho_malha)]) * coef_x
-                                  + (campo_atual[FLUIDO_IDX(i, j + 1, tamanho_malha)] - 2.0 * campo_atual[indice_centro] + campo_atual[FLUIDO_IDX(i, j - 1, tamanho_malha)]) * coef_y;
+                double laplaciano_x = (campo_atual[FLUIDO_IDX(i + 1, j, tamanho_malha)] - 2.0 * campo_atual[indice_centro] + campo_atual[FLUIDO_IDX(i - 1, j, tamanho_malha)]) * coef_x;
+                double laplaciano_y = (campo_atual[FLUIDO_IDX(i, j + 1, tamanho_malha)] - 2.0 * campo_atual[indice_centro] + campo_atual[FLUIDO_IDX(i, j - 1, tamanho_malha)]) * coef_y;
+                double laplaciano = laplaciano_x + laplaciano_y;
                 campo_proximo[indice_centro] = campo_atual[indice_centro] + laplaciano;
             }
         }

@@ -6,12 +6,23 @@ Tarefa 11: Navier-Stokes (Apenas Viscosidade) - Estudo de OpenMP
 """
 
 import subprocess
-import os
+import re
+import statistics
 import sys
 
-THREAD_COUNTS = [1, 2, 4, 8, 16]
-GRID_SIZE = 256
+THREADS = 8
+ITERATIONS = 10
+CHUNKS = [1, *range(4, 65, 4)]
+GRID_SIZE = 512
 TIME_STEPS = 200
+PROGRAMAS = [
+    ("1_static", "Versao 1 - static"),
+    ("2_static_collapse", "Versao 2 - static + collapse(2)"),
+    ("3_dynamic", "Versao 3 - dynamic"),
+    ("4_dynamic_collapse", "Versao 4 - dynamic + collapse(2)"),
+    ("5_guided", "Versao 5 - guided"),
+    ("6_guided_collapse", "Versao 6 - guided + collapse(2)"),
+]
 
 def compilar():
     print("[1/3] Compilando programas com make...")
@@ -21,59 +32,56 @@ def compilar():
         sys.exit(1)
     print("Compilacao concluida com sucesso.\n")
 
-def executar_balanceamento():
-    print("Executando benchmark de balanceamento com a simulacao de Navier-Stokes...")
-    proc = subprocess.run(
-        ["make", "-C", "navier_stokes", "balanceamento",
-         f"N={GRID_SIZE}", f"PASSOS={TIME_STEPS}"],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-    )
-    if proc.returncode != 0:
-        print(f"Erro no benchmark de balanceamento: {proc.stderr}")
-        return ""
-    return proc.stdout
-
 def executar_benchmark():
     print("[2/3] Executando os programas da Tarefa 11...")
-    resultados = {}
+    resultados = {nome: {} for nome, _ in PROGRAMAS}
 
-    for nome_programa in ["1_static", "2_static_collapse", "3_dynamic",
-                          "4_dynamic_collapse", "5_guided", "6_guided_collapse"]:
-        proc = subprocess.run(
-            [f"./{nome_programa}", str(GRID_SIZE), str(TIME_STEPS), "4"],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-        )
-        if proc.returncode != 0:
-            print(f"Erro ao rodar {nome_programa}: {proc.stderr}")
-            continue
-        resultados[nome_programa] = proc.stdout
+    for indice, (nome_programa, _) in enumerate(PROGRAMAS):
+        for chunk in CHUNKS:
+            tempos = []
+            for _ in range(ITERATIONS):
+                proc = subprocess.run(
+                    [f"./{nome_programa}", str(GRID_SIZE), str(TIME_STEPS),
+                     str(THREADS), str(chunk)],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+                )
+                if proc.returncode != 0:
+                    print(f"Erro ao rodar {nome_programa}, chunk {chunk}: {proc.stderr}")
+                    sys.exit(1)
+
+                correspondencia = re.search(r"Tempo de execucao: ([0-9.]+) s", proc.stdout)
+                if correspondencia is None:
+                    print(f"Nao foi possivel ler o tempo de {nome_programa}, chunk {chunk}.")
+                    sys.exit(1)
+                tempos.append(float(correspondencia.group(1)))
+            resultados[nome_programa][chunk] = statistics.median(tempos)
+
+        if indice < len(PROGRAMAS) - 1:
+            subprocess.run(["./pausar_entre_versoes.sh"], check=True)
 
     return resultados
 
-def salvar_relatorio(resultados, balanceamento, output_path="relatorio_desempenho.md"):
-    print(f"[3/3] Gerando relatorio consolidado em '{output_path}'...")
+def salvar_relatorio(resultados, output_path="resultados_chunks.md"):
+    print(f"[3/3] Gerando tabela de resultados em '{output_path}'...")
     with open(output_path, "w", encoding="utf-8") as f:
-        f.write("# Relatório de Desempenho - Tarefa 11 (OpenMP Avançado)\n\n")
-        f.write(f"- **Malha:** {GRID_SIZE}x{GRID_SIZE} ({GRID_SIZE * GRID_SIZE} pontos)\n")
-        f.write(f"- **Passos de Tempo:** {TIME_STEPS}\n")
-        f.write("- **Configurações Testadas:** `schedule(static)`, `schedule(dynamic)` e `schedule(guided)`, com e sem `collapse(2)`.\n\n")
+        f.write("# Resultados de chunks - Tarefa 11\n\n")
+        f.write(f"- **Malha:** {GRID_SIZE}x{GRID_SIZE}\n")
+        f.write(f"- **Passos:** {TIME_STEPS}\n")
+        f.write(f"- **Threads fixas:** {THREADS}\n")
+        f.write(f"- **Iteracoes por situacao:** {ITERATIONS}\n")
+        f.write("- **Chunk:** 1, depois de 4 em 4 até 64\n\n")
+        f.write("Mediana do tempo de execucao em segundos:\n\n")
+        f.write("| Chunk | " + " | ".join(descricao for _, descricao in PROGRAMAS) + " |\n")
+        f.write("|---:|" + "---:" * len(PROGRAMAS) + "|\n")
+        for chunk in CHUNKS:
+            f.write("| " + str(chunk) + " | " + " | ".join(
+                f"{resultados[nome_programa][chunk]:.6f}".replace(".", ",")
+                for nome_programa, _ in PROGRAMAS
+            ) + " |\n")
 
-        f.write("## Balanceamento da Simulacao de Navier-Stokes\n\n")
-        f.write("Benchmark executado diretamente de `navier_stokes/simulacao_viscosidade.c`:\n\n")
-        f.write("```text\n")
-        f.write(balanceamento)
-        f.write("```\n\n")
-
-        for nome_programa, saida in resultados.items():
-            f.write(f"## Execução de `{nome_programa}`\n\n")
-            f.write("```text\n")
-            f.write(saida)
-            f.write("```\n\n")
-
-    print(f"Relatório gerado com sucesso em: {output_path}")
+    print(f"Tabela gerada com sucesso em: {output_path}")
 
 if __name__ == "__main__":
     compilar()
     res = executar_benchmark()
-    balanceamento = executar_balanceamento()
-    salvar_relatorio(res, balanceamento)
+    salvar_relatorio(res)
