@@ -5,6 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --time=00:10:00
 #SBATCH --output=tarefa14-%j.out
+#SBATCH --partition=intel-512 
 
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:-.}"
