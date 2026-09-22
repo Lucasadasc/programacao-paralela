@@ -29,7 +29,7 @@ shift  # Remove o nome do arquivo dos argumentos; o restante ($@) é repassado a
 BIN="./${SRC%.c}.out"
 
 # Compilação padrão C11 com OpenMP e -O2
-gcc -std=c11 -O2 -fopenmp -ffp-contract=off "$SRC" -lm -o "$BIN"
+gcc -std=c11 -O2 -fopenmp -ffp-contract=off "$SRC" navier_stokes/fluido.c -lm -o "$BIN"
 
 # Execução única via srun com amarração estrita aos núcleos
 srun --ntasks=1 --cpus-per-task="$SLURM_CPUS_PER_TASK" --cpu-bind=cores "$BIN" "$@"
