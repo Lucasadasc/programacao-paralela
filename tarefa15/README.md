@@ -34,9 +34,9 @@ Os argumentos são `celulas`, `passos` e `alpha`; todos são opcionais. O proces
 
 No NPAD, copie este diretório. A bateria usa 500 passos, `alpha=0.24`, 5
 repetições e 100.000, 1.000.000, 2.000.000, 5.000.000, 7.000.000 e
-10.000.000 células. Ela submete nove jobs:
-2, 4 e 8 nós combinados com 2, 4 e 8 processos **por nó** (de 4 a 64 processos
-MPI totais). Cada job executa os três programas e grava um CSV próprio.
+10.000.000 células. Ela submete três jobs: 2, 4 e 8 nós, sempre com um processo
+MPI por nó (2, 4 ou 8 processos totais). Cada job grava seus arquivos em
+`saidaNpad/`.
 
 ```bash
 chmod +x submeterBateriaNpad.sh
@@ -47,8 +47,9 @@ squeue -u "$USER"
 
 `executarBateriaNpad.slurm` compila em diretório temporário por nó, portanto
 submissões concorrentes não disputam os binários. Ele produz os resultados brutos
-em `resultados-n<NOS>-p<PROCESSOS>-job<JOB>.csv` e as medianas em
-`medianas-n<NOS>-p<PROCESSOS>-job<JOB>.csv`. A primeira repetição é descartada
+em `saidaNpad/resultados-n<NOS>-p<PROCESSOS>-job<JOB>.csv` e as medianas em
+`saidaNpad/medianas-n<NOS>-p<PROCESSOS>-job<JOB>.csv`. Os logs do Slurm também
+ficam em `saidaNpad/`. A primeira repetição é descartada
 automaticamente como aquecimento; a mediana usa `tempo_maximo_s` das demais.
 Para reduzir a matriz ou os tamanhos, altere as listas no início de
 `submeterBateriaNpad.sh`.

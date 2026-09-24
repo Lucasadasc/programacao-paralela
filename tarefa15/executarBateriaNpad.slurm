@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Argumentos: repeticoes celulas passos alpha
-# Os valores abaixo formam um job mínimo (2 nós, 1 processo por nó).
-# submeterBateriaNpad.sh os sobrescreve para a matriz de experimentos.
+# Cada nó executa exatamente um processo MPI: nós = processos totais.
+# submeterBateriaNpad.sh submete os casos de 2, 4 e 8 nós/processos.
 #SBATCH --job-name=tarefa15-mpi
 #SBATCH --nodes=2
 #SBATCH --ntasks=2
 #SBATCH --ntasks-per-node=1
 #SBATCH --time=00:10:00
-#SBATCH --output=tarefa15-%j.out
-#SBATCH --error=tarefa15-%j.err
+#SBATCH --output=saidaNpad/tarefa15-%j.out
+#SBATCH --error=saidaNpad/tarefa15-%j.err
 #SBATCH --partition=intel-512
 
 set -euo pipefail
@@ -20,6 +20,8 @@ alpha="${4:-0.24}"
 
 cd "${SLURM_SUBMIT_DIR:-.}"
 origem="$PWD"
+saida="${origem}/saidaNpad"
+mkdir -p "${saida}"
 nos="${SLURM_JOB_NUM_NODES}"
 processos="${SLURM_NTASKS}"
 diretorio_trabalho="calor-mpi-${SLURM_JOB_ID}"
@@ -74,7 +76,7 @@ for celulas in ${celulas_lista}; do
     done
 done
 
-cp "${caminho_resultado}" "${origem}/"
-cp "${caminho_resumo}" "${origem}/"
-echo "Resultados brutos: ${origem}/${arquivo}"
-echo "Medianas: ${origem}/${arquivo_resumo}"
+cp "${caminho_resultado}" "${saida}/"
+cp "${caminho_resumo}" "${saida}/"
+echo "Resultados brutos: ${saida}/${arquivo}"
+echo "Medianas: ${saida}/${arquivo_resumo}"
