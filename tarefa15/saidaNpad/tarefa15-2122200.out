@@ -1,0 +1,67 @@
+make: Entering directory '/tmp/calor-mpi-2122200'
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorBloqueante calorBloqueante.c
+make: Entering directory '/tmp/calor-mpi-2122200'
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorBloqueante calorBloqueante.c
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorNaoBloqueante calorNaoBloqueante.c
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorNaoBloqueante calorNaoBloqueante.c
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorComSobreposicao calorComSobreposicao.c
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorComSobreposicao calorComSobreposicao.c
+make: Leaving directory '/tmp/calor-mpi-2122200'
+make: Leaving directory '/tmp/calor-mpi-2122200'
+Nos: 2; processos totais: 2; passos: 500; celulas: 100000 1000000 2000000 5000000 7000000 10000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.033712 s | tempo_medio = 0.033710 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.033380 s | tempo_medio = 0.033376 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.033526 s | tempo_medio = 0.033518 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.028705 s | tempo_medio = 0.028705 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.029376 s | tempo_medio = 0.029374 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.029014 s | tempo_medio = 0.029014 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.028763 s | tempo_medio = 0.028760 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.029136 s | tempo_medio = 0.029131 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.028449 s | tempo_medio = 0.028447 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.249972 s | tempo_medio = 0.249944 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.253093 s | tempo_medio = 0.253085 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.253569 s | tempo_medio = 0.253564 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.249077 s | tempo_medio = 0.249075 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.241427 s | tempo_medio = 0.241418 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.247100 s | tempo_medio = 0.247084 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.240681 s | tempo_medio = 0.240657 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.248394 s | tempo_medio = 0.248393 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.249498 s | tempo_medio = 0.249495 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.456032 s | tempo_medio = 0.455998 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.456582 s | tempo_medio = 0.456582 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.463994 s | tempo_medio = 0.463982 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.444161 s | tempo_medio = 0.444149 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.446293 s | tempo_medio = 0.446290 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.454212 s | tempo_medio = 0.454209 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.447087 s | tempo_medio = 0.447081 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.448028 s | tempo_medio = 0.448022 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.436773 s | tempo_medio = 0.436742 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 1.162445 s | tempo_medio = 1.162435 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 1.182120 s | tempo_medio = 1.182015 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 1.148224 s | tempo_medio = 1.148223 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 1.178569 s | tempo_medio = 1.178537 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 1.138440 s | tempo_medio = 1.138424 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 1.140994 s | tempo_medio = 1.140961 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 1.137833 s | tempo_medio = 1.137822 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 1.164679 s | tempo_medio = 1.164609 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 1.180150 s | tempo_medio = 1.180051 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 2.450869 s | tempo_medio = 2.450748 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 2.448139 s | tempo_medio = 2.447951 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 2.444126 s | tempo_medio = 2.443994 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 2.459349 s | tempo_medio = 2.459207 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 2.457545 s | tempo_medio = 2.457360 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 2.452080 s | tempo_medio = 2.451906 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 2.477431 s | tempo_medio = 2.477200 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 2.472173 s | tempo_medio = 2.471897 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 2.474027 s | tempo_medio = 2.473776 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 3.624897 s | tempo_medio = 3.624817 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 3.625497 s | tempo_medio = 3.625309 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 3.629442 s | tempo_medio = 3.629265 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 3.631215 s | tempo_medio = 3.631030 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 3.632921 s | tempo_medio = 3.632712 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 3.637543 s | tempo_medio = 3.637353 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 3.697237 s | tempo_medio = 3.696881 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 3.695956 s | tempo_medio = 3.695653 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 3.701819 s | tempo_medio = 3.701413 s | T[0] = 100.000000
+Resultados brutos: /home/ladscardoso/projetos/programacao-paralela/tarefa15/saidaNpad/resultados-n2-p2-job2122200.csv
+Medianas: /home/ladscardoso/projetos/programacao-paralela/tarefa15/saidaNpad/medianas-n2-p2-job2122200.csv
