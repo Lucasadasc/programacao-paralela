@@ -20,15 +20,22 @@ alpha="${4:-0.24}"
 
 cd "${SLURM_SUBMIT_DIR:-.}"
 origem="$PWD"
-trabalho="$(mktemp -d "${SLURM_TMPDIR:-/tmp}/calor-mpi-${SLURM_JOB_ID}-XXXXXX")"
-trap 'rm -rf "${trabalho}"' EXIT
-
-# Cada job compila isoladamente, evitando corrida entre submissões.
-cp "${origem}"/Makefile "${origem}"/calorComum.h "${origem}"/calor*.c "${trabalho}/"
-make -C "${trabalho}"
-
 nos="${SLURM_JOB_NUM_NODES}"
 processos="${SLURM_NTASKS}"
+diretorio_trabalho="calor-mpi-${SLURM_JOB_ID}"
+trabalho="${SLURM_TMPDIR:-/tmp}/${diretorio_trabalho}"
+
+# /tmp é local a cada nó. Prepara e compila uma cópia em todos os nós
+# alocados; assim cada rank encontra seu executável localmente.
+srun --nodes="${nos}" --ntasks="${nos}" --ntasks-per-node=1 bash -c '
+    set -euo pipefail
+    destino="${SLURM_TMPDIR:-/tmp}/calor-mpi-${SLURM_JOB_ID}"
+    mkdir -p "${destino}"
+    cp "${SLURM_SUBMIT_DIR}"/Makefile "${SLURM_SUBMIT_DIR}"/calorComum.h "${SLURM_SUBMIT_DIR}"/calor*.c "${destino}/"
+    make -C "${destino}"
+'
+trap 'srun --nodes="${nos}" --ntasks="${nos}" --ntasks-per-node=1 rm -rf "${SLURM_TMPDIR:-/tmp}/${diretorio_trabalho}" || true' EXIT
+
 arquivo="resultados-n${nos}-p${processos}-job${SLURM_JOB_ID}.csv"
 caminho_resultado="${trabalho}/${arquivo}"
 
