@@ -17,7 +17,7 @@ test "${repeticoes}" -ge 1
 for nos in ${nos_lista}; do
     for processos_por_no in ${processos_por_no_lista}; do
         echo "Submetendo: ${nos} nós x ${processos_por_no} processos/nó"
-        sbatch --nodes="${nos}" --ntasks-per-node="${processos_por_no}" \
+        sbatch --partition=intel-128 --nodes="${nos}" --ntasks-per-node="${processos_por_no}" \
             executarBateriaNpad.slurm "${repeticoes}" "${celulas}" "${passos}" "${alpha}"
     done
 done

@@ -1,22 +1,25 @@
 #!/usr/bin/env bash
 # Argumentos: repeticoes celulas passos alpha
-# Exemplo: sbatch -N 2 --ntasks-per-node=4 executarBateriaNpad.slurm 3 "100000 1000000 10000000" 500 0.24
-#SBATCH --job-name=calor-mpi
-#SBATCH --time=02:00:00
-#SBATCH --output=calor-mpi-%j.out
-#SBATCH --error=calor-mpi-%j.err
+# Os valores abaixo formam um job mínimo (2 nós, 1 processo por nó).
+# submeterBateriaNpad.sh os sobrescreve para a matriz de experimentos.
+#SBATCH --job-name=tarefa15-mpi
+#SBATCH --nodes=2
+#SBATCH --ntasks=2
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=00:10:00
+#SBATCH --output=tarefa15-%j.out
+#SBATCH --error=tarefa15-%j.err
+#SBATCH --partition=intel-512
 
 set -euo pipefail
-
-# Confirme o nome no NPAD com: module avail
-module load openmpi
 
 repeticoes="${1:-3}"
 celulas_lista="${2:-100000 1000000 10000000}"
 passos="${3:-500}"
 alpha="${4:-0.24}"
 
-origem="${SLURM_SUBMIT_DIR:-$PWD}"
+cd "${SLURM_SUBMIT_DIR:-.}"
+origem="$PWD"
 trabalho="$(mktemp -d "${SLURM_TMPDIR:-/tmp}/calor-mpi-${SLURM_JOB_ID}-XXXXXX")"
 trap 'rm -rf "${trabalho}"' EXIT
 
