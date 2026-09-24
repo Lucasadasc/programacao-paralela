@@ -1,0 +1,164 @@
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n1
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n0
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n15
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n16
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n1
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n15
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n0
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n16
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n0
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n1
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n15
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n16
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n0
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n1
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n15
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n16
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n1
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n0
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n15
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n16
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n0
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n15
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i3n1
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   r1i2n16
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: Open MPI failed to TCP connect to a peer MPI process.  This
+should not happen.
+
+Your Open MPI job may now hang or fail.
+
+  Local host: r1i2n16
+  PID:        3047716
+  Message:    connect() to 172.25.10.80:1024 failed
+  Error:      Resource temporarily unavailable (11)
+--------------------------------------------------------------------------
+srun: Job step aborted: Waiting up to 302 seconds for job step to finish.
+slurmstepd: error: *** STEP 2122035.6 ON r1i2n15 CANCELLED AT 2026-09-24T17:12:16 DUE TO TIME LIMIT ***
+srun: error: r1i3n0: task 2: Terminated
+slurmstepd: error: *** JOB 2122035 ON r1i2n15 CANCELLED AT 2026-09-24T17:12:16 DUE TO TIME LIMIT ***
+srun: error: r1i2n16: task 1: Terminated
+srun: error: r1i3n1: task 3: Terminated
+srun: error: r1i2n15: task 0: Terminated
+srun: error: Slurm job 2122035 has expired
+srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2122035

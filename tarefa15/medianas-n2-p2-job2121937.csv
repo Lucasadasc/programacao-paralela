@@ -1,0 +1,10 @@
+nos,processos,celulas,passos,alpha,programa,amostras_uteis,mediana_tempo_maximo_s
+2,2,100000,500,0.24,calorBloqueante,4,0.036413
+2,2,100000,500,0.24,calorNaoBloqueante,4,0.032380
+2,2,100000,500,0.24,calorComSobreposicao,4,0.031061
+2,2,1000000,500,0.24,calorBloqueante,4,0.270507
+2,2,1000000,500,0.24,calorNaoBloqueante,4,0.277103
+2,2,1000000,500,0.24,calorComSobreposicao,4,0.273085
+2,2,10000000,500,0.24,calorBloqueante,4,4.322415
+2,2,10000000,500,0.24,calorNaoBloqueante,4,4.306038
+2,2,10000000,500,0.24,calorComSobreposicao,4,4.361734

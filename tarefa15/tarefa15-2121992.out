@@ -1,0 +1,98 @@
+make: Entering directory '/tmp/calor-mpi-2121992'
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorBloqueante calorBloqueante.c
+make: Entering directory '/tmp/calor-mpi-2121992'
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorBloqueante calorBloqueante.c
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorNaoBloqueante calorNaoBloqueante.c
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorNaoBloqueante calorNaoBloqueante.c
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorComSobreposicao calorComSobreposicao.c
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorComSobreposicao calorComSobreposicao.c
+make: Leaving directory '/tmp/calor-mpi-2121992'
+make: Leaving directory '/tmp/calor-mpi-2121992'
+Nos: 2; processos totais: 2; passos: 500; celulas: 100000 1000000 2000000 5000000 7000000 10000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.041517 s | tempo_medio = 0.041508 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.037690 s | tempo_medio = 0.037687 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.040997 s | tempo_medio = 0.040996 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.037971 s | tempo_medio = 0.037965 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.042209 s | tempo_medio = 0.042197 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.038541 s | tempo_medio = 0.038531 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.037850 s | tempo_medio = 0.037848 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.034031 s | tempo_medio = 0.034029 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.034208 s | tempo_medio = 0.034203 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.034719 s | tempo_medio = 0.034715 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.036400 s | tempo_medio = 0.036400 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.035945 s | tempo_medio = 0.035931 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.030673 s | tempo_medio = 0.030671 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.031157 s | tempo_medio = 0.031150 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.031988 s | tempo_medio = 0.031985 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.406222 s | tempo_medio = 0.406175 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.472965 s | tempo_medio = 0.472933 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.561879 s | tempo_medio = 0.561819 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.585879 s | tempo_medio = 0.585869 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 0.581032 s | tempo_medio = 0.581006 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.533797 s | tempo_medio = 0.533770 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.658827 s | tempo_medio = 0.658796 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.752769 s | tempo_medio = 0.752760 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.708008 s | tempo_medio = 0.708000 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 0.843226 s | tempo_medio = 0.843222 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.721498 s | tempo_medio = 0.721475 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.644279 s | tempo_medio = 0.644238 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.453122 s | tempo_medio = 0.453111 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.552398 s | tempo_medio = 0.552372 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 0.359813 s | tempo_medio = 0.359805 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 2.689115 s | tempo_medio = 2.687965 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 2.857761 s | tempo_medio = 2.855603 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 3.097351 s | tempo_medio = 3.095652 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 3.085111 s | tempo_medio = 3.083383 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 3.128925 s | tempo_medio = 3.127357 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 3.250457 s | tempo_medio = 3.248860 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 3.151759 s | tempo_medio = 3.149991 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 3.180552 s | tempo_medio = 3.178495 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 3.105656 s | tempo_medio = 3.103189 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 3.128180 s | tempo_medio = 3.127152 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 3.141327 s | tempo_medio = 3.138060 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 3.177603 s | tempo_medio = 3.174469 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 3.198859 s | tempo_medio = 3.195462 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 3.304479 s | tempo_medio = 3.301608 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 3.354255 s | tempo_medio = 3.350610 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 8.496560 s | tempo_medio = 8.490866 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 8.491367 s | tempo_medio = 8.484994 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 8.559451 s | tempo_medio = 8.553648 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 8.575190 s | tempo_medio = 8.569934 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 8.566162 s | tempo_medio = 8.560266 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 8.580277 s | tempo_medio = 8.573851 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 8.532255 s | tempo_medio = 8.525597 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 8.593473 s | tempo_medio = 8.586715 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 8.576244 s | tempo_medio = 8.569499 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 8.580973 s | tempo_medio = 8.574388 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 8.771617 s | tempo_medio = 8.762746 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 8.708054 s | tempo_medio = 8.699111 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 8.343626 s | tempo_medio = 8.335192 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 8.372368 s | tempo_medio = 8.363928 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 8.282271 s | tempo_medio = 8.273818 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 12.340252 s | tempo_medio = 12.330890 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 13.624399 s | tempo_medio = 13.613088 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 13.566652 s | tempo_medio = 13.555634 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 13.823219 s | tempo_medio = 13.812650 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 13.836185 s | tempo_medio = 13.825664 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 13.714004 s | tempo_medio = 13.710117 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 13.794420 s | tempo_medio = 13.785311 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 13.730620 s | tempo_medio = 13.719162 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 12.429137 s | tempo_medio = 12.419346 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 12.198149 s | tempo_medio = 12.188323 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 12.343819 s | tempo_medio = 12.331808 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 12.220005 s | tempo_medio = 12.207721 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 12.189471 s | tempo_medio = 12.177258 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 11.183634 s | tempo_medio = 11.173088 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 11.086771 s | tempo_medio = 11.075942 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 16.045388 s | tempo_medio = 16.033059 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 15.955203 s | tempo_medio = 15.943317 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 16.020665 s | tempo_medio = 16.009326 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 15.950141 s | tempo_medio = 15.937882 s | T[0] = 100.000000
+MPI_Send/MPI_Recv      tempo_maximo = 15.975966 s | tempo_medio = 15.970120 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 15.970626 s | tempo_medio = 15.961125 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 15.991215 s | tempo_medio = 15.979051 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 16.043613 s | tempo_medio = 16.032741 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 15.889409 s | tempo_medio = 15.883384 s | T[0] = 100.000000
+MPI_Isend/Irecv + Wait tempo_maximo = 15.975807 s | tempo_medio = 15.965691 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 15.919049 s | tempo_medio = 15.911397 s | T[0] = 100.000000
+MPI_Test a cada 100    tempo_maximo = 15.975045 s | tempo_medio = 15.964141 s | T[0] = 100.000000
