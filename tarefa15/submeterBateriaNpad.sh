@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-repeticoes="${1:-3}"
+repeticoes="${1:-5}"
 alpha="0.24"
 passos="500"
 celulas="100000 1000000 10000000"

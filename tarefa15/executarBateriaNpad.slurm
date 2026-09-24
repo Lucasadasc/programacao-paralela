@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-repeticoes="${1:-3}"
+repeticoes="${1:-5}"
 celulas_lista="${2:-100000 1000000 10000000}"
 passos="${3:-500}"
 alpha="${4:-0.24}"
@@ -38,12 +38,16 @@ trap 'srun --nodes="${nos}" --ntasks="${nos}" --ntasks-per-node=1 rm -rf "${SLUR
 
 arquivo="resultados-n${nos}-p${processos}-job${SLURM_JOB_ID}.csv"
 caminho_resultado="${trabalho}/${arquivo}"
+arquivo_resumo="medianas-n${nos}-p${processos}-job${SLURM_JOB_ID}.csv"
+caminho_resumo="${trabalho}/${arquivo_resumo}"
 
 echo 'nos,processos,celulas,passos,alpha,programa,repeticao,tempo_maximo_s,tempo_medio_s' > "${caminho_resultado}"
+echo 'nos,processos,celulas,passos,alpha,programa,amostras_uteis,mediana_tempo_maximo_s' > "${caminho_resumo}"
 echo "Nos: ${nos}; processos totais: ${processos}; passos: ${passos}; celulas: ${celulas_lista}"
 
 for celulas in ${celulas_lista}; do
     for programa in calorBloqueante calorNaoBloqueante calorComSobreposicao; do
+        tempos_maximos=()
         for repeticao in $(seq 1 "${repeticoes}"); do
             saida="$(srun --ntasks="${processos}" "${trabalho}/${programa}" "${celulas}" "${passos}" "${alpha}")"
             printf '%s\n' "${saida}"
@@ -51,9 +55,26 @@ for celulas in ${celulas_lista}; do
             tempo_medio="$(sed -nE 's/.*tempo_medio = ([0-9.]+) s.*/\1/p' <<< "${saida}")"
             test -n "${tempo_maximo}" && test -n "${tempo_medio}"
             echo "${nos},${processos},${celulas},${passos},${alpha},${programa},${repeticao},${tempo_maximo},${tempo_medio}" >> "${caminho_resultado}"
+            tempos_maximos+=("${tempo_maximo}")
         done
+
+        # A repetição 1 é aquecimento. A mediana é calculada sobre as demais.
+        tempos_uteis=("${tempos_maximos[@]:1}")
+        quantidade_uteis="${#tempos_uteis[@]}"
+        test "${quantidade_uteis}" -ge 1
+        mapfile -t tempos_ordenados < <(printf '%s\n' "${tempos_uteis[@]}" | sort -n)
+        if (( quantidade_uteis % 2 == 1 )); then
+            mediana="${tempos_ordenados[$((quantidade_uteis / 2))]}"
+        else
+            esquerda="${tempos_ordenados[$((quantidade_uteis / 2 - 1))]}"
+            direita="${tempos_ordenados[$((quantidade_uteis / 2))]}"
+            mediana="$(awk -v a="${esquerda}" -v b="${direita}" 'BEGIN { printf "%.6f", (a + b) / 2 }')"
+        fi
+        echo "${nos},${processos},${celulas},${passos},${alpha},${programa},${quantidade_uteis},${mediana}" >> "${caminho_resumo}"
     done
 done
 
 cp "${caminho_resultado}" "${origem}/"
-echo "Resultados gravados em ${origem}/${arquivo}"
+cp "${caminho_resumo}" "${origem}/"
+echo "Resultados brutos: ${origem}/${arquivo}"
+echo "Medianas: ${origem}/${arquivo_resumo}"

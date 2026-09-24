@@ -32,23 +32,23 @@ Os argumentos são `celulas`, `passos` e `alpha`; todos são opcionais. O proces
 
 ### Bateria de nós, processos e células
 
-No NPAD, copie este diretório, confirme o módulo MPI com `module avail` e ajuste
-`module load openmpi` se preciso. A bateria usa 500 passos, `alpha=0.24`, 3
+No NPAD, copie este diretório. A bateria usa 500 passos, `alpha=0.24`, 5
 repetições e 100.000, 1.000.000 e 10.000.000 células. Ela submete nove jobs:
 2, 4 e 8 nós combinados com 2, 4 e 8 processos **por nó** (de 4 a 64 processos
 MPI totais). Cada job executa os três programas e grava um CSV próprio.
 
 ```bash
 chmod +x submeterBateriaNpad.sh
-./submeterBateriaNpad.sh       # 3 repetições
+./submeterBateriaNpad.sh       # 5 repetições
 ./submeterBateriaNpad.sh 5     # 5 repetições
 squeue -u "$USER"
 ```
 
-`executarBateriaNpad.slurm` compila em diretório temporário por job, portanto
-submissões concorrentes não disputam os binários. Os resultados têm o nome
-`resultados-n<NOS>-p<PROCESSOS>-job<JOB>.csv`. Use a mediana de
-`tempo_maximo_s`; com várias repetições, descarte a primeira como aquecimento.
+`executarBateriaNpad.slurm` compila em diretório temporário por nó, portanto
+submissões concorrentes não disputam os binários. Ele produz os resultados brutos
+em `resultados-n<NOS>-p<PROCESSOS>-job<JOB>.csv` e as medianas em
+`medianas-n<NOS>-p<PROCESSOS>-job<JOB>.csv`. A primeira repetição é descartada
+automaticamente como aquecimento; a mediana usa `tempo_maximo_s` das demais.
 Para reduzir a matriz ou os tamanhos, altere as listas no início de
 `submeterBateriaNpad.sh`.
 
