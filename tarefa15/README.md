@@ -33,7 +33,8 @@ Os argumentos são `celulas`, `passos` e `alpha`; todos são opcionais. O proces
 ### Bateria de nós, processos e células
 
 No NPAD, copie este diretório. A bateria usa 500 passos, `alpha=0.24`, 5
-repetições e 100.000, 1.000.000 e 10.000.000 células. Ela submete nove jobs:
+repetições e 100.000, 1.000.000, 2.000.000, 5.000.000, 7.000.000 e
+10.000.000 células. Ela submete nove jobs:
 2, 4 e 8 nós combinados com 2, 4 e 8 processos **por nó** (de 4 a 64 processos
 MPI totais). Cada job executa os três programas e grava um CSV próprio.
 

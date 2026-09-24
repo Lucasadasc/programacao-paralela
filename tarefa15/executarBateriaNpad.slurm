@@ -14,7 +14,7 @@
 set -euo pipefail
 
 repeticoes="${1:-5}"
-celulas_lista="${2:-100000 1000000 10000000}"
+celulas_lista="${2:-100000 1000000 2000000 5000000 7000000 10000000}"
 passos="${3:-500}"
 alpha="${4:-0.24}"
 

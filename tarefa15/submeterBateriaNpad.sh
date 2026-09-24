@@ -8,7 +8,7 @@ set -euo pipefail
 repeticoes="${1:-5}"
 alpha="0.24"
 passos="500"
-celulas="100000 1000000 10000000"
+celulas="100000 1000000 2000000 5000000 7000000 10000000"
 nos_lista="2 4 8"
 processos_por_no_lista="2 4 8"
 
