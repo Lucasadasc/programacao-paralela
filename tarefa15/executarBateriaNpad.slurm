@@ -20,8 +20,8 @@ alpha="${4:-0.24}"
 
 cd "${SLURM_SUBMIT_DIR:-.}"
 origem="$PWD"
-saida="${origem}/saidaNpad"
-mkdir -p "${saida}"
+diretorio_saida="${origem}/saidaNpad"
+mkdir -p "${diretorio_saida}"
 nos="${SLURM_JOB_NUM_NODES}"
 processos="${SLURM_NTASKS}"
 diretorio_trabalho="calor-mpi-${SLURM_JOB_ID}"
@@ -51,10 +51,10 @@ for celulas in ${celulas_lista}; do
     for programa in calorBloqueante calorNaoBloqueante calorComSobreposicao; do
         tempos_maximos=()
         for repeticao in $(seq 1 "${repeticoes}"); do
-            saida="$(srun --ntasks="${processos}" "${trabalho}/${programa}" "${celulas}" "${passos}" "${alpha}")"
-            printf '%s\n' "${saida}"
-            tempo_maximo="$(sed -nE 's/.*tempo_maximo = ([0-9.]+) s.*/\1/p' <<< "${saida}")"
-            tempo_medio="$(sed -nE 's/.*tempo_medio = ([0-9.]+) s.*/\1/p' <<< "${saida}")"
+            saida_execucao="$(srun --ntasks="${processos}" "${trabalho}/${programa}" "${celulas}" "${passos}" "${alpha}")"
+            printf '%s\n' "${saida_execucao}"
+            tempo_maximo="$(sed -nE 's/.*tempo_maximo = ([0-9.]+) s.*/\1/p' <<< "${saida_execucao}")"
+            tempo_medio="$(sed -nE 's/.*tempo_medio = ([0-9.]+) s.*/\1/p' <<< "${saida_execucao}")"
             test -n "${tempo_maximo}" && test -n "${tempo_medio}"
             echo "${nos},${processos},${celulas},${passos},${alpha},${programa},${repeticao},${tempo_maximo},${tempo_medio}" >> "${caminho_resultado}"
             tempos_maximos+=("${tempo_maximo}")
@@ -76,7 +76,7 @@ for celulas in ${celulas_lista}; do
     done
 done
 
-cp "${caminho_resultado}" "${saida}/"
-cp "${caminho_resumo}" "${saida}/"
-echo "Resultados brutos: ${saida}/${arquivo}"
-echo "Medianas: ${saida}/${arquivo_resumo}"
+cp "${caminho_resultado}" "${diretorio_saida}/"
+cp "${caminho_resumo}" "${diretorio_saida}/"
+echo "Resultados brutos: ${diretorio_saida}/${arquivo}"
+echo "Medianas: ${diretorio_saida}/${arquivo_resumo}"
