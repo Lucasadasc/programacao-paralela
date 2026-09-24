@@ -1,6 +1,0 @@
-make: Entering directory '/tmp/calor-mpi-2121878-DnWiOo'
-mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorBloqueante calorBloqueante.c
-mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorNaoBloqueante calorNaoBloqueante.c
-mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o calorComSobreposicao calorComSobreposicao.c
-make: Leaving directory '/tmp/calor-mpi-2121878-DnWiOo'
-Nos: 2; processos totais: 2; passos: 500; celulas: 100000 1000000 10000000

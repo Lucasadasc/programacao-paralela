@@ -32,7 +32,7 @@ Os argumentos são `celulas`, `passos` e `alpha`; todos são opcionais. O proces
 
 ### Bateria de nós, processos e células
 
-No NPAD, copie este diretório. A bateria usa 500 passos, `alpha=0.24`, 5
+No NPAD, copie este diretório. A bateria usa 500 passos, `alpha=0.24`, 3
 repetições e 100.000, 1.000.000, 2.000.000, 5.000.000, 7.000.000 e
 10.000.000 células. Ela submete três jobs: 2, 4 e 8 nós, sempre com um processo
 MPI por nó (2, 4 ou 8 processos totais). Cada job grava seus arquivos em
@@ -40,7 +40,7 @@ MPI por nó (2, 4 ou 8 processos totais). Cada job grava seus arquivos em
 
 ```bash
 chmod +x submeterBateriaNpad.sh
-./submeterBateriaNpad.sh       # 5 repetições
+./submeterBateriaNpad.sh       # 3 repetições
 ./submeterBateriaNpad.sh 5     # 5 repetições
 squeue -u "$USER"
 ```
