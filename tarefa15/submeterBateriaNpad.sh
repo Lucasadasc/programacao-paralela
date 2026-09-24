@@ -9,7 +9,7 @@ repeticoes="${1:-3}"
 alpha="0.24"
 passos="500"
 celulas="100000 1000000 2000000 5000000 7000000 10000000"
-nos_lista="2 4 8"
+nos_lista="2 8"
 
 test "${repeticoes}" -ge 1
 mkdir -p saidaNpad
