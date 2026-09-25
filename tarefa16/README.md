@@ -21,11 +21,12 @@ número de linhas para todos. A saída informa o tempo medido pelo processo 0.
 Execute o script com diferentes números de processos, por exemplo 2, 4 e 8. O script fixa um processo MPI por nó, portanto cada configuração usa a mesma quantidade de processos por nó:
 
 ```bash
+mkdir -p saidasNpad
 sbatch --ntasks=2 executarExperimento.slurm
 sbatch --ntasks=4 executarExperimento.slurm
 sbatch --ntasks=8 executarExperimento.slurm
 ```
 
 Cada execução testa matrizes quadradas de 1000, 2000 e 4000, três vezes, e
-salva os tempos em `resultados-np<processos>.csv`. Para cada tamanho e número
+salva os tempos em `saidasNpad/resultados-np<processos>.csv`. Para cada tamanho e número
 de processos, compare a média (ou mediana) de `tempo_s`.

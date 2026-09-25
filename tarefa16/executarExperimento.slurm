@@ -4,8 +4,8 @@
 #SBATCH --partition=intel-128
 #SBATCH --ntasks-per-node=1
 #SBATCH --time=00:15:00
-#SBATCH --output=matriz-vetor-%j.out
-#SBATCH --error=matriz-vetor-%j.err
+#SBATCH --output=saidasNpad/matriz-vetor-%j.out
+#SBATCH --error=saidasNpad/matriz-vetor-%j.err
 
 set -euo pipefail
 
@@ -15,7 +15,8 @@ command -v srun >/dev/null || { echo "srun nao esta disponivel no ambiente Slurm
 make
 
 processos="${SLURM_NTASKS}"
-arquivo="resultados-np${processos}.csv"
+mkdir -p saidasNpad
+arquivo="saidasNpad/resultados-np${processos}.csv"
 
 echo 'linhas,colunas,processos,repeticao,tempo_s' > "${arquivo}"
 
