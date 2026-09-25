@@ -11,26 +11,33 @@ static void trocarHalosBloqueante(
     int ultimaCelula = simulacao->quantidadeCelulasLocais;
 
     /* Pares e impares seguem ordens opostas para evitar espera circular. */
-    if (identificadorProcesso % 2 == 0) {
+    // Se o processo for par, ele envia primeiro para a direita e depois para a esquerda.
+    if (identificadorProcesso % 2 == 0) { 
+        // verifica se o vizinho da direita existe antes de enviar e receber
         if (vizinhoDireita < quantidadeProcessos)
             MPI_Send(&simulacao->temperaturaAtual[ultimaCelula], 1, MPI_DOUBLE,
                      vizinhoDireita, tagParaEsquerda, comunicador);
+        // verifica se o vizinho da direita existe antes de enviar e receber
         if (vizinhoDireita < quantidadeProcessos)
             MPI_Recv(&simulacao->temperaturaAtual[ultimaCelula + 1], 1, MPI_DOUBLE,
                      vizinhoDireita, tagParaDireita, comunicador, MPI_STATUS_IGNORE);
+        // verifica se o vizinho da esquerda existe antes de enviar e receber
         if (vizinhoEsquerda >= 0)
             MPI_Send(&simulacao->temperaturaAtual[1], 1, MPI_DOUBLE,
                      vizinhoEsquerda, tagParaDireita, comunicador);
         if (vizinhoEsquerda >= 0)
             MPI_Recv(&simulacao->temperaturaAtual[0], 1, MPI_DOUBLE,
                      vizinhoEsquerda, tagParaEsquerda, comunicador, MPI_STATUS_IGNORE);
+    // Se o processo for ímpar, ele recebe primeiro da esquerda e depois da direita
     } else {
+        // verifica se o vizinho da esquerda existe antes de enviar e receber
         if (vizinhoEsquerda >= 0)
             MPI_Recv(&simulacao->temperaturaAtual[0], 1, MPI_DOUBLE,
                      vizinhoEsquerda, tagParaEsquerda, comunicador, MPI_STATUS_IGNORE);
         if (vizinhoEsquerda >= 0)
             MPI_Send(&simulacao->temperaturaAtual[1], 1, MPI_DOUBLE,
                      vizinhoEsquerda, tagParaDireita, comunicador);
+        // verifica se o vizinho da direita existe antes de enviar e receber
         if (vizinhoDireita < quantidadeProcessos)
             MPI_Recv(&simulacao->temperaturaAtual[ultimaCelula + 1], 1, MPI_DOUBLE,
                      vizinhoDireita, tagParaDireita, comunicador, MPI_STATUS_IGNORE);
@@ -87,7 +94,7 @@ int main(int quantidadeArgumentos, char **argumentos) {
         );
     }
         
-    mostrarTempo(&simulacao, MPI_Wtime() - inicio, "MPI_Send/MPI_Recv", MPI_COMM_WORLD);
+    mostrarTempo(&simulacao, inicio, "MPI_Send/MPI_Recv", MPI_COMM_WORLD);
     liberarSimulacao(&simulacao);
     MPI_Finalize();
     

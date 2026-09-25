@@ -12,9 +12,9 @@ import sys
 
 THREADS = 8
 ITERATIONS = 10
-CHUNKS = [1, *range(4, 65, 4)]
+CHUNKS = [16]
 GRID_SIZE = 512
-TIME_STEPS = 200
+TIME_STEPS = 20000
 PROGRAMAS = [
     ("1_static", "Versao 1 - static"),
     ("2_static_collapse", "Versao 2 - static + collapse(2)"),
@@ -69,7 +69,7 @@ def salvar_relatorio(resultados, output_path="resultados_chunks.md"):
         f.write(f"- **Passos:** {TIME_STEPS}\n")
         f.write(f"- **Threads fixas:** {THREADS}\n")
         f.write(f"- **Iteracoes por situacao:** {ITERATIONS}\n")
-        f.write("- **Chunk:** 1, depois de 4 em 4 até 64\n\n")
+        f.write("- **Chunk fixo:** 16\n\n")
         f.write("Mediana do tempo de execucao em segundos:\n\n")
         f.write("| Chunk | " + " | ".join(descricao for _, descricao in PROGRAMAS) + " |\n")
         f.write("|---:|" + "---:" * len(PROGRAMAS) + "|\n")

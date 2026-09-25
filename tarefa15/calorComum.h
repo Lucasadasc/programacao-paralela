@@ -79,9 +79,17 @@ static inline void calcularCelula(SimulacaoCalor *simulacao, int indiceLocal) {
 static inline void calcularIntervalo(SimulacaoCalor *simulacao, int inicio, int fim) { for (int indiceLocal = inicio; indiceLocal <= fim; ++indiceLocal) calcularCelula(simulacao, indiceLocal); }
 static inline void trocarTemperaturas(SimulacaoCalor *simulacao) { double *temporario = simulacao->temperaturaAtual; simulacao->temperaturaAtual = simulacao->proximaTemperatura; simulacao->proximaTemperatura = temporario; }
 
-static inline int iniciarTrocasNaoBloqueantes(SimulacaoCalor *simulacao, int identificadorProcesso, int quantidadeProcessos, MPI_Request requisicoes[4], int *quantidadeRecebimentos, MPI_Comm comunicador) {
+static inline int iniciarTrocasNaoBloqueantes(
+    SimulacaoCalor *simulacao, 
+    int identificadorProcesso, 
+    int quantidadeProcessos, 
+    MPI_Request requisicoes[4], 
+    int *quantidadeRecebimentos, 
+    MPI_Comm comunicador
+) {
     int quantidadeRequisicoes = 0;
     
+    // Se o processo não for o primeiro, ele deve receber a temperatura do processo à esquerda.
     if (identificadorProcesso > 0){
         MPI_Irecv(
             &simulacao->temperaturaAtual[0], 
@@ -94,6 +102,7 @@ static inline int iniciarTrocasNaoBloqueantes(SimulacaoCalor *simulacao, int ide
         );
     }
     
+    // Se o processo não for o último, ele deve receber a temperatura do processo à direita.
     if (identificadorProcesso < quantidadeProcessos - 1){
         MPI_Irecv(
             &simulacao->temperaturaAtual[simulacao->quantidadeCelulasLocais + 1], 
@@ -106,6 +115,7 @@ static inline int iniciarTrocasNaoBloqueantes(SimulacaoCalor *simulacao, int ide
         );
     }
     
+    // Se o processo não for o primeiro, ele deve enviar a temperatura da primeira célula local para o processo à esquerda.
     *quantidadeRecebimentos = quantidadeRequisicoes;
     if (identificadorProcesso > 0) {
         MPI_Isend(
@@ -118,6 +128,7 @@ static inline int iniciarTrocasNaoBloqueantes(SimulacaoCalor *simulacao, int ide
             &requisicoes[quantidadeRequisicoes++]
         );
     }
+    // Se o processo não for o último, ele deve enviar a temperatura da última célula local para o processo à direita.
     if (identificadorProcesso < quantidadeProcessos - 1) {
         MPI_Isend(
             &simulacao->temperaturaAtual[simulacao->quantidadeCelulasLocais], 
@@ -133,14 +144,11 @@ static inline int iniciarTrocasNaoBloqueantes(SimulacaoCalor *simulacao, int ide
     return quantidadeRequisicoes;
 }
 
-static inline void mostrarTempo(const SimulacaoCalor *simulacao, double tempoLocal, const char *nomeVersao, MPI_Comm comunicador) {
-    int identificadorProcesso, quantidadeProcessos;
-    double maiorTempo, somaTempos;
+static inline void mostrarTempo(const SimulacaoCalor *simulacao, double inicio, const char *nomeVersao, MPI_Comm comunicador) {
+    int identificadorProcesso;
     MPI_Comm_rank(comunicador, &identificadorProcesso);
-    MPI_Comm_size(comunicador, &quantidadeProcessos);
-    MPI_Reduce(&tempoLocal, &maiorTempo, 1, MPI_DOUBLE, MPI_MAX, 0, comunicador);
-    MPI_Reduce(&tempoLocal, &somaTempos, 1, MPI_DOUBLE, MPI_SUM, 0, comunicador);
-    if (identificadorProcesso == 0) printf("%-22s tempo_maximo = %.6f s | tempo_medio = %.6f s | T[0] = %.6f\n", nomeVersao, maiorTempo, somaTempos / quantidadeProcessos, simulacao->temperaturaAtual[1]);
+    MPI_Barrier(comunicador);
+    if (identificadorProcesso == 0) printf("%-22s tempo_total = %.6f s | T[0] = %.6f\n", nomeVersao, MPI_Wtime() - inicio, simulacao->temperaturaAtual[1]);
 }
 static inline void liberarSimulacao(SimulacaoCalor *simulacao) { free(simulacao->temperaturaAtual); free(simulacao->proximaTemperatura); }
 

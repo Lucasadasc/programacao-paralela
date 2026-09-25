@@ -20,6 +20,7 @@ static void executarPassoComEspera(
 
     (void)quantidadeRecebimentos;
     
+    // Espera até que todas as requisições sejam concluídas.
     for (int indice = 0; indice < quantidadeRequisicoes; ++indice) {
         MPI_Wait(&requisicoes[indice], MPI_STATUS_IGNORE);
     }
@@ -53,10 +54,11 @@ int main(int quantidadeArgumentos, char **argumentos) {
     MPI_Barrier(MPI_COMM_WORLD);
     
     double inicio = MPI_Wtime();
+    // Executa a simulação com trocas não bloqueantes e espera ativa.
     for (int passo = 0; passo < quantidadePassos; ++passo) {
         executarPassoComEspera(&simulacao, identificadorProcesso, quantidadeProcessos, MPI_COMM_WORLD);
     }
-    mostrarTempo(&simulacao, MPI_Wtime() - inicio, "MPI_Isend/Irecv + Wait", MPI_COMM_WORLD);
+    mostrarTempo(&simulacao, inicio, "MPI_Isend/Irecv + Wait", MPI_COMM_WORLD);
     
     liberarSimulacao(&simulacao);
     MPI_Finalize();
