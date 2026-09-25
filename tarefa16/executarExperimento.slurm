@@ -9,7 +9,9 @@
 
 set -euo pipefail
 
-module load openmpi
+test -n "${SLURM_NTASKS:-}"
+command -v mpicc >/dev/null || { echo "mpicc nao esta disponivel no ambiente do NPAD" >&2; exit 1; }
+command -v srun >/dev/null || { echo "srun nao esta disponivel no ambiente Slurm" >&2; exit 1; }
 make
 
 processos="${SLURM_NTASKS}"
