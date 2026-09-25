@@ -20,7 +20,7 @@ arquivo="saidasNpad/resultados-np${processos}.csv"
 
 echo 'linhas,colunas,processos,repeticao,tempo_s' > "${arquivo}"
 
-for tamanho in 1000 2000 4000; do
+for tamanho in 2000 4000 8000 12000 16000 ; do
     for repeticao in 1 2 3 4 5 6; do
         saida=$(srun --ntasks="${processos}" ./matrizVetor "${tamanho}" "${tamanho}")
         echo "${saida}"
