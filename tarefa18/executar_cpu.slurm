@@ -2,9 +2,10 @@
 #SBATCH --job-name=vadd-cpu
 #SBATCH --partition=gpu-8-v100  
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=32
 #SBATCH --time=00:05:00
 #SBATCH --output=saidasNpad/vadd-cpu-%j.out
+
+set -euo pipefail
 
 cd "${SLURM_SUBMIT_DIR:-.}"
 
