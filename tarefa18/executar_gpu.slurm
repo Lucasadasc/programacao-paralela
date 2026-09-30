@@ -10,19 +10,16 @@ set -euo pipefail
 
 cd "${SLURM_SUBMIT_DIR:-.}"
 
-# O compilador padrão do nó não necessariamente tem suporte a OpenMP offload.
-# Estes módulos devem disponibilizar clang, libomptarget e o toolkit CUDA.
-module load llvm
-module load cuda
+# O NVHPC fornece o compilador nvc e suporte a OpenMP offload para CUDA.
+# --ignore_cache contorna o cache defeituoso do Lmod atualmente no NPAD.
+module --ignore_cache load compilers/nvidia/nvhpc/24.11
 
-command -v clang >/dev/null || {
-    echo "Erro: clang não foi encontrado após carregar os módulos llvm e cuda." >&2
+command -v nvc >/dev/null || {
+    echo "Erro: nvc não foi encontrado após carregar o módulo NVHPC." >&2
     exit 1
 }
 
-clang -O3 -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda \
-    -Xopenmp-target=nvptx64-nvidia-cuda --offload-arch=sm_70 \
-    vadd_target.c -o vadd_target
+nvc -O3 -mp=gpu -gpu=cc70 vadd_target.c -o vadd_target
 
 export OMP_TARGET_OFFLOAD=MANDATORY
 srun ./vadd_target
