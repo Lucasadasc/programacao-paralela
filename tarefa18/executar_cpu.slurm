@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=vadd-cpu
-#SBATCH --partition=gpu-4-h200
+#SBATCH --partition=gpu-8-v100  
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
 #SBATCH --time=00:05:00
