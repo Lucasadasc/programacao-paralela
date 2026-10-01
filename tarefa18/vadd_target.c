@@ -27,7 +27,7 @@ int main(){
    init_time    +=  omp_get_wtime();
    compute_time  = -omp_get_wtime();
    
-   // add two vectors
+   // somando os vetores a e b, armazenando o resultado em c
    #pragma omp target
    #pragma omp loop
    for (int i=0; i<N; i++){

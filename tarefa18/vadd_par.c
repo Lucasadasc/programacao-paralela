@@ -1,13 +1,8 @@
 #include <stdio.h>
 #include <omp.h>
-#define N 10000000
+#define N 10000000 // N é o tamanho do vetor
 #define TOL  0.0000001 // TOL é a tolerância para o teste de erro
-//
-//  This is a simple program to add two vectors
-//  and verify the results.
-//
-//  History: Written by Tim Mattson, November 2017
-//
+
 int main()
 {
 
@@ -17,7 +12,7 @@ int main()
     double init_time, compute_time, test_time;
     init_time    = -omp_get_wtime();
 
-   // fill the arrays
+   // Inicializa os vetores a, b, c e res
    #pragma omp parallel for
    for (int i=0; i<N; i++){
       a[i] = (float)i;
@@ -29,7 +24,7 @@ int main()
    init_time    +=  omp_get_wtime();
    compute_time  = -omp_get_wtime();
    
-   // add two vectors
+   // fazendo adição dos vetores a e b, armazenando o resultado em c
    #pragma omp parallel for
    for (int i=0; i<N; i++){
       c[i] = a[i] + b[i];
@@ -38,7 +33,7 @@ int main()
    compute_time +=  omp_get_wtime();
    test_time     = -omp_get_wtime();
 
-   // test results
+   // testando se o resultado da soma está correto
    #pragma omp parallel for reduction(+:err)
    for(int i=0;i<N;i++){
       float val = c[i] - res[i];
