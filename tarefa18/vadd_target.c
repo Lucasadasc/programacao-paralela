@@ -1,58 +1,57 @@
 #include <stdio.h>
 #include <omp.h>
-#define N 100000000
-#define TOL  0.0000001
+#define tamanhoVetor 100000000
+#define tolerancia 0.0000001f
 //
-//  This is a simple program to add two vectors
-//  and verify the results.
+//  Programa para somar dois vetores e verificar o resultado.
 //
-//  History: Written by Tim Mattson, November 2017
+//  Baseado no exemplo de Tim Mattson, novembro de 2017.
 //
 int main(){
-    float a[N], b[N], c[N], res[N];
-    int err=0;
+    float vetorA[tamanhoVetor], vetorB[tamanhoVetor];
+    float vetorSoma[tamanhoVetor], vetorEsperado[tamanhoVetor];
+    int quantidadeErros = 0;
 
-    double init_time, compute_time, test_time;
-    init_time    = -omp_get_wtime();
+    double tempoInicializacao, tempoCalculo, tempoTeste;
+    tempoInicializacao = -omp_get_wtime();
 
-   // fill the arrays
+   // Inicializa os vetores.
    #pragma omp parallel for
-   for (int i=0; i<N; i++){
-      a[i] = (float)i;
-      b[i] = 2.0*(float)i;
-      c[i] = 0.0;
-      res[i] = i + 2*i;
+   for (int indice = 0; indice < tamanhoVetor; indice++){
+      vetorA[indice] = (float)indice;
+      vetorB[indice] = 2.0f * (float)indice;
+      vetorSoma[indice] = 0.0f;
+      vetorEsperado[indice] = indice + 2 * indice;
    }
 
-   init_time    +=  omp_get_wtime();
-   compute_time  = -omp_get_wtime();
+   tempoInicializacao += omp_get_wtime();
+   tempoCalculo = -omp_get_wtime();
    
-   // somando os vetores a e b, armazenando o resultado em c
+   // Soma os vetores de entrada e armazena o resultado no dispositivo.
    #pragma omp target
    #pragma omp loop
-   for (int i=0; i<N; i++){
-      c[i] = a[i] + b[i];
+   for (int indice = 0; indice < tamanhoVetor; indice++){
+      vetorSoma[indice] = vetorA[indice] + vetorB[indice];
    }
 
-   compute_time +=  omp_get_wtime();
-   test_time     = -omp_get_wtime();
+   tempoCalculo += omp_get_wtime();
+   tempoTeste = -omp_get_wtime();
 
-   // test results
-   #pragma omp parallel for reduction(+:err)
-   for(int i=0;i<N;i++){
-      float val = c[i] - res[i];
-      val = val*val;
-      if(val>TOL) err++;
+   // Verifica o resultado da soma.
+   #pragma omp parallel for reduction(+:quantidadeErros)
+   for (int indice = 0; indice < tamanhoVetor; indice++) {
+      float diferenca = vetorSoma[indice] - vetorEsperado[indice];
+      diferenca = diferenca * diferenca;
+      if (diferenca > tolerancia) quantidadeErros++;
    }
 
-   test_time    +=  omp_get_wtime();
-   
-   printf(" vectors added with %d errors\n",err);
+   tempoTeste += omp_get_wtime();
 
-   printf("Init time:    %.3fs\n", init_time);
-   printf("Compute time: %.3fs\n", compute_time);
-   printf("Test time:    %.3fs\n", test_time);
-   printf("Total time:   %.3fs\n", init_time + compute_time + test_time);
+   printf("Vetores somados com %d erros\n", quantidadeErros);
+   printf("Tempo de inicialização: %.3fs\n", tempoInicializacao);
+   printf("Tempo de computação: %.3fs\n", tempoCalculo);
+   printf("Tempo de teste: %.3fs\n", tempoTeste);
+   printf("Tempo total: %.3fs\n", tempoInicializacao + tempoCalculo + tempoTeste);
 
    return 0;
 }
