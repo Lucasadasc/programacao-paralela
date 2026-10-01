@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <omp.h>
-#define N 60000000
+#define N 100000000
 #define TOL  0.0000001 // TOL é a tolerância para o teste de erro
 
 int main()
