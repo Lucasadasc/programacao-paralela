@@ -1,3 +1,0 @@
-/var/tmp/slurmd.spool/job2135858/slurm_script: line 13: clang: command not found
-srun: error: gpunode1: task 0: Exited with exit code 2
-slurmstepd: error: execve(): /home/ladscardoso/projetos/programacao-paralela/tarefa18/./vadd_target: No such file or directory

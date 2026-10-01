@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <omp.h>
-#define N 10000000 // N é o tamanho do vetor
+#define N 30000000
 #define TOL  0.0000001 // TOL é a tolerância para o teste de erro
 
 int main()
