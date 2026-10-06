@@ -1,0 +1,3 @@
+Total (MB),Count,Avg (MB),Med (MB),Min (MB),Max (MB),StdDev (MB),Operation
+52.489,200,0.262,0.262,0.001,0.524,0.263,[CUDA memcpy Host-to-Device]
+52.429,100,0.524,0.524,0.524,0.524,0.000,[CUDA memcpy Device-to-Host]

@@ -1,0 +1,20 @@
+make: Nothing to be done for 'all'.
+M=1000 N=1000 processos=8 tempo_s=0.004958 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.003678 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.003707 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.003832 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.003988 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.003879 y0=5500.0
+M=2000 N=2000 processos=8 tempo_s=0.020988 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.016459 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.018751 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.020306 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.018796 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.017704 y0=11000.0
+M=4000 N=4000 processos=8 tempo_s=0.066361 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.059329 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.063790 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.063637 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.059520 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.065694 y0=22000.0
+Resultados gravados em resultados-np8.csv

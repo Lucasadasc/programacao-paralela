@@ -1,0 +1,13 @@
+
+NOTICE: Existing SQLite export found: resultadosNpad/heat-2198751-knlOZs/n1024_perfil.sqlite
+        It is assumed file was previously exported from: resultadosNpad/heat-2198751-knlOZs/n1024_perfil.nsys-rep
+        Consider using --force-export=true if needed.
+
+Processing [resultadosNpad/heat-2198751-knlOZs/n1024_perfil.sqlite] with [/opt/npad/shared/compilers/nvidia_hpc_sdk/24.11/Linux_x86_64/24.11/profilers/Nsight_Systems/host-linux-x64/reports/cuda_api_sum.py] to [resultadosNpad/heat-2198751-knlOZs/n1024_perfil_cuda_api_sum.csv]... PROCESSED
+
+Processing [resultadosNpad/heat-2198751-knlOZs/n1024_perfil.sqlite] with [/opt/npad/shared/compilers/nvidia_hpc_sdk/24.11/Linux_x86_64/24.11/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_kern_sum.py] to [resultadosNpad/heat-2198751-knlOZs/n1024_perfil_cuda_gpu_kern_sum.csv]... PROCESSED
+
+Processing [resultadosNpad/heat-2198751-knlOZs/n1024_perfil.sqlite] with [/opt/npad/shared/compilers/nvidia_hpc_sdk/24.11/Linux_x86_64/24.11/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_mem_time_sum.py] to [resultadosNpad/heat-2198751-knlOZs/n1024_perfil_cuda_gpu_mem_time_sum.csv]... PROCESSED
+
+Processing [resultadosNpad/heat-2198751-knlOZs/n1024_perfil.sqlite] with [/opt/npad/shared/compilers/nvidia_hpc_sdk/24.11/Linux_x86_64/24.11/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_mem_size_sum.py] to [resultadosNpad/heat-2198751-knlOZs/n1024_perfil_cuda_gpu_mem_size_sum.csv]... PROCESSED
+

@@ -1,0 +1,25 @@
+make: Nothing to be done for 'all'.
+M=2000 N=2000 processos=8 tempo_s=0.069612 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.088811 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.075626 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.076744 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.084614 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.079449 y0=11000.0
+M=4000 N=4000 processos=8 tempo_s=0.089354 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.083300 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.082077 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.073669 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.074357 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.083902 y0=22000.0
+M=8000 N=8000 processos=8 tempo_s=0.166322 y0=44000.0
+M=8000 N=8000 processos=8 tempo_s=0.158930 y0=44000.0
+M=8000 N=8000 processos=8 tempo_s=0.159428 y0=44000.0
+M=8000 N=8000 processos=8 tempo_s=0.157363 y0=44000.0
+M=8000 N=8000 processos=8 tempo_s=0.157263 y0=44000.0
+M=8000 N=8000 processos=8 tempo_s=0.157723 y0=44000.0
+M=12000 N=12000 processos=8 tempo_s=0.292810 y0=66000.0
+M=12000 N=12000 processos=8 tempo_s=0.277570 y0=66000.0
+M=12000 N=12000 processos=8 tempo_s=0.276081 y0=66000.0
+M=12000 N=12000 processos=8 tempo_s=0.279366 y0=66000.0
+M=12000 N=12000 processos=8 tempo_s=0.279342 y0=66000.0
+M=12000 N=12000 processos=8 tempo_s=0.280931 y0=66000.0

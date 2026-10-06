@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Exemplo: sbatch --ntasks=4 executarExperimento.slurm
 #SBATCH --job-name=matriz-vetor-mpi
-#SBATCH --partition=intel-128
+#SBATCH --partition=amd-512
 #SBATCH --ntasks-per-node=1
 #SBATCH --time=00:15:00
 #SBATCH --output=saidasNpad/matriz-vetor-%j.out

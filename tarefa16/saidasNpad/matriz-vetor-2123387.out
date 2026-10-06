@@ -1,0 +1,20 @@
+make: Nothing to be done for 'all'.
+M=1000 N=1000 processos=8 tempo_s=0.004292 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.003971 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.004191 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.004384 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.003991 y0=5500.0
+M=1000 N=1000 processos=8 tempo_s=0.003719 y0=5500.0
+M=2000 N=2000 processos=8 tempo_s=0.017296 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.016525 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.016550 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.015412 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.015435 y0=11000.0
+M=2000 N=2000 processos=8 tempo_s=0.018094 y0=11000.0
+M=4000 N=4000 processos=8 tempo_s=0.067552 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.061147 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.059838 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.060881 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.061720 y0=22000.0
+M=4000 N=4000 processos=8 tempo_s=0.065880 y0=22000.0
+Resultados gravados em saidasNpad/resultados-np8.csv

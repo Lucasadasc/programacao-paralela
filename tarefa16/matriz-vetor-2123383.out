@@ -1,0 +1,20 @@
+mpicc -O3 -std=c11 -Wall -Wextra -Wpedantic -o matrizVetor matrizVetor.c
+M=1000 N=1000 processos=2 tempo_s=0.005407 y0=5500.0
+M=1000 N=1000 processos=2 tempo_s=0.003705 y0=5500.0
+M=1000 N=1000 processos=2 tempo_s=0.004338 y0=5500.0
+M=1000 N=1000 processos=2 tempo_s=0.003785 y0=5500.0
+M=1000 N=1000 processos=2 tempo_s=0.003874 y0=5500.0
+M=1000 N=1000 processos=2 tempo_s=0.003946 y0=5500.0
+M=2000 N=2000 processos=2 tempo_s=0.016744 y0=11000.0
+M=2000 N=2000 processos=2 tempo_s=0.014789 y0=11000.0
+M=2000 N=2000 processos=2 tempo_s=0.014863 y0=11000.0
+M=2000 N=2000 processos=2 tempo_s=0.014142 y0=11000.0
+M=2000 N=2000 processos=2 tempo_s=0.014846 y0=11000.0
+M=2000 N=2000 processos=2 tempo_s=0.014059 y0=11000.0
+M=4000 N=4000 processos=2 tempo_s=0.055252 y0=22000.0
+M=4000 N=4000 processos=2 tempo_s=0.063365 y0=22000.0
+M=4000 N=4000 processos=2 tempo_s=0.055682 y0=22000.0
+M=4000 N=4000 processos=2 tempo_s=0.054740 y0=22000.0
+M=4000 N=4000 processos=2 tempo_s=0.055255 y0=22000.0
+M=4000 N=4000 processos=2 tempo_s=0.056059 y0=22000.0
+Resultados gravados em resultados-np2.csv
