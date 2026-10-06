@@ -1,7 +1,10 @@
 # Tarefa 19 — OpenMP target e Nsight Systems
 
 `heat.c` é a referência serial. `heatTarget.c` reutiliza seu cálculo e usa
-somente `target` (`map`, `device`) e `loop` (`collapse`, `reduction`).
+somente `target` (`map`, `device`) e `loop` (`collapse`). A redução de uma
+soma descartada foi removida após o NVHPC 24.11 abortar com
+`Internal compiler error. unexpected ILM number operands for reduction pragma`.
+Essa remoção não altera o cálculo da solução nem do erro L2.
 
 ## Execução no NPAD
 
@@ -52,9 +55,7 @@ respectivo relatório, não ao tempo total do programa.
 
 Nesta implementação, `map(to: u)` e `map(from: u_tmp)` transferem a malha
 em cada passo; cada direção movimenta aproximadamente `8*n*n*passos`
-bytes, além da redução escalar. A soma reduzida é descartada pelo código,
-portanto confira os kernels e o relatório de compilação para verificar
-se o compilador a eliminou. O tempo total inclui inicialização e cálculo
+bytes. O tempo total inclui inicialização e cálculo
 serial do erro L2. As execuções são processos separados: o aquecimento
 não elimina o custo de criar o contexto CUDA nas execuções seguintes.
 

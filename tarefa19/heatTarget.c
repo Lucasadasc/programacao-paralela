@@ -202,12 +202,11 @@ void solve(const int n, const double alpha, const double dx, const double dt, co
   // Finite difference constant multiplier
   const double r = alpha * dt / (dx * dx);
   const double r2 = 1.0 - 4.0*r;
-  double soma = 0.0;
 
   // Loop over the nxn grid
-  #pragma omp target device(0) map(to : u[0:n*n]) map(from : u_tmp[0:n*n]) map(tofrom : soma)
-{
-    #pragma omp loop collapse(2) reduction(+ : soma)
+  #pragma omp target device(0) map(to : u[0:n*n]) map(from : u_tmp[0:n*n])
+  {
+    #pragma omp loop collapse(2)
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
 
@@ -218,12 +217,9 @@ void solve(const int n, const double alpha, const double dx, const double dt, co
         r * ((i > 0)   ? u[i-1+j*n] : 0.0) +
         r * ((j < n-1) ? u[i+(j+1)*n] : 0.0) +
         r * ((j > 0)   ? u[i+(j-1)*n] : 0.0);
-        soma += u_tmp[i+j*n];
       }
     }
   }
-  
-  (void)soma;
 }
 
 
