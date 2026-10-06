@@ -23,7 +23,7 @@ for ferramenta in nvc nsys srun; do
     }
 done
 
-read -r -a tamanhos <<< "${TAMANHOS:-256 1024 4096}"
+read -r -a tamanhos <<< "${TAMANHOS:-256 512 1024 2048 4096}"
 passos=${PASSOS:-100}
 if (( ${#tamanhos[@]} == 0 )); then
     printf 'Erro: informe pelo menos um tamanho.\n' >&2
