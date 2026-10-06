@@ -1,31 +1,0 @@
-
- MMS heat equation
-
---------------------
-Problem input
-
- Grid size: 1024 x 1024
- Cell width: 9.756098E-01
- Grid length: 1000.000000 x 1000.000000
-
- Alpha: 1.000000E-01
-
- Steps: 100
- Total time: 5.000000E-01
- Time step: 5.000000E-03
---------------------
-Stability
-
- r value: 0.000525
---------------------
-Results
-
-Error (L2norm): 3.907141E-10
-Solve time (s): 22.934888
-Total time (s): 22.977760
---------------------
-Collecting data...
-Generating '/tmp/nsys-report-28a7.qdstrm'
-[1/1] [0%                          ] n1024_perfil.nsys-rep[1/1] [0%                          ] n1024_perfil.nsys-rep[1/1] [===23%                      ] n1024_perfil.nsys-rep[1/1] [====27%                     ] n1024_perfil.nsys-rep[1/1] [=====30%                    ] n1024_perfil.nsys-rep[1/1] [===========50%              ] n1024_perfil.nsys-rep[1/1] [================70%         ] n1024_perfil.nsys-rep[1/1] [================71%         ] n1024_perfil.nsys-rep[1/1] [=================72%        ] n1024_perfil.nsys-rep[1/1] [=================73%        ] n1024_perfil.nsys-rep[1/1] [=================74%        ] n1024_perfil.nsys-rep[1/1] [==================75%       ] n1024_perfil.nsys-rep[1/1] [==================76%       ] n1024_perfil.nsys-rep[1/1] [==================77%       ] n1024_perfil.nsys-rep[1/1] [==================78%       ] n1024_perfil.nsys-rep[1/1] [===================79%      ] n1024_perfil.nsys-rep[1/1] [===================80%      ] n1024_perfil.nsys-rep[1/1] [===================81%      ] n1024_perfil.nsys-rep[1/1] [===================82%      ] n1024_perfil.nsys-rep[1/1] [====================83%     ] n1024_perfil.nsys-rep[1/1] [====================84%     ] n1024_perfil.nsys-rep[1/1] [====================85%     ] n1024_perfil.nsys-rep[1/1] [=====================86%    ] n1024_perfil.nsys-rep[1/1] [=====================87%    ] n1024_perfil.nsys-rep[1/1] [=====================88%    ] n1024_perfil.nsys-rep[1/1] [=====================89%    ] n1024_perfil.nsys-rep[1/1] [======================90%   ] n1024_perfil.nsys-rep[1/1] [======================91%   ] n1024_perfil.nsys-rep[1/1] [========================100%] n1024_perfil.nsys-rep[1/1] [========================100%] n1024_perfil.nsys-rep
-Generated:
-    /home/ladscardoso/projetos/programacao-paralela/tarefa19/resultadosNpad/heat-2198751-knlOZs/n1024_perfil.nsys-rep

@@ -1,31 +1,0 @@
-
- MMS heat equation
-
---------------------
-Problem input
-
- Grid size: 2048 x 2048
- Cell width: 4.880429E-01
- Grid length: 1000.000000 x 1000.000000
-
- Alpha: 1.000000E-01
-
- Steps: 100
- Total time: 5.000000E-01
- Time step: 5.000000E-03
---------------------
-Stability
-
- r value: 0.002099
---------------------
-Results
-
-Error (L2norm): 1.893965E-10
-Solve time (s): 90.546340
-Total time (s): 90.742850
---------------------
-Collecting data...
-Generating '/tmp/nsys-report-dff7.qdstrm'
-[1/1] [0%                          ] n2048_perfil.nsys-rep[1/1] [0%                          ] n2048_perfil.nsys-rep[1/1] [14%                         ] n2048_perfil.nsys-rep[1/1] [=17%                        ] n2048_perfil.nsys-rep[1/1] [==21%                       ] n2048_perfil.nsys-rep[1/1] [=====32%                    ] n2048_perfil.nsys-rep[1/1] [=========44%                ] n2048_perfil.nsys-rep[1/1] [=========45%                ] n2048_perfil.nsys-rep[1/1] [=========46%                ] n2048_perfil.nsys-rep[1/1] [==========47%               ] n2048_perfil.nsys-rep[1/1] [==========48%               ] n2048_perfil.nsys-rep[1/1] [==========49%               ] n2048_perfil.nsys-rep[1/1] [===========50%              ] n2048_perfil.nsys-rep[1/1] [===========51%              ] n2048_perfil.nsys-rep[1/1] [===========52%              ] n2048_perfil.nsys-rep[1/1] [===========53%              ] n2048_perfil.nsys-rep[1/1] [============54%             ] n2048_perfil.nsys-rep[1/1] [============55%             ] n2048_perfil.nsys-rep[1/1] [============56%             ] n2048_perfil.nsys-rep[1/1] [============57%             ] n2048_perfil.nsys-rep[1/1] [=============58%            ] n2048_perfil.nsys-rep[1/1] [=============59%            ] n2048_perfil.nsys-rep[1/1] [=============60%            ] n2048_perfil.nsys-rep[1/1] [==============61%           ] n2048_perfil.nsys-rep[1/1] [==============62%           ] n2048_perfil.nsys-rep[1/1] [==============63%           ] n2048_perfil.nsys-rep[1/1] [==============64%           ] n2048_perfil.nsys-rep[1/1] [===============65%          ] n2048_perfil.nsys-rep[1/1] [===============66%          ] n2048_perfil.nsys-rep[1/1] [===============67%          ] n2048_perfil.nsys-rep[1/1] [================68%         ] n2048_perfil.nsys-rep[1/1] [================69%         ] n2048_perfil.nsys-rep[1/1] [================70%         ] n2048_perfil.nsys-rep[1/1] [================71%         ] n2048_perfil.nsys-rep[1/1] [=================72%        ] n2048_perfil.nsys-rep[1/1] [=================73%        ] n2048_perfil.nsys-rep[1/1] [=================74%        ] n2048_perfil.nsys-rep[1/1] [==================75%       ] n2048_perfil.nsys-rep[1/1] [==================76%       ] n2048_perfil.nsys-rep[1/1] [==================77%       ] n2048_perfil.nsys-rep[1/1] [==================78%       ] n2048_perfil.nsys-rep[1/1] [===================79%      ] n2048_perfil.nsys-rep[1/1] [===================80%      ] n2048_perfil.nsys-rep[1/1] [===================81%      ] n2048_perfil.nsys-rep[1/1] [===================82%      ] n2048_perfil.nsys-rep[1/1] [====================83%     ] n2048_perfil.nsys-rep[1/1] [====================84%     ] n2048_perfil.nsys-rep[1/1] [====================85%     ] n2048_perfil.nsys-rep[1/1] [=====================86%    ] n2048_perfil.nsys-rep[1/1] [=====================87%    ] n2048_perfil.nsys-rep[1/1] [=====================88%    ] n2048_perfil.nsys-rep[1/1] [=====================89%    ] n2048_perfil.nsys-rep[1/1] [======================90%   ] n2048_perfil.nsys-rep[1/1] [======================91%   ] n2048_perfil.nsys-rep[1/1] [======================92%   ] n2048_perfil.nsys-rep[1/1] [=======================93%  ] n2048_perfil.nsys-rep[1/1] [=======================94%  ] n2048_perfil.nsys-rep[1/1] [========================100%] n2048_perfil.nsys-rep[1/1] [========================100%] n2048_perfil.nsys-rep
-Generated:
-    /home/ladscardoso/projetos/programacao-paralela/tarefa19/resultadosNpad/heat-2198751-knlOZs/n2048_perfil.nsys-rep

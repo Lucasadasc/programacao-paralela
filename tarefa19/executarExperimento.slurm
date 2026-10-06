@@ -6,98 +6,81 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=4G
-#SBATCH --time=00:30:00
+#SBATCH --time=01:00:00
 #SBATCH --output=heat-nsys-%j.out
 #SBATCH --error=heat-nsys-%j.err
 
 set -euo pipefail
-cd "${SLURM_SUBMIT_DIR:?Submeta este script com sbatch na pasta tarefa19.}"
-
+cd "${SLURM_SUBMIT_DIR:?Submeta com sbatch na pasta tarefa19.}"
 module --ignore_cache load "${NVHPC_MODULE:-compilers/nvidia/nvhpc/24.11}"
-# Se o nsys tiver um módulo próprio no cluster, informe seu nome na submissão.
 if [[ -n ${NSYS_MODULE:-} ]]; then
     module --ignore_cache load "$NSYS_MODULE"
 fi
 for ferramenta in nvc nsys srun; do
-    if ! command -v "$ferramenta" >/dev/null; then
-        printf 'Erro: %s não está no PATH. Confira os módulos do NPAD.\n' "$ferramenta" >&2
+    command -v "$ferramenta" >/dev/null || {
+        printf 'Erro: %s não encontrado. Confira os módulos.\n' "$ferramenta" >&2
         exit 1
-    fi
+    }
 done
 
-read -r -a tamanhos <<< "${TAMANHOS:-256 512 1024 2048 4096}"
+read -r -a tamanhos <<< "${TAMANHOS:-256 1024 4096}"
 passos=${PASSOS:-100}
-repeticoes=${REPETICOES:-3}
-for valor in "$passos" "$repeticoes" "${tamanhos[@]}"; do
-    if [[ ! $valor =~ ^[1-9][0-9]*$ ]]; then
-        printf 'Erro: tamanhos, passos e repetições devem ser inteiros positivos.\n' >&2
-        exit 1
-    fi
-done
 if (( ${#tamanhos[@]} == 0 )); then
-    printf 'Erro: informe pelo menos um tamanho de malha.\n' >&2
+    printf 'Erro: informe pelo menos um tamanho.\n' >&2
     exit 1
 fi
-# O código-base usa índices int. Esta bateria limita tamanho e memória.
-for n in "${tamanhos[@]}"; do
-    if (( n > 4096 )); then
-        printf 'Erro: esta configuração de recursos aceita malhas até 4096.\n' >&2
+for valor in "$passos" "${tamanhos[@]}"; do
+    [[ $valor =~ ^[1-9][0-9]*$ ]] || {
+        printf 'Erro: tamanhos e passos devem ser inteiros positivos.\n' >&2
         exit 1
-    fi
+    }
+done
+for n in "${tamanhos[@]}"; do
+    (( n <= 4096 )) || {
+        printf 'Erro: tamanho máximo desta configuração: 4096.\n' >&2
+        exit 1
+    }
 done
 
 mkdir -p resultadosNpad
 resultado=$(mktemp -d "resultadosNpad/heat-${SLURM_JOB_ID}-XXXXXX")
-printf 'Resultados: %s\n' "$resultado"
-{
-    date --iso-8601=seconds
-    hostname
-    module list
-    nvc --version
-    nsys --version
-    if command -v nvidia-smi >/dev/null; then
-        nvidia-smi
-    fi
-    printf 'Tamanhos: %s\nPassos: %s\nRepetições: %s\n' "${tamanhos[*]}" "$passos" "$repeticoes"
-} > "$resultado/ambiente.txt" 2>&1
-
-cp heatTarget.c "$resultado/heatTarget.c"
-nvc -O3 -mp=gpu -gpu=cc70,lineinfo -Minfo=mp \
-    "$resultado/heatTarget.c" -lm -o "$resultado/heatTarget" \
-    > "$resultado/compilacao.txt" 2>&1
+temporarios=$(mktemp -d /tmp/tarefa19-nsys-XXXXXX)
+# Remove apenas os arquivos intermediários criados por este job.
+trap 'rm -r -- "$temporarios"' EXIT
+nvc -O3 -mp=gpu -gpu=cc70 -Minfo=mp heatTarget.c -lm -o "$temporarios/heatTarget"
 
 export OMP_TARGET_OFFLOAD=MANDATORY
 export OMP_NUM_THREADS=1
-printf 'n,celulas,passos,repeticao,solve_s,total_s,erro_l2\n' > "$resultado/tempos.csv"
-relatorios=cuda_api_sum,cuda_gpu_kern_sum,cuda_gpu_mem_time_sum,cuda_gpu_mem_size_sum
+export LC_ALL=C
+printf 'n,passos,mediana_solve_s,erro_l2,kernels_ms,copias_ms\n' > "$resultado/resumo.csv"
 
 for n in "${tamanhos[@]}"; do
-    printf 'Executando malha %s x %s, %s passos\n' "$n" "$n" "$passos"
-    # Aquecimento separado; cada execução ainda inicializa seu próprio contexto CUDA.
-    srun "$resultado/heatTarget" "$n" "$passos" > "$resultado/n${n}_aquecimento.txt"
-    for (( repeticao=1; repeticao<=repeticoes; repeticao++ )); do
-        saida="$resultado/n${n}_r${repeticao}.txt"
-        # Tempos para comparação são coletados sem o overhead do profiler.
-        srun "$resultado/heatTarget" "$n" "$passos" > "$saida"
-        awk -v n="$n" -v passos="$passos" -v repeticao="$repeticao" '
-            /Error \(L2norm\):/ { erro=$3 }
-            /Solve time \(s\):/ { solve=$4 }
-            /Total time \(s\):/ { total=$4 }
-            END {
-                if (erro == "" || solve == "" || total == "") exit 1
-                printf "%d,%d,%d,%d,%s,%s,%s\n", n,n*n,passos,repeticao,solve,total,erro
-            }
-        ' "$saida" >> "$resultado/tempos.csv"
+    : > "$temporarios/tempos.txt"
+    for repeticao in 1 2 3; do
+        srun "$temporarios/heatTarget" "$n" "$passos" > "$temporarios/execucao.txt"
+        awk '/Solve time \(s\):/ { print $4; encontrado=1 }
+             END { if (!encontrado) exit 1 }' "$temporarios/execucao.txt" >> "$temporarios/tempos.txt"
     done
+    mediana=$(sort -n "$temporarios/tempos.txt" | sed -n '2p')
+    erro=$(awk '/Error \(L2norm\):/ { print $3; encontrado=1 }
+                END { if (!encontrado) exit 1 }' "$temporarios/execucao.txt")
 
-    perfil="$resultado/n${n}_perfil"
+    perfil="$temporarios/n${n}"
     srun nsys profile --trace=cuda --sample=none --cpuctxsw=none \
-        --output="$perfil" "$resultado/heatTarget" "$n" "$passos" \
-        > "${perfil}_execucao.txt" 2>&1
-    nsys stats --report="$relatorios" --format=column \
-        "${perfil}.nsys-rep" > "${perfil}_stats.txt" 2>&1
-    nsys stats --report="$relatorios" --format=csv --output="${perfil}" \
-        "${perfil}.nsys-rep" > "${perfil}_exportacao.txt" 2>&1
-done
+        --output="$perfil" "$temporarios/heatTarget" "$n" "$passos"
+    for tipo in kern mem_time; do
+        nsys stats --report="cuda_gpu_${tipo}_sum" --format=csv \
+            "${perfil}.nsys-rep" > "$temporarios/${tipo}.csv"
+    done
+    # Coluna 2 dos resumos do nsys: tempo total em nanossegundos.
+    kernels=$(awk -F, '$1 ~ /^[0-9]+([.][0-9]+)?$/ { soma += $2; encontrou=1 }
+        END { if (!encontrou) exit 1; printf "%.3f", soma/1000000 }' "$temporarios/kern.csv")
+    copias=$(awk -F, '$1 ~ /^[0-9]+([.][0-9]+)?$/ { soma += $2; encontrou=1 }
+        END { if (!encontrou) exit 1; printf "%.3f", soma/1000000 }' "$temporarios/mem_time.csv")
 
-printf 'Experimento concluído. Tempos: %s/tempos.csv\n' "$resultado"
+    printf '%s,%s,%s,%s,%s,%s\n' "$n" "$passos" "$mediana" "$erro" "$kernels" "$copias" \
+        >> "$resultado/resumo.csv"
+    printf 'n=%s | solve=%s s | erro L2=%s | kernels=%s ms | cópias=%s ms\n' \
+        "$n" "$mediana" "$erro" "$kernels" "$copias"
+done
+printf 'Resumo salvo em %s/resumo.csv\n' "$resultado"

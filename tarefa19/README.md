@@ -1,66 +1,39 @@
 # Tarefa 19 — OpenMP target e Nsight Systems
 
-`heat.c` é a referência serial. `heatTarget.c` reutiliza seu cálculo e usa
-somente `target` (`map`, `device`) e `loop` (`collapse`). A redução de uma
-soma descartada foi removida após o NVHPC 24.11 abortar com
-`Internal compiler error. unexpected ILM number operands for reduction pragma`.
-Essa remoção não altera o cálculo da solução nem do erro L2.
+`heat.c` é a referência serial. `heatTarget.c` usa `target` com `map` e
+`device`, seguido de `loop collapse(2)`. A redução de uma soma descartada
+foi removida para contornar uma falha interna do NVHPC 24.11.
 
-## Execução no NPAD
-
-Na pasta `tarefa19` do cluster:
+No NPAD, execute na pasta da tarefa:
 
 ```bash
 sbatch executarExperimento.slurm
 ```
 
-O script solicita uma GPU na partição `gpu-8-v100` e carrega
-`compilers/nvidia/nvhpc/24.11`, seguindo a configuração da tarefa 18 deste
-projeto. Compila com `nvc -O3 -mp=gpu -gpu=cc70,lineinfo` para a V100 e
-exige execução no dispositivo com `OMP_TARGET_OFFLOAD=MANDATORY`.
-Confirme a disponibilidade da partição e dos módulos no cluster.
-
-A bateria padrão usa malhas de **256, 512, 1024, 2048 e 4096** por dimensão,
-**100 passos** e **três repetições sem profiler** por tamanho. Também faz
-uma execução de aquecimento e uma execução perfilada por tamanho.
-O limite de 4096 corresponde à configuração de memória deste script.
-
-Para personalizar:
+O script usa uma V100 na partição `gpu-8-v100`, NVHPC 24.11 e limite de
+uma hora. Executa malhas 256², 1024² e 4096², com 100 passos.
+Para outros tamanhos (até 4096) ou número de passos:
 
 ```bash
-TAMANHOS="512 1024 2048" PASSOS=200 REPETICOES=5 sbatch executarExperimento.slurm
+TAMANHOS="256 512 1024" PASSOS=100 sbatch executarExperimento.slurm
 ```
 
-Se `nsys` não estiver no PATH após carregar o NVHPC, localize seu módulo
-com `module spider nsight` ou `module spider nsys` e submeta informando
-`NSYS_MODULE=nome_do_modulo`. O módulo do compilador pode ser substituído
-com `NVHPC_MODULE=nome_do_modulo`.
+Cada job salva **apenas um arquivo de resultados**, `resumo.csv`, em uma
+pasta exclusiva de `resultadosNpad/`. Ele contém:
 
-## Resultados e análise
+- Tamanho da malha e número de passos.
+- Mediana do tempo de solve de três execuções sem profiler, em segundos.
+- Erro L2 da última dessas execuções.
+- Tempo acumulado dos kernels e das cópias, em milissegundos, em uma
+  execução separada com `nsys`.
 
-Cada job cria uma pasta exclusiva em `resultadosNpad/`, com:
+O Slurm também mantém os logs `heat-nsys-<job>.out` e `.err`.
+Executável, perfis e SQLite são intermediários em `/tmp` e são removidos
+ao final; resultados antigos permanecem intactos.
 
-- `tempos.csv`: tamanho, células, passos, repetição, tempo do solve,
-  tempo total e erro L2 das execuções sem profiler.
-- `n*_perfil.nsys-rep`: linha do tempo para abrir no Nsight Systems.
-- `n*_perfil_stats.txt` e CSVs: resumos das APIs CUDA, kernels e
-  transferências, incluindo tempo e volume de memória.
-- Logs de execução, compilação, ambiente e cópia do código utilizado.
+O tempo de solve inclui as transferências de cada passo. Os tempos dos
+kernels e das cópias vêm de outra execução e não devem ser interpretados
+como uma decomposição exata da mediana.
 
-Compare a média do tempo de `solve` entre repetições para cada tamanho e
-calcule células atualizadas por segundo como `n*n*passos/tempo_solve`.
-Use os perfis para identificar quanto tempo está nos kernels e nas cópias
-host–GPU. Os percentuais do `nsys stats` são relativos às operações do
-respectivo relatório, não ao tempo total do programa.
-
-Nesta implementação, `map(to: u)` e `map(from: u_tmp)` transferem a malha
-em cada passo; cada direção movimenta aproximadamente `8*n*n*passos`
-bytes. O tempo total inclui inicialização e cálculo
-serial do erro L2. As execuções são processos separados: o aquecimento
-não elimina o custo de criar o contexto CUDA nas execuções seguintes.
-
-Referências: [guia do Nsight Systems](https://docs.nvidia.com/nsight-systems/UserGuide/index.html)
-e [relatórios de análise](https://docs.nvidia.com/nsight-systems/AnalysisGuide/index.html).
-
-Os resultados medidos serão gerados ao executar o job no NPAD; não foram
-coletados neste ambiente, que não possui NVHPC, `nsys` ou Slurm.
+Se necessário, informe `NSYS_MODULE` para carregar um módulo próprio de
+Nsight Systems ou `NVHPC_MODULE` para substituir o módulo do compilador.

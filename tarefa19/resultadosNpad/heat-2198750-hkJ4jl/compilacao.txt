@@ -1,2 +1,0 @@
-NVC++-F-0000-Internal compiler error. unexpected ILM number operands for reduction pragma       0  (resultadosNpad/heat-2198750-hkJ4jl/heatTarget.c: 209)
-NVC++/x86-64 Linux 24.11-0: compilation aborted

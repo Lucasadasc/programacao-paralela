@@ -1,2 +1,0 @@
-Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Name
-100.0,673618096,100,6736181.0,6735602.0,6724866,6744706,4258.1,nvkernel_solve_F1L208_2
