@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">Acesso a blocos de colunas com MPI_Type_vector</title>
+  <desc id="descricao">Uma matriz 4 por 6 armazenada por linhas. As colunas 2 e 3 estão destacadas para mostrar o bloco recebido por um processo e os saltos entre linhas descritos por MPI_Type_vector.</desc>
+  <defs>
+    <marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2867b2"/></marker>
+    <style>
+      .titulo { font: 700 28px Arial, sans-serif; fill: #172033; }
+      .subtitulo { font: 16px Arial, sans-serif; fill: #4b5563; }
+      .rotulo { font: 600 16px Arial, sans-serif; fill: #172033; }
+      .texto { font: 15px Arial, sans-serif; fill: #334155; }
+      .celula { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.5; }
+      .selecionada { fill: #bfdbfe; stroke: #2563eb; stroke-width: 2; }
+      .codigo { font: 600 17px 'Courier New', monospace; fill: #0f3f7a; }
+      .mini { font: 14px Arial, sans-serif; fill: #334155; }
+    </style>
+  </defs>
+  <rect width="1200" height="720" fill="#ffffff"/>
+  <text x="60" y="52" class="titulo">Distribuição por colunas: acesso à memória e MPI_Type_vector</text>
+  <text x="60" y="81" class="subtitulo">Exemplo: matriz A de 4 × 6, armazenada por linhas em C (row-major)</text>
+
+  <text x="315" y="130" class="rotulo">colunas →</text>
+  <text x="447" y="130" class="mini">0</text><text x="507" y="130" class="mini">1</text>
+  <text x="567" y="130" class="mini">2</text><text x="627" y="130" class="mini">3</text>
+  <text x="687" y="130" class="mini">4</text><text x="747" y="130" class="mini">5</text>
+  <text x="120" y="186" class="rotulo">linha 0</text>
+  <text x="120" y="246" class="rotulo">linha 1</text>
+  <text x="120" y="306" class="rotulo">linha 2</text>
+  <text x="120" y="366" class="rotulo">linha 3</text>
+
+  <g>
+    <rect x="420" y="150" width="60" height="45" class="celula"/><rect x="480" y="150" width="60" height="45" class="celula"/><rect x="540" y="150" width="60" height="45" class="selecionada"/><rect x="600" y="150" width="60" height="45" class="selecionada"/><rect x="660" y="150" width="60" height="45" class="celula"/><rect x="720" y="150" width="60" height="45" class="celula"/>
+    <rect x="420" y="210" width="60" height="45" class="celula"/><rect x="480" y="210" width="60" height="45" class="celula"/><rect x="540" y="210" width="60" height="45" class="selecionada"/><rect x="600" y="210" width="60" height="45" class="selecionada"/><rect x="660" y="210" width="60" height="45" class="celula"/><rect x="720" y="210" width="60" height="45" class="celula"/>
+    <rect x="420" y="270" width="60" height="45" class="celula"/><rect x="480" y="270" width="60" height="45" class="celula"/><rect x="540" y="270" width="60" height="45" class="selecionada"/><rect x="600" y="270" width="60" height="45" class="selecionada"/><rect x="660" y="270" width="60" height="45" class="celula"/><rect x="720" y="270" width="60" height="45" class="celula"/>
+    <rect x="420" y="330" width="60" height="45" class="celula"/><rect x="480" y="330" width="60" height="45" class="celula"/><rect x="540" y="330" width="60" height="45" class="selecionada"/><rect x="600" y="330" width="60" height="45" class="selecionada"/><rect x="660" y="330" width="60" height="45" class="celula"/><rect x="720" y="330" width="60" height="45" class="celula"/>
+  </g>
+  <text x="548" y="178" class="mini">A₀,₂</text><text x="608" y="178" class="mini">A₀,₃</text>
+  <text x="548" y="238" class="mini">A₁,₂</text><text x="608" y="238" class="mini">A₁,₃</text>
+  <text x="548" y="298" class="mini">A₂,₂</text><text x="608" y="298" class="mini">A₂,₃</text>
+  <text x="548" y="358" class="mini">A₃,₂</text><text x="608" y="358" class="mini">A₃,₃</text>
+
+  <path d="M570 198 L570 207" stroke="#2867b2" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#seta)"/>
+  <path d="M570 258 L570 267" stroke="#2867b2" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#seta)"/>
+  <path d="M570 318 L570 327" stroke="#2867b2" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#seta)"/>
+  <text x="804" y="230" class="texto">Para ir de uma linha à próxima,</text>
+  <text x="804" y="255" class="texto">o acesso salta N = 6 doubles.</text>
+  <path d="M795 247 L673 247" stroke="#2867b2" stroke-width="2" marker-end="url(#seta)"/>
+
+  <rect x="60" y="430" width="1080" height="110" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="90" y="468" class="rotulo">O tipo derivado descreve o bloco azul, sem copiar manualmente os elementos:</text>
+  <text x="90" y="505" class="codigo">MPI_Type_vector(4, 2, 6, MPI_DOUBLE, &amp;blocoColunas);</text>
+  <text x="660" y="505" class="texto">count = 4 linhas · blocklength = 2 colunas · stride = 6</text>
+
+  <rect x="60" y="570" width="1080" height="105" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="90" y="608" class="codigo">MPI_Type_create_resized(..., 2 × sizeof(double), ...);</text>
+  <text x="90" y="642" class="texto">A extensão passa a ser o tamanho de um bloco de 2 colunas. Assim, MPI_Scatter avança para o próximo bloco:</text>
+  <text x="90" y="666" class="texto">processo 0 → colunas 0–1   |   processo 1 → colunas 2–3 (azul)   |   processo 2 → colunas 4–5</text>
+</svg>

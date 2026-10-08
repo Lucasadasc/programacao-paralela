@@ -16,17 +16,21 @@ Os argumentos são `M N` e têm valor padrão `1000 1000`. `M` deve ser divisív
 pela quantidade de processos, pois a divisão usa `MPI_Scatter` com o mesmo
 número de linhas para todos. A saída informa o tempo medido pelo processo 0.
 
-## Experimento
+## Experimento local
 
-Execute o script com diferentes números de processos, por exemplo 2, 4 e 8. O script fixa um processo MPI por nó, portanto cada configuração usa a mesma quantidade de processos por nó:
+Execute no seu computador:
 
 ```bash
-mkdir -p saidasNpad
-sbatch --ntasks=2 executarExperimento.slurm
-sbatch --ntasks=4 executarExperimento.slurm
-sbatch --ntasks=8 executarExperimento.slurm
+chmod +x executarExperimentoLocal.sh
+./executarExperimentoLocal.sh
 ```
 
-Cada execução testa matrizes quadradas de 1000, 2000 e 4000, três vezes, e
-salva os tempos em `saidasNpad/resultados-np<processos>.csv`. Para cada tamanho e número
-de processos, compare a média (ou mediana) de `tempo_s`.
+O script compila o programa e testa matrizes quadradas de 2000, 4000 e 8000 com 2, 4 e 8 processos, seis vezes cada. Os resultados ficam em `saidasLocais/resultados.csv`, com uma linha por configuração e a mediana das seis repetições.
+
+Os parâmetros são opcionais:
+
+```bash
+./executarExperimentoLocal.sh "2 4" "2000 4000" 3
+```
+
+O exemplo executa 2 e 4 processos, matrizes de 2000 e 4000, com três repetições. `M` precisa ser divisível pela quantidade de processos. Compare `mediana_tempo_s`.
