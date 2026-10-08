@@ -204,11 +204,12 @@ void solve(const int n, const double alpha, const double dx, const double dt, co
   const double r2 = 1.0 - 4.0*r;
 
   // Loop over the nxn grid
-  #pragma omp target device(0) map(to : u[0:n*n]) map(from : u_tmp[0:n*n])
-  {
-    #pragma omp loop collapse(2)
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+  // Keep this mapping inside solve deliberately: Task 19 profiles the
+  // cost of moving both fields at every timestep.  "teams loop" creates
+  // the GPU teams and distributes the n*n independent stencil updates.
+  #pragma omp target teams loop device(0) collapse(2) map(to : u[0:n*n]) map(from : u_tmp[0:n*n])
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
 
         // Update the 5-point stencil, using boundary conditions on the edges of the domain.
         // Boundaries are zero because the MMS solution is zero there.
@@ -217,7 +218,6 @@ void solve(const int n, const double alpha, const double dx, const double dt, co
         r * ((i > 0)   ? u[i-1+j*n] : 0.0) +
         r * ((j < n-1) ? u[i+(j+1)*n] : 0.0) +
         r * ((j > 0)   ? u[i+(j-1)*n] : 0.0);
-      }
     }
   }
 }

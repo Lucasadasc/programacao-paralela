@@ -1,8 +1,12 @@
 # Tarefa 19 — OpenMP target e Nsight Systems
 
-`heat.c` é a referência serial. `heatTarget.c` usa `target` com `map` e
-`device`, seguido de `loop collapse(2)`. A redução de uma soma descartada
-foi removida para contornar uma falha interna do NVHPC 24.11.
+`heat.c` é a referência serial. `heatTarget.c` usa `target teams loop
+collapse(2)` com `map` e `device`: as atualizações independentes do stencil
+são distribuídas entre equipes e threads da GPU. Os mapeamentos permanecem
+dentro de `solve` intencionalmente, portanto cada passo transfere `u` para a
+GPU e devolve `u_tmp` ao host. Este é o caso-base da Tarefa 19, que permite
+visualizar no Nsight Systems o custo e a frequência das cópias; a permanência
+dos dados no dispositivo fica para a Tarefa 20.
 
 No NPAD, execute na pasta da tarefa:
 

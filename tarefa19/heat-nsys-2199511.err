@@ -1,3 +1,0 @@
-solve:
-    208, #omp target
-        208, Generating "nvkernel_solve_F1L208_2" GPU kernel
