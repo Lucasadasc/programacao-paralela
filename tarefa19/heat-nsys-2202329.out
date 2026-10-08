@@ -1,0 +1,161 @@
+
+ MMS heat equation
+
+--------------------
+Problem input
+
+ Grid size: 256 x 256
+ Cell width: 3.891051E+00
+ Grid length: 1000.000000 x 1000.000000
+
+ Alpha: 1.000000E-01
+
+ Steps: 100
+ Total time: 5.000000E-01
+ Time step: 5.000000E-03
+--------------------
+Stability
+
+ r value: 0.000033
+--------------------
+Results
+
+Error (L2norm): 1.578313E-09
+Solve time (s): 0.508929
+Total time (s): 0.511268
+--------------------
+Collecting data...
+Generating '/tmp/nsys-report-efa6.qdstrm'
+[1/1] [0%                          ] n256.nsys-rep[1/1] [0%                          ] n256.nsys-rep[1/1] [====26%                     ] n256.nsys-rep[1/1] [======33%                   ] n256.nsys-rep[1/1] [=======39%                  ] n256.nsys-rep[1/1] [==============64%           ] n256.nsys-rep[1/1] [=====================89%    ] n256.nsys-rep[1/1] [======================90%   ] n256.nsys-rep[1/1] [========================100%] n256.nsys-rep[1/1] [========================100%] n256.nsys-rep
+Generated:
+    /tmp/tarefa19-nsys-tqQJyq/n256.nsys-rep
+n=256 | solve=0.270974 s | erro L2=1.578313E-09 | kernels=0.775 ms | cópias=8.861 ms
+
+ MMS heat equation
+
+--------------------
+Problem input
+
+ Grid size: 512 x 512
+ Cell width: 1.949318E+00
+ Grid length: 1000.000000 x 1000.000000
+
+ Alpha: 1.000000E-01
+
+ Steps: 100
+ Total time: 5.000000E-01
+ Time step: 5.000000E-03
+--------------------
+Stability
+
+ r value: 0.000132
+--------------------
+Results
+
+Error (L2norm): 7.895473E-10
+Solve time (s): 0.559470
+Total time (s): 0.568597
+--------------------
+Collecting data...
+Generating '/tmp/nsys-report-1613.qdstrm'
+[1/1] [0%                          ] n512.nsys-rep[1/1] [0%                          ] n512.nsys-rep[1/1] [====26%                     ] n512.nsys-rep[1/1] [======33%                   ] n512.nsys-rep[1/1] [=======39%                  ] n512.nsys-rep[1/1] [==============64%           ] n512.nsys-rep[1/1] [=====================89%    ] n512.nsys-rep[1/1] [======================90%   ] n512.nsys-rep[1/1] [========================100%] n512.nsys-rep[1/1] [========================100%] n512.nsys-rep
+Generated:
+    /tmp/tarefa19-nsys-tqQJyq/n512.nsys-rep
+n=512 | solve=0.328433 s | erro L2=7.895473E-10 | kernels=2.260 ms | cópias=38.761 ms
+
+ MMS heat equation
+
+--------------------
+Problem input
+
+ Grid size: 1024 x 1024
+ Cell width: 9.756098E-01
+ Grid length: 1000.000000 x 1000.000000
+
+ Alpha: 1.000000E-01
+
+ Steps: 100
+ Total time: 5.000000E-01
+ Time step: 5.000000E-03
+--------------------
+Stability
+
+ r value: 0.000525
+--------------------
+Results
+
+Error (L2norm): 3.907141E-10
+Solve time (s): 0.754047
+Total time (s): 0.797326
+--------------------
+Collecting data...
+Generating '/tmp/nsys-report-8f76.qdstrm'
+[1/1] [0%                          ] n1024.nsys-rep[1/1] [0%                          ] n1024.nsys-rep[1/1] [====26%                     ] n1024.nsys-rep[1/1] [=====32%                    ] n1024.nsys-rep[1/1] [=======38%                  ] n1024.nsys-rep[1/1] [==============64%           ] n1024.nsys-rep[1/1] [=====================89%    ] n1024.nsys-rep[1/1] [======================90%   ] n1024.nsys-rep[1/1] [========================100%] n1024.nsys-rep[1/1] [========================100%] n1024.nsys-rep
+Generated:
+    /tmp/tarefa19-nsys-tqQJyq/n1024.nsys-rep
+n=1024 | solve=0.515677 s | erro L2=3.907141E-10 | kernels=7.111 ms | cópias=236.551 ms
+
+ MMS heat equation
+
+--------------------
+Problem input
+
+ Grid size: 2048 x 2048
+ Cell width: 4.880429E-01
+ Grid length: 1000.000000 x 1000.000000
+
+ Alpha: 1.000000E-01
+
+ Steps: 100
+ Total time: 5.000000E-01
+ Time step: 5.000000E-03
+--------------------
+Stability
+
+ r value: 0.002099
+--------------------
+Results
+
+Error (L2norm): 1.893965E-10
+Solve time (s): 1.403426
+Total time (s): 1.583360
+--------------------
+Collecting data...
+Generating '/tmp/nsys-report-ac33.qdstrm'
+[1/1] [0%                          ] n2048.nsys-rep[1/1] [0%                          ] n2048.nsys-rep[1/1] [====26%                     ] n2048.nsys-rep[1/1] [=====32%                    ] n2048.nsys-rep[1/1] [=======37%                  ] n2048.nsys-rep[1/1] [==============63%           ] n2048.nsys-rep[1/1] [=====================88%    ] n2048.nsys-rep[1/1] [=====================89%    ] n2048.nsys-rep[1/1] [======================90%   ] n2048.nsys-rep[1/1] [========================100%] n2048.nsys-rep[1/1] [========================100%] n2048.nsys-rep
+Generated:
+    /tmp/tarefa19-nsys-tqQJyq/n2048.nsys-rep
+n=2048 | solve=1.176902 s | erro L2=1.893965E-10 | kernels=27.500 ms | cópias=897.092 ms
+
+ MMS heat equation
+
+--------------------
+Problem input
+
+ Grid size: 4096 x 4096
+ Cell width: 2.440810E-01
+ Grid length: 1000.000000 x 1000.000000
+
+ Alpha: 1.000000E-01
+
+ Steps: 100
+ Total time: 5.000000E-01
+ Time step: 5.000000E-03
+--------------------
+Stability
+
+ r value: 0.008393
+--------------------
+Results
+
+Error (L2norm): 7.816010E-11
+Solve time (s): 4.110780
+Total time (s): 4.877932
+--------------------
+Collecting data...
+Generating '/tmp/nsys-report-e228.qdstrm'
+[1/1] [0%                          ] n4096.nsys-rep[1/1] [0%                          ] n4096.nsys-rep[1/1] [5%                          ] n4096.nsys-rep[1/1] [=====31%                    ] n4096.nsys-rep[1/1] [=======37%                  ] n4096.nsys-rep[1/1] [==============62%           ] n4096.nsys-rep[1/1] [=====================86%    ] n4096.nsys-rep[1/1] [=====================87%    ] n4096.nsys-rep[1/1] [=====================88%    ] n4096.nsys-rep[1/1] [=====================89%    ] n4096.nsys-rep[1/1] [======================90%   ] n4096.nsys-rep[1/1] [========================100%] n4096.nsys-rep[1/1] [========================100%] n4096.nsys-rep
+Generated:
+    /tmp/tarefa19-nsys-tqQJyq/n4096.nsys-rep
+n=4096 | solve=3.774509 s | erro L2=7.816010E-11 | kernels=109.959 ms | cópias=3513.140 ms
+Resumo salvo em resultadosNpad/heat-2202329-ohPTud/resumo.csv

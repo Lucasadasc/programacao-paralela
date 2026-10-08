@@ -1,0 +1,8 @@
+solve:
+    204, #omp target teams loop
+        204, Generating "nvkernel_solve_F1L204_2" GPU kernel
+             Generating NVIDIA GPU code
+          211, Loop parallelized across teams, threads(128) collapse(2) /* blockIdx.x threadIdx.x */
+          212,   /* blockIdx.x threadIdx.x collapsed */
+        204, Generating Multicore code
+          211, Loop parallelized across threads
