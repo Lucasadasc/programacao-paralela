@@ -69,7 +69,7 @@ for n in "${tamanhos[@]}"; do
     srun nsys profile --trace=cuda --sample=none --cpuctxsw=none \
         --output="$perfil" "$temporarios/heatTarget" "$n" "$passos"
     for tipo in kern mem_time; do
-        nsys stats --report="cuda_gpu_${tipo}_sum" --format=csv \
+        nsys stats --force-export=true --report="cuda_gpu_${tipo}_sum" --format=csv \
             "${perfil}.nsys-rep" > "$temporarios/${tipo}.csv"
     done
     # Coluna 2 dos resumos do nsys: tempo total em nanossegundos.
