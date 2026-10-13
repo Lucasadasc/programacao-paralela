@@ -72,7 +72,7 @@ for n in "${tamanhos[@]}"; do
         srun "$temporarios/$versao" "$n" "$passos" > "$temporarios/execucao.txt"
         # Confirma que o executável realmente utilizou os argumentos solicitados.
         awk -v n="$n" -v passos="$passos" '
-            /Grid size:/ { malha=($4 == n && $6 == n) }
+            /Grid size:/ { malha=($3 == n && $5 == n) }
             /Steps:/ { temporal=($2 == passos) }
             END { if (!malha || !temporal) exit 1 }
         ' "$temporarios/execucao.txt"
