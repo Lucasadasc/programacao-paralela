@@ -1,0 +1,57 @@
+// Tarefa 20: Dados persistentes e acesso contíguo.
+// Stencil adaptado do código de Tom Deakin (2018); veja heatCommon.c.
+#include <stddef.h>
+#include "heatCommon.h"
+
+// Atualiza um passo pelo método explícito de diferenças finitas.
+// A entrada é somente leitura; cada iteração escreve uma célula da saída.
+static void solve(const int n, const double alpha, const double dx, const double dt, const double * restrict u, double * restrict u_tmp) {
+
+  // Peso dos vizinhos: r; peso da célula central: 1 - 4*r.
+  const double r = alpha * dt / (dx * dx);
+  const double r2 = 1.0 - 4.0*r;
+
+  // Cada iteração calcula uma célula; os mapas presentes são reutilizados.
+  #pragma omp target teams loop device(0) collapse(2) map(to: u[0:n*n]) map(from: u_tmp[0:n*n])
+  // i interno percorre posições consecutivas em i+j*n.
+  for (int j = 0; j < n; ++j) {
+    for (int i = 0; i < n; ++i) {
+      // Mesmo stencil e mesmas bordas nulas em todas as versões.
+      u_tmp[i+j*n] =  r2 * u[i+j*n] +
+        r * ((i < n-1) ? u[i+1+j*n] : 0.0) +
+        r * ((i > 0)   ? u[i-1+j*n] : 0.0) +
+        r * ((j < n-1) ? u[i+(j+1)*n] : 0.0) +
+        r * ((j > 0)   ? u[i+(j-1)*n] : 0.0);
+    }
+  }
+}
+
+void evolve(
+  int n, 
+  int nsteps, 
+  double alpha, 
+  double dx, 
+  double dt,
+  double **campo, 
+  double **auxiliar
+) {
+  double *u = *campo;
+  double *u_tmp = *auxiliar;
+  const size_t cells = (size_t)n * n;
+
+  // Envia o estado inicial e mantém as duas alocações na GPU.
+  #pragma omp target data device(0) map(to: u[0:cells]) map(alloc: u_tmp[0:cells])
+  {
+    for (int t = 0; t < nsteps; ++t) {
+      // O kernel termina antes de trocar os campos e iniciar outro passo.
+      solve(n, alpha, dx, dt, u, u_tmp);
+      double *tmp = u;
+      u = u_tmp;
+      u_tmp = tmp;
+    }
+    // Devolve o campo final, para números pares ou ímpares de passos.
+    #pragma omp target update device(0) from(u[0:cells])
+  }
+  *campo = u;
+  *auxiliar = u_tmp;
+}

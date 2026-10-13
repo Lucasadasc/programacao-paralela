@@ -35,28 +35,10 @@
 
 #include <omp.h>
 
-// Tarefa 20: dados persistentes na GPU e acesso contíguo no stencil.
-// A implementação parte do código de Tom Deakin, identificado acima.
-// A malha é bidimensional e representa um quadrado de lado 1000.
-// Uso: ./heatTarget <lado da malha> <número de passos>.
+#include "heatCommon.h"
 
-// O script compila este arquivo em três versões:
-// -DCOPY_PER_STEP -DORIGINAL_LOOP_ORDER: cópias por passo, laços originais.
-// -DORIGINAL_LOOP_ORDER: dados persistentes, laços originais.
-// Sem essas opções: dados persistentes e laços com acesso contíguo.
-// #ifdef/#ifndef selecionam trechos na compilação, não durante a execução.
-
-// Constantes usadas no cálculo e na apresentação dos resultados.
-#define PI acos(-1.0) // Valor de pi.
-#define LINE "--------------------\n" // Separador da saída.
-
-// Protótipos das funções. Os campos são arrays lineares de n*n doubles.
-// restrict indica que os dados acessados por esses ponteiros não se sobrepõem.
-void initial_value(const int n, const double dx, const double length, double * restrict u);
-void zero(const int n, double * restrict u);
-void solve(const int n, const double alpha, const double dx, const double dt, const double * restrict u, double * restrict u_tmp);
-double solution(const double t, const double x, const double y, const double alpha, const double length);
-double l2norm(const int n, const double * restrict u, const int nsteps, const double dt, const double alpha, const double dx, const double length);
+#define PI acos(-1.0)
+#define LINE "--------------------\n"
 
 // Configura o problema, executa os passos e verifica a solução na CPU.
 int main(int argc, char *argv[]) {
@@ -131,7 +113,6 @@ int main(int argc, char *argv[]) {
   const size_t cells = (size_t)n * n;
   double *u     = malloc(sizeof(double)*cells);
   double *u_tmp = malloc(sizeof(double)*cells);
-  double *tmp;
   if (!u || !u_tmp) {
     fprintf(stderr, "Falha ao alocar os campos.\n");
     free(u);
@@ -150,27 +131,7 @@ int main(int argc, char *argv[]) {
   // Mede somente o laço temporal: inclui cópias, kernels, sincronização
   // e custos do runtime, inclusive os da primeira chamada ao dispositivo.
   double tic = omp_get_wtime();
-#ifndef COPY_PER_STEP
-  // MUDANÇA 1: mantém os campos na GPU durante todos os passos.
-  // Os mapeamentos usam os endereços das duas alocações originais.
-  // Envia apenas o estado inicial; reserva a saída sem transferir seus zeros.
-  // Ambos os arrays permanecem presentes enquanto os ponteiros alternam.
-  #pragma omp target data device(0) map(to: u[0:cells]) map(alloc: u_tmp[0:cells])
-#endif
-  {
-    for (int t = 0; t < nsteps; ++t) {
-      // Sem nowait, cada kernel termina antes de iniciar o passo seguinte.
-      solve(n, alpha, dx, dt, u, u_tmp);
-      tmp = u;
-      u = u_tmp;
-      u_tmp = tmp;
-    }
-#ifndef COPY_PER_STEP
-    // Devolve o campo apontado por u, inclusive quando o número de passos é ímpar.
-    // Executa antes de sair de target data e liberar os mapeamentos.
-    #pragma omp target update device(0) from(u[0:cells])
-#endif
-  }
+  evolve(n, nsteps, alpha, dx, dt, &u, &u_tmp);
   // A verificação numérica abaixo fica fora do tempo de solve.
   double toc = omp_get_wtime();
 
@@ -223,41 +184,6 @@ void zero(const int n, double * restrict u) {
   }
 
 }
-
-
-// Atualiza um passo pelo método explícito de diferenças finitas.
-// A entrada é somente leitura; cada iteração escreve uma célula da saída.
-void solve(const int n, const double alpha, const double dx, const double dt, const double * restrict u, double * restrict u_tmp) {
-
-  // Peso dos vizinhos: r; peso da célula central: 1 - 4*r.
-  const double r = alpha * dt / (dx * dx);
-  const double r2 = 1.0 - 4.0*r;
-
-  // Com target data externo, o kernel reutiliza os campos sem repetir cópias.
-  // Com COPY_PER_STEP, não há região externa: to/from copiam a cada passo.
-  // collapse(2) distribui as n*n células entre equipes e threads.
-  #pragma omp target teams loop device(0) collapse(2) map(to: u[0:n*n]) map(from: u_tmp[0:n*n])
-  #ifdef ORIGINAL_LOOP_ORDER
-  // Referência: j interno faz o índice avançar n posições.
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-      #else
-        // MUDANÇA 2: inverte os laços, sem mudar a fórmula do stencil.
-        // Otimização: i interno percorre posições consecutivas em i+j*n,
-        // favorecendo acessos próximos pelas threads da GPU.
-        for (int j = 0; j < n; ++j) {
-          for (int i = 0; i < n; ++i) {
-      #endif
-        // Mesmo stencil e mesmas bordas nulas em todas as versões.
-        u_tmp[i+j*n] =  r2 * u[i+j*n] +
-        r * ((i < n-1) ? u[i+1+j*n] : 0.0) +
-        r * ((i > 0)   ? u[i-1+j*n] : 0.0) +
-        r * ((j < n-1) ? u[i+(j+1)*n] : 0.0) +
-        r * ((j > 0)   ? u[i+(j-1)*n] : 0.0);
-    }
-  }
-}
-
 
 
 // Solução analítica: o perfil senoidal decai exponencialmente com o tempo.

@@ -51,11 +51,11 @@ resultado=$(mktemp -d "resultadosNpad/heat-${SLURM_JOB_ID}-XXXXXX")
 temporarios=$(mktemp -d /tmp/tarefa20-nsys-XXXXXX)
 # Remove apenas os arquivos intermediários criados por este job.
 trap 'rm -r -- "$temporarios"' EXIT
-# Mesmo arquivo: duas macros selecionam as três versões na compilação.
-nvc -O3 -mp=gpu -gpu=cc70 -Minfo=mp -DCOPY_PER_STEP -DORIGINAL_LOOP_ORDER heatTarget.c -lm -o "$temporarios/copias"
-nvc -O3 -mp=gpu -gpu=cc70 -Minfo=mp -DORIGINAL_LOOP_ORDER heatTarget.c -lm -o "$temporarios/persistente"
-nvc -O3 -mp=gpu -gpu=cc70 -Minfo=mp heatTarget.c -lm -o "$temporarios/otimizado"
-cp heatTarget.c "$resultado/"
+# Cada implementação é ligada às mesmas funções auxiliares e ao mesmo main.
+nvc -O3 -mp=gpu -gpu=cc70 -Minfo=mp heatCommon.c heatOriginal.c -lm -o "$temporarios/copias"
+nvc -O3 -mp=gpu -gpu=cc70 -Minfo=mp heatCommon.c heatPersistente.c -lm -o "$temporarios/persistente"
+nvc -O3 -mp=gpu -gpu=cc70 -Minfo=mp heatCommon.c heatContiguo.c -lm -o "$temporarios/otimizado"
+cp heatCommon.c heatCommon.h heatOriginal.c heatPersistente.c heatContiguo.c "$resultado/"
 nsys --version > "$resultado/ambiente.txt"
 nvc --version >> "$resultado/ambiente.txt"
 

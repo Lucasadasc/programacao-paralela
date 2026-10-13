@@ -4,18 +4,19 @@ Esta implementação mantém o modelo físico e o stencil da tarefa 19 e avalia
 duas mudanças: manter os campos na GPU durante todos os passos e inverter
 a ordem dos laços para percorrer posições consecutivas do array.
 A tarefa 19 permanece como referência histórica; este experimento compila
-o mesmo arquivo `heatTarget.c` três vezes, com os mesmos parâmetros.
+três implementações explícitas, com os mesmos parâmetros.
 
-| Versão | Opções de compilação | Movimentação dos campos | Laço interno |
+| Versão | Arquivo | Movimentação dos campos | Laço interno |
 |---|---|---|---|
-| `copias` | `-DCOPY_PER_STEP -DORIGINAL_LOOP_ORDER` | Envio e retorno em cada passo | `j`, ordem original |
-| `persistente` | `-DORIGINAL_LOOP_ORDER` | Envio inicial e retorno final | `j`, ordem original |
-| `otimizado` | Nenhuma macro | Envio inicial e retorno final | `i`, acesso contíguo |
+| `copias` | `heatOriginal.c` | Envio e retorno em cada passo | `j`, ordem original |
+| `persistente` | `heatPersistente.c` | Envio inicial e retorno final | `j`, ordem original |
+| `otimizado` | `heatContiguo.c` | Envio inicial e retorno final | `i`, acesso contíguo |
 
-`COPY_PER_STEP` desativa a persistência dos dados.
-`ORIGINAL_LOOP_ORDER` mantém `j` no laço interno.
-Essas opções são escolhidas pelo compilador: o script cria três executáveis,
-mas o código-fonte é único. Não são parâmetros passados ao programa.
+Cada arquivo contém seu stencil e seu laço temporal, sem condições de
+pré-processador para selecionar versões. `heatCommon.c` compartilha o
+`main`, a inicialização, a solução analítica e o cálculo do erro;
+`heatCommon.h` declara a interface. O script liga cada implementação ao
+arquivo comum para criar os três executáveis.
 
 ## Como as mudanças funcionam
 
@@ -59,7 +60,7 @@ Os resultados ficam em uma pasta exclusiva de `resultadosNpad/`:
 - `repeticoes.csv`: tempos e erros de cada repetição, para avaliar variações.
 - Arquivos `*-kern.csv` e `*-mem_time.csv`: relatórios do Nsight Systems,
   para conferir durações, instâncias e volumes registrados.
-- `heatTarget.c` e `ambiente.txt`: código executado e versões das ferramentas.
+- Os cinco arquivos de código e `ambiente.txt`: fontes executadas e versões das ferramentas.
 
 Compare `copias` com `persistente` para avaliar a persistência e
 `persistente` com `otimizado` para avaliar a ordem dos acessos.
@@ -83,6 +84,6 @@ Bash do script também foi verificada. Esses testes verificam o cálculo e
 a leitura dos argumentos; a persistência e o desempenho na GPU precisam
 ser confirmados com NVHPC e Nsight Systems no NPAD.
 
-O programa aceita `./heatTarget n passos`, valida os parâmetros e verifica
+O programa aceita `./copias n passos` (ou `./persistente` e `./otimizado`), valida os parâmetros e verifica
 a alocação. O aviso de estabilidade usa o limite bidimensional `r > 0,25`.
 Ainda não há resultados de desempenho da tarefa 20: serão produzidos pelo job.
