@@ -1,63 +1,0 @@
-
- MMS heat equation
-
---------------------
-Problem input
-
- Grid size: 256 x 256
- Cell width: 3.891051E+00
- Grid length: 1000.000000 x 1000.000000
-
- Alpha: 1.000000E-01
-
- Steps: 100
- Total time: 5.000000E-01
- Time step: 5.000000E-03
---------------------
-Stability
-
- r value: 0.000033
---------------------
-Results
-
-Error (L2norm): 1.578313E-09
-Solve time (s): 0.691345
-Total time (s): 0.693738
---------------------
-Collecting data...
-Generating '/tmp/nsys-report-df54.qdstrm'
-[1/1] [0%                          ] n256.nsys-rep[1/1] [0%                          ] n256.nsys-rep[1/1] [====26%                     ] n256.nsys-rep[1/1] [======34%                   ] n256.nsys-rep[1/1] [========42%                 ] n256.nsys-rep[1/1] [===============66%          ] n256.nsys-rep[1/1] [=====================89%    ] n256.nsys-rep[1/1] [======================90%   ] n256.nsys-rep[1/1] [========================100%] n256.nsys-rep[1/1] [========================100%] n256.nsys-rep
-Generated:
-    /tmp/tarefa19-nsys-YpZBks/n256.nsys-rep
-n=256 | solve=0.277105 s | erro L2=1.578313E-09 | kernels=0.778 ms | cópias=8.886 ms
-
- MMS heat equation
-
---------------------
-Problem input
-
- Grid size: 512 x 512
- Cell width: 1.949318E+00
- Grid length: 1000.000000 x 1000.000000
-
- Alpha: 1.000000E-01
-
- Steps: 100
- Total time: 5.000000E-01
- Time step: 5.000000E-03
---------------------
-Stability
-
- r value: 0.000132
---------------------
-Results
-
-Error (L2norm): 7.895473E-10
-Solve time (s): 0.566806
-Total time (s): 0.576173
---------------------
-Collecting data...
-Generating '/tmp/nsys-report-c99c.qdstrm'
-[1/1] [0%                          ] n512.nsys-rep[1/1] [0%                          ] n512.nsys-rep[1/1] [====26%                     ] n512.nsys-rep[1/1] [=====32%                    ] n512.nsys-rep[1/1] [=======37%                  ] n512.nsys-rep[1/1] [==============63%           ] n512.nsys-rep[1/1] [=====================89%    ] n512.nsys-rep[1/1] [======================90%   ] n512.nsys-rep[1/1] [========================100%] n512.nsys-rep[1/1] [========================100%] n512.nsys-rep
-Generated:
-    /tmp/tarefa19-nsys-YpZBks/n512.nsys-rep

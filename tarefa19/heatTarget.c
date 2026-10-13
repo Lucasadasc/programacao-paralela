@@ -35,63 +35,50 @@
 
 #include <omp.h>
 
-// Key constants used in this program
-#define PI acos(-1.0) // Pi
-#define LINE "--------------------\n" // A line for fancy output
+// Tarefa 19: stencil na GPU com envio e retorno dos campos a cada passo.
+// A implementação parte do código de Tom Deakin, identificado acima.
+// A malha é bidimensional e representa um quadrado de lado 1000.
+// Uso: ./heatTarget <lado da malha> <número de passos>.
 
-// Function definitions
+// Constantes usadas no cálculo e na apresentação dos resultados.
+#define PI acos(-1.0) // Valor de pi.
+#define LINE "--------------------\n" // Separador da saída.
+
+// Protótipos das funções. Os campos são arrays lineares de n*n doubles.
+// restrict indica que os dados acessados por esses ponteiros não se sobrepõem.
 void initial_value(const int n, const double dx, const double length, double * restrict u);
 void zero(const int n, double * restrict u);
 void solve(const int n, const double alpha, const double dx, const double dt, const double * restrict u, double * restrict u_tmp);
 double solution(const double t, const double x, const double y, const double alpha, const double length);
 double l2norm(const int n, const double * restrict u, const int nsteps, const double dt, const double alpha, const double dx, const double length);
 
-// Main function
+// Configura o problema, executa os passos e verifica a solução na CPU.
 int main(int argc, char *argv[]) {
 
-  // Start the total program runtime timer
+  // Tempo total: inclui configuração, inicialização, solve e norma do erro.
+  // omp_get_wtime retorna o tempo de parede em segundos.
   double start = omp_get_wtime();
 
-  // Problem size, forms an nxn grid
+  // Valores padrão: n células internas em cada direção e nsteps passos.
   int n = 1000;
 
-  // Number of timesteps
+  // O intervalo físico total permanece 0,5 ao variar o número de passos.
   int nsteps = 10;
 
-
-  // Check for the correct number of arguments
-  // Print usage and exits if not correct
-  if (argc == 3) {
-
-    // Set problem size from first argument
-    n = atoi(argv[1]);
-    if (n < 0) {
-      fprintf(stderr, "Error: n must be positive\n");
-      exit(EXIT_FAILURE);
-    }
-
-    // Set number of timesteps from second argument
-    nsteps = atoi(argv[2]);
-    if (nsteps < 0) {
-      fprintf(stderr, "Error: nsteps must be positive\n");
-      exit(EXIT_FAILURE);
-    }
-  }
-
-
   //
-  // Set problem definition
+  // Parâmetros físicos e discretização.
   //
-  double alpha = 0.1;          // heat equation coefficient
-  double length = 1000.0;      // physical size of domain: length x length square
-  double dx = length / (n+1);  // physical size of each cell (+1 as don't simulate boundaries as they are given)
-  double dt = 0.5 / nsteps;    // time interval (total time of 0.5s)
+  double alpha = 0.1;          // Coeficiente de difusão térmica.
+  double length = 1000.0;      // Lado do domínio quadrado.
+  double dx = length / (n+1);  // Espaçamento entre pontos internos e bordas.
+  double dt = 0.5 / nsteps;    // Passo temporal: tempo físico total de 0,5.
 
 
-  // Stability requires that dt/(dx^2) <= 0.5,
+  // r é o coeficiente adimensional da discretização explícita.
+  // Para este stencil 2D com espaçamentos iguais, a estabilidade exige r <= 1/4.
   double r = alpha * dt / (dx * dx);
 
-  // Print message detailing runtime configuration
+  // Registra os parâmetros utilizados para permitir interpretar os resultados.
   printf("\n");
   printf(" MMS heat equation\n\n");
   printf(LINE);
@@ -107,7 +94,8 @@ int main(int argc, char *argv[]) {
   printf(" Time step: %E\n", dt);
   printf(LINE);
 
-  // Stability check
+  // Aviso herdado do código base: usa 0,5, embora o limite 2D seja 0,25.
+  // Nas malhas do experimento (até 4096, com 100 passos), r fica abaixo de 0,25.
   printf("Stability\n\n");
   printf(" r value: %lf\n", r);
   if (r > 0.5)
@@ -115,76 +103,78 @@ int main(int argc, char *argv[]) {
   printf(LINE);
 
 
-  // Allocate two nxn grids
+  // Aloca os dois campos na memória da CPU. A posição (i,j) fica em i+j*n.
+  // u é a entrada do passo; u_tmp recebe a saída, sem sobrescrever a entrada.
   double *u     = malloc(sizeof(double)*n*n);
   double *u_tmp = malloc(sizeof(double)*n*n);
   double *tmp;
 
-  // Set the initial value of the grid under the MMS scheme
+  // Inicializa o campo senoidal e zera o segundo array na CPU.
   initial_value(n, dx, length, u);
   zero(n, u_tmp);
 
   //
-  // Run through timesteps under the explicit scheme
+  // Evolução temporal pelo esquema explícito.
   //
 
-  // Start the solve timer
+  // Mede somente o laço temporal: inclui cópias, kernels, sincronização
+  // e custos do runtime, inclusive os da primeira chamada ao dispositivo.
   double tic = omp_get_wtime();
   for (int t = 0; t < nsteps; ++t) {
 
-    // Call the solve kernel
-    // Computes u_tmp at the next timestep
-    // given the value of u at the current timestep
+    // Calcula o próximo estado na GPU e devolve u_tmp à CPU.
+    // Os passos são sequenciais: cada um depende do estado anterior.
     solve(n, alpha, dx, dt, u, u_tmp);
 
-    // Pointer swap
+    // Troca apenas os endereços: o resultado passa a ser a próxima entrada.
+    // Não há cópia dos elementos entre os arrays nessa operação.
     tmp = u;
     u = u_tmp;
     u_tmp = tmp;
   }
-  // Stop solve timer
+  // A verificação numérica abaixo fica fora do tempo de solve.
   double toc = omp_get_wtime();
 
   //
-  // Check the L2-norm of the computed solution
-  // against the *known* solution from the MMS scheme
+  // Compara o campo final com a solução analítica da MMS.
   //
   double norm = l2norm(n, u, nsteps, dt, alpha, dx, length);
 
-  // Stop total timer
+  // Encerra a medição total após a verificação da solução.
   double stop = omp_get_wtime();
 
-  // Print results
+  // Imprime o erro e os dois tempos, extraídos pelo script do experimento.
   printf("Results\n\n");
   printf("Error (L2norm): %E\n", norm);
   printf("Solve time (s): %lf\n", toc-tic);
   printf("Total time (s): %lf\n", stop-start);
   printf(LINE);
 
-  // Free the memory
+  // Libera ambas as alocações, independentemente das trocas de ponteiros.
   free(u);
   free(u_tmp);
 
 }
 
 
-// Sets the mesh to an initial value, determined by the MMS scheme
+// Condição inicial senoidal da solução manufaturada (MMS).
+// Os pontos internos começam em dx; as bordas externas têm temperatura zero.
 void initial_value(const int n, const double dx, const double length, double * restrict u) {
 
   double y = dx;
   for (int j = 0; j < n; ++j) {
-    double x = dx; // Physical x position
+    double x = dx; // Coordenada física da primeira célula interna da linha.
     for (int i = 0; i < n; ++i) {
       u[i+j*n] = sin(PI * x / length) * sin(PI * y / length);
       x += dx;
     }
-    y += dx; // Physical y position
+    y += dx; // Avança para a próxima linha da malha.
   }
 
 }
 
 
-// Zero the array u
+// Preenche o array com zeros na CPU antes do laço temporal.
 void zero(const int n, double * restrict u) {
 
   for (int i = 0; i < n; ++i) {
@@ -196,23 +186,29 @@ void zero(const int n, double * restrict u) {
 }
 
 
-// Compute the next timestep, given the current timestep
+// Atualiza um passo pelo método explícito de diferenças finitas.
+// A entrada é somente leitura; cada iteração escreve uma célula da saída.
 void solve(const int n, const double alpha, const double dx, const double dt, const double * restrict u, double * restrict u_tmp) {
 
-  // Finite difference constant multiplier
+  // Peso dos vizinhos: r; peso da célula central: 1 - 4*r.
   const double r = alpha * dt / (dx * dx);
   const double r2 = 1.0 - 4.0*r;
 
-  // Loop over the nxn grid
-  // Keep this mapping inside solve deliberately: Task 19 profiles the
-  // cost of moving both fields at every timestep.  "teams loop" creates
-  // the GPU teams and distributes the n*n independent stencil updates.
+  // target executa a região no dispositivo selecionado por device(0).
+  // teams loop distribui o trabalho entre equipes e threads da GPU.
+  // collapse(2) associa os dois laços à distribuição das n*n células.
+  // map(to) envia a entrada; map(from) devolve a saída, sem enviá-la antes.
+  // [0:n*n] especifica todos os elementos dos campos apontados pelos ponteiros.
+  // Sem uma região externa de dados persistentes, as cópias se repetem
+  // em cada chamada: um envio e um retorno por passo temporal.
+  // Sem nowait, a região termina e a saída retorna antes da troca na CPU.
   #pragma omp target teams loop device(0) collapse(2) map(to : u[0:n*n]) map(from : u_tmp[0:n*n])
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
 
-        // Update the 5-point stencil, using boundary conditions on the edges of the domain.
-        // Boundaries are zero because the MMS solution is zero there.
+        // Stencil: centro e vizinhos nas direções +i, -i, +j e -j.
+        // Os testes impedem acesso fora do array e aplicam as bordas nulas.
+        // A ordem original mantém j no laço interno: o índice avança n posições.
         u_tmp[i+j*n] =  r2 * u[i+j*n] +
         r * ((i < n-1) ? u[i+1+j*n] : 0.0) +
         r * ((i > 0)   ? u[i-1+j*n] : 0.0) +
@@ -223,7 +219,8 @@ void solve(const int n, const double alpha, const double dx, const double dt, co
 }
 
 
-// True answer given by the manufactured solution
+// Solução analítica: o perfil senoidal decai exponencialmente com o tempo.
+// Serve como referência para verificar o campo calculado numericamente.
 double solution(const double t, const double x, const double y, const double alpha, const double length) {
 
   return exp(-2.0*alpha*PI*PI*t/(length*length)) * sin(PI*x/length) * sin(PI*y/length);
@@ -231,17 +228,17 @@ double solution(const double t, const double x, const double y, const double alp
 }
 
 
-// Computes the L2-norm of the computed grid and the MMS known solution
-// The known solution is the same as the boundary function.
+// Calcula na CPU a norma euclidiana do erro: sqrt(soma((u - solução)^2)).
+// Não normaliza pelo número de células nem pondera pela área de cada célula.
 double l2norm(const int n, const double * restrict u, const int nsteps, const double dt, const double alpha, const double dx, const double length) {
 
-  // Final (real) time simulated
+  // Instante físico final, igual a 0,5 para os parâmetros deste programa.
   double time = dt * (double)nsteps;
 
-  // L2-norm error
+  // Acumula os quadrados das diferenças em todas as células internas.
   double l2norm = 0.0;
 
-  // Loop over the grid and compute difference of computed and known solutions as an L2-norm
+  // Percorre o campo e avalia a referência nas mesmas coordenadas físicas.
   double y = dx;
   for (int j = 0; j < n; ++j) {
     double x = dx;
