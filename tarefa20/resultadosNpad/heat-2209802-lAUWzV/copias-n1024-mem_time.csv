@@ -1,0 +1,6 @@
+Generating SQLite file /tmp/tarefa20-nsys-dSg8wv/copias-n1024.sqlite from /tmp/tarefa20-nsys-dSg8wv/copias-n1024.nsys-rep
+Processing [/tmp/tarefa20-nsys-dSg8wv/copias-n1024.sqlite] with [/opt/npad/shared/compilers/nvidia_hpc_sdk/24.11/Linux_x86_64/24.11/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_mem_time_sum.py]... 
+Time (%),Total Time (ns),Count,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Operation
+52.0,120833786,100,1208337.9,1202105.0,1006939,1759766,64883.2,[CUDA memcpy Device-to-Host]
+48.0,111578475,100,1115784.8,1057146.0,979099,7066906,602297.9,[CUDA memcpy Host-to-Device]
+

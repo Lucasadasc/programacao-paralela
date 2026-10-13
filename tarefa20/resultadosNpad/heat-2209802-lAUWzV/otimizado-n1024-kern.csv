@@ -1,0 +1,5 @@
+Generating SQLite file /tmp/tarefa20-nsys-dSg8wv/otimizado-n1024.sqlite from /tmp/tarefa20-nsys-dSg8wv/otimizado-n1024.nsys-rep
+Processing [/tmp/tarefa20-nsys-dSg8wv/otimizado-n1024.sqlite] with [/opt/npad/shared/compilers/nvidia_hpc_sdk/24.11/Linux_x86_64/24.11/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_kern_sum.py]... 
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Name
+100.0,2349684,100,23496.8,23456.0,22943,27136,447.9,nvkernel_solve_F1L12_2
+

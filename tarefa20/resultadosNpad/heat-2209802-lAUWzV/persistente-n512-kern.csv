@@ -1,0 +1,5 @@
+Generating SQLite file /tmp/tarefa20-nsys-dSg8wv/persistente-n512.sqlite from /tmp/tarefa20-nsys-dSg8wv/persistente-n512.nsys-rep
+Processing [/tmp/tarefa20-nsys-dSg8wv/persistente-n512.sqlite] with [/opt/npad/shared/compilers/nvidia_hpc_sdk/24.11/Linux_x86_64/24.11/profilers/Nsight_Systems/host-linux-x64/reports/cuda_gpu_kern_sum.py]... 
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Name
+100.0,2274230,100,22742.3,22720.0,22432,23232,190.1,nvkernel_solve_F1L12_2
+
