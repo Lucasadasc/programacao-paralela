@@ -15,13 +15,23 @@ cd "${SLURM_SUBMIT_DIR:?Submeta na pasta tarefa12}"
 if [[ -n ${GCC_MODULE:-} ]]; then module load "$GCC_MODULE"; fi
 # Ex.: sbatch --export=ALL,PASCAL_ENV=/caminho/pascal-releases-master/env.sh executarPascal.slurm
 if [[ -n ${PASCAL_ENV:-} ]]; then
+    if [[ ! -r "$PASCAL_ENV" ]]; then
+        printf 'PASCAL_ENV nao aponta para um arquivo legivel: %s\n' "$PASCAL_ENV" >&2
+        exit 1
+    fi
     # Alguns env.sh de ferramentas referenciam variaveis ainda nao definidas.
     set +u
     source "$PASCAL_ENV"
     set -u
 fi
 command -v pascalanalyzer >/dev/null || {
-    echo 'PaScal Analyzer indisponivel. Carregue seu ambiente ou informe PASCAL_ENV.' >&2
+    cat >&2 <<'EOF'
+PaScal Analyzer indisponivel: pascalanalyzer nao foi encontrado no PATH do job.
+No terminal do NPAD, localize o env.sh da instalacao do PaScal e submeta com:
+  sbatch --export=ALL,PASCAL_ENV=/caminho/real/do/PaScal/env.sh executarPascal.slurm
+Se o PaScal for disponibilizado por modulo, carregue-o antes de submeter.
+Definir PASCAL_ENV nao instala a ferramenta; o arquivo deve existir no no de execucao.
+EOF
     exit 1
 }
 export OMP_PLACES=cores OMP_PROC_BIND=spread OMP_DYNAMIC=FALSE
@@ -30,7 +40,7 @@ make validar
 make pascal
 resultado="resultadosNpad/pascal-${SLURM_JOB_ID}"
 mkdir -p "$resultado"
-cp navierStokes.c Makefile executarPascal.slurm "$resultado/"
+cp navierStokes.c navierStokes.h navierStokesV{1,2,3}.c Makefile executarPascal.slurm "$resultado/"
 pascalanalyzer -h > "$resultado/pascal-ajuda.txt"
 gcc --version > "$resultado/compilador.txt"
 lscpu > "$resultado/cpu.txt"

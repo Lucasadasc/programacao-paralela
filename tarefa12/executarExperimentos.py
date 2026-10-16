@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-"""Bateria reproduzivel de escalabilidade; somente biblioteca padrao."""
 import argparse
 import csv
 import json
@@ -89,8 +87,9 @@ def main():
     ambiente.setdefault('OMP_PLACES', 'cores')
     ambiente.setdefault('OMP_PROC_BIND', 'spread')
     ambiente['OMP_DYNAMIC'] = 'FALSE'
-    binario = Path(__file__).resolve().parent / 'navierStokes'
-    subprocess.run([str(binario), '--validar'], env=ambiente, check=True)
+    pasta_binarios = Path(__file__).resolve().parent
+    for versao in range(1, 4):
+        subprocess.run([str(pasta_binarios / f'navierStokesV{versao}'), '--validar'], env=ambiente, check=True)
     metadados = {'host': platform.node(), 'plataforma': platform.platform(),
                  'parametros': {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
                  'afinidade': sorted(os.sched_getaffinity(0)),
@@ -99,8 +98,9 @@ def main():
                  'cpu': subprocess.check_output(['lscpu'], text=True)}
     (args.saida / 'ambiente.json').write_text(json.dumps(metadados, indent=2))
     # Copias permitem identificar exatamente o codigo e as opcoes medidos.
-    for nome in ['navierStokes.c', 'Makefile', 'executarExperimentos.py', 'executarExperimento.slurm']:
-        (args.saida / nome).write_bytes((binario.parent / nome).read_bytes())
+    for nome in ['navierStokes.c', 'navierStokes.h', 'navierStokesV1.c', 'navierStokesV2.c',
+                 'navierStokesV3.c', 'Makefile', 'executarExperimentos.py', 'executarPascal.slurm']:
+        (args.saida / nome).write_bytes((pasta_binarios / nome).read_bytes())
     rng = random.Random(12)
     with (args.saida / 'repeticoes.csv').open('w', newline='') as arquivo:
         escritor = csv.writer(arquivo)
@@ -109,7 +109,7 @@ def main():
         for repeticao in range(1, args.repeticoes+1):
             rng.shuffle(tarefas)
             for modo, v, n, p in tarefas:
-                saida = subprocess.check_output([str(binario), str(v), str(n), str(args.passos), str(p)], env=ambiente, text=True)
+                saida = subprocess.check_output([str(pasta_binarios / f'navierStokesV{v}'), str(n), str(args.passos), str(p)], env=ambiente, text=True)
                 valores = next(csv.reader([saida.strip()]))
                 if len(valores) != 7 or [int(x) for x in valores[:4]] != [v, n, args.passos, p]:
                     raise RuntimeError('saida inesperada do solver')
