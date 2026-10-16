@@ -1,6 +1,0 @@
-gcc -O3 -std=c17 -fopenmp -ffp-contract=off -Wall -Wextra -Wpedantic navierStokes.c -o navierStokes -lm
-./navierStokes --validar
-Validacao: OK (0 falhas)
-gcc -O3 -std=c17 -fopenmp -ffp-contract=off -Wall -Wextra -Wpedantic  -DUSAR_PASCAL -DPASCAL_VERSAO=1 navierStokes.c -o navierPascal1  -lmpascalops -lm
-gcc -O3 -std=c17 -fopenmp -ffp-contract=off -Wall -Wextra -Wpedantic  -DUSAR_PASCAL -DPASCAL_VERSAO=2 navierStokes.c -o navierPascal2  -lmpascalops -lm
-gcc -O3 -std=c17 -fopenmp -ffp-contract=off -Wall -Wextra -Wpedantic  -DUSAR_PASCAL -DPASCAL_VERSAO=3 navierStokes.c -o navierPascal3  -lmpascalops -lm

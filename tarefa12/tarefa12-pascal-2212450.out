@@ -1,1 +1,0 @@
-gcc -O3 -std=c17 -fopenmp -ffp-contract=off -Wall -Wextra -Wpedantic -DVERSAO=1 navierStokes.c navierStokesV1.c -o navierStokesV1 -lm

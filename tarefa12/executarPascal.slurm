@@ -45,7 +45,7 @@ pascalanalyzer -h > "$resultado/pascal-ajuda.txt"
 gcc --version > "$resultado/compilador.txt"
 lscpu > "$resultado/cpu.txt"
 env | sort | sed -n '/^OMP_/p; /^SLURM_/p' > "$resultado/ambiente.txt"
-cores=${CORES_PASCAL:-1,4,16}
+cores=${CORES_PASCAL:-1,4,8,16,32}
 passos=${PASSOS:-300}
 repeticoes=${REPETICOES:-5}
 # Pontos internos: 256^2, 512^2, 1024^2, 2048^2. Razao de trabalho: 4.
