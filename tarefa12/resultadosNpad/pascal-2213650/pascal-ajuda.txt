@@ -1,0 +1,68 @@
+usage: pascalanalyzer [-h] [-c CORES] [-f FREQUENCIES] [-i INPUTS] [-o OUTPUT]
+                      [-r RPTS] [-g] [-t {aut,man}] [-a LEVEL] [--mpi RUNTIME]
+                      [--ragt {dft,acc}] [-v {INFO,WARNING,ERROR,FATAL,DEBUG}]
+                      [--dcrs] [--dhpt] [--domp] [--dout] [--govr GOVERNOR]
+                      [--idtm TIME] [--fgpe EVENT] [--fgps EVENT]
+                      [--rple {sysfs,perf}] [--batt]
+                      [--rpls {sysfs,scontrol,perf}]
+                      [--ipmi SERVER USER PASSWORD] [--modl NPTS MODE]
+                      [--dtbe DATABASE] [--cloud DATABASE] [--srvr IP PORT]
+                      [--prcs] [--lpcs] [--imnt PATH EXTENSIONS]
+                      [application]
+
+Script to run application collecting information while executinga program with
+different configurations of cores, frequencies, inputs arguments.
+
+positional arguments:
+  application           Application Name to run
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CORES, --cors CORES
+                        List of cores numbers to be used. Ex: 1,2,4
+  -f FREQUENCIES, --frqs FREQUENCIES
+                        List of frequencies (KHz). Ex: 2000000,2100000
+  -i INPUTS, --ipts INPUTS
+                        Input name to be used on run. (Default: None). Syntax:
+                        "arg1 arg2 arg3", "arg4 arg5 arg6"
+  -o OUTPUT, --outp OUTPUT
+                        Filename output
+  -r RPTS, --rpts RPTS  Number of repetitions for a specific run. (Default: 1)
+  -g, --gapr            Include as regions the gaps among regions already
+                        identified
+  -t {aut,man}, --inst {aut,man}
+                        Instrumentation type to identify code regions (auto or
+                        manual). When not used the code regions will not
+                        identified.
+  -a LEVEL, --ragl LEVEL
+                        Set the regions hierarchy level to aggregate measures.
+  --mpi RUNTIME         MPI runtimer
+  --ragt {dft,acc}      Region aggregation type. The 'acc' type means to use a
+                        accumulated time variable that reduces memory consume
+                        and calculation time.
+  -v {INFO,WARNING,ERROR,FATAL,DEBUG}, --verb {INFO,WARNING,ERROR,FATAL,DEBUG}
+                        verbosity level (default to INFO)
+  --dcrs                Disable cores
+  --dhpt                Enable hyperthread (disabled by default)
+  --domp                Set OMP_NUM_THREADS variable with -c parameter values.
+                        (enabled by default)
+  --dout                Discard stdout output
+  --govr GOVERNOR       Set the cpu governor
+  --idtm TIME           Idle time between runs. (Default: 0)
+  --fgpe EVENT          Collect performance counters
+  --fgps EVENT          Sample performance counters
+  --rple {sysfs,perf}   Enable rapl energy measuments
+  --batt                Enable battery energy measuments
+  --rpls {sysfs,scontrol,perf}
+                        Enable rapl sample energy measuments
+  --ipmi SERVER USER PASSWORD
+                        Enable ipmi measuments
+  --modl NPTS MODE      Run pascal with random configurations to create a
+                        model
+  --dtbe DATABASE       Database address
+  --cloud DATABASE      Database address
+  --srvr IP PORT        To be used with the web interface
+  --prcs                Track cpu cores
+  --lpcs                List performance counters
+  --imnt PATH EXTENSIONS
+                        Instrument code
