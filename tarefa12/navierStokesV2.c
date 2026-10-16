@@ -1,4 +1,4 @@
-/* Versao 2: Paralelismo por linhas com SIMD e contornos preservados. */4
+/* Versao 2: Paralelismo por linhas com SIMD e contornos preservados. */
 #include "navierStokes.h"
 
 void evoluir(Grade *g, int passos) {
