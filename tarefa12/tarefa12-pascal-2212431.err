@@ -1,0 +1,225 @@
+[32m[Pascal][0m Running with ['cores', 'input', 'repetitions']
+[32m[Pascal][0m Cores: 16 Input: 0 
+[32m[Pascal][0m Total time 0.016371965408325195
+[32m[Pascal][0m Total time 0.0181121826171875
+[32m[Pascal][0m Total time 0.013932943344116211
+[32m[Pascal][0m Total time 0.017528057098388672
+[32m[Pascal][0m Total time 0.020526885986328125
+[32m[Pascal][0m Cores: 16 Input: 1 
+[32m[Pascal][0m Total time 0.03980231285095215
+[32m[Pascal][0m Total time 0.03869009017944336
+[32m[Pascal][0m Total time 0.039006948471069336
+[32m[Pascal][0m Total time 0.040808916091918945
+[32m[Pascal][0m Total time 0.0397341251373291
+[32m[Pascal][0m Cores: 16 Input: 2 
+[32m[Pascal][0m Total time 0.12049698829650879
+[32m[Pascal][0m Total time 0.12231850624084473
+[32m[Pascal][0m Total time 0.11967611312866211
+[32m[Pascal][0m Total time 0.12053799629211426
+[32m[Pascal][0m Total time 0.11948585510253906
+[32m[Pascal][0m Cores: 16 Input: 3 
+[32m[Pascal][0m Total time 0.4373195171356201
+[32m[Pascal][0m Total time 0.4382815361022949
+[32m[Pascal][0m Total time 0.44008374214172363
+[32m[Pascal][0m Total time 0.43814516067504883
+[32m[Pascal][0m Total time 0.44594550132751465
+[32m[Pascal][0m Cores: 4 Input: 0 
+[32m[Pascal][0m Total time 0.027294397354125977
+[32m[Pascal][0m Total time 0.025377988815307617
+[32m[Pascal][0m Total time 0.025202512741088867
+[32m[Pascal][0m Total time 0.024878978729248047
+[32m[Pascal][0m Total time 0.02501201629638672
+[32m[Pascal][0m Cores: 4 Input: 1 
+[32m[Pascal][0m Total time 0.09337925910949707
+[32m[Pascal][0m Total time 0.09141278266906738
+[32m[Pascal][0m Total time 0.0919346809387207
+[32m[Pascal][0m Total time 0.0951392650604248
+[32m[Pascal][0m Total time 0.09127998352050781
+[32m[Pascal][0m Cores: 4 Input: 2 
+[32m[Pascal][0m Total time 0.31129980087280273
+[32m[Pascal][0m Total time 0.31154370307922363
+[32m[Pascal][0m Total time 0.3113746643066406
+[32m[Pascal][0m Total time 0.31255435943603516
+[32m[Pascal][0m Total time 0.30585551261901855
+[32m[Pascal][0m Cores: 4 Input: 3 
+[32m[Pascal][0m Total time 1.147209882736206
+[32m[Pascal][0m Total time 1.1422669887542725
+[32m[Pascal][0m Total time 1.1573097705841064
+[32m[Pascal][0m Total time 1.1511058807373047
+[32m[Pascal][0m Total time 1.1626112461090088
+[32m[Pascal][0m Cores: 1 Input: 0 
+[32m[Pascal][0m Total time 0.0721442699432373
+[32m[Pascal][0m Total time 0.06673955917358398
+[32m[Pascal][0m Total time 0.06775403022766113
+[32m[Pascal][0m Total time 0.06694197654724121
+[32m[Pascal][0m Total time 0.06743621826171875
+[32m[Pascal][0m Cores: 1 Input: 1 
+[32m[Pascal][0m Total time 0.3120384216308594
+[32m[Pascal][0m Total time 0.3015897274017334
+[32m[Pascal][0m Total time 0.2975597381591797
+[32m[Pascal][0m Total time 0.3030965328216553
+[32m[Pascal][0m Total time 0.3035147190093994
+[32m[Pascal][0m Cores: 1 Input: 2 
+[32m[Pascal][0m Total time 1.04893159866333
+[32m[Pascal][0m Total time 1.0479633808135986
+[32m[Pascal][0m Total time 1.0580503940582275
+[32m[Pascal][0m Total time 1.0853440761566162
+[32m[Pascal][0m Total time 1.0487289428710938
+[32m[Pascal][0m Cores: 1 Input: 3 
+[32m[Pascal][0m Total time 4.056480646133423
+[32m[Pascal][0m Total time 3.957314968109131
+[32m[Pascal][0m Total time 4.111065626144409
+[32m[Pascal][0m Total time 4.024811267852783
+[32m[Pascal][0m Total time 3.9570465087890625
+[32m[Pascal][0m ***** Done! *****
+[32m[Pascal][0m Saving data
+[32m[Pascal][0m Running with ['cores', 'input', 'repetitions']
+[32m[Pascal][0m Cores: 16 Input: 0 
+[32m[Pascal][0m Total time 0.012614965438842773
+[32m[Pascal][0m Total time 0.01141214370727539
+[32m[Pascal][0m Total time 0.010959625244140625
+[32m[Pascal][0m Total time 0.009953498840332031
+[32m[Pascal][0m Total time 0.010544061660766602
+[32m[Pascal][0m Cores: 16 Input: 1 
+[32m[Pascal][0m Total time 0.03257942199707031
+[32m[Pascal][0m Total time 0.029774904251098633
+[32m[Pascal][0m Total time 0.03201770782470703
+[32m[Pascal][0m Total time 0.0293426513671875
+[32m[Pascal][0m Total time 0.03294706344604492
+[32m[Pascal][0m Cores: 16 Input: 2 
+[32m[Pascal][0m Total time 0.09479784965515137
+[32m[Pascal][0m Total time 0.09070801734924316
+[32m[Pascal][0m Total time 0.09072613716125488
+[32m[Pascal][0m Total time 0.09006857872009277
+[32m[Pascal][0m Total time 0.09382200241088867
+[32m[Pascal][0m Cores: 16 Input: 3 
+[32m[Pascal][0m Total time 0.33264613151550293
+[32m[Pascal][0m Total time 0.3467862606048584
+[32m[Pascal][0m Total time 0.3408927917480469
+[32m[Pascal][0m Total time 0.33794307708740234
+[32m[Pascal][0m Total time 0.33887314796447754
+[32m[Pascal][0m Cores: 4 Input: 0 
+[32m[Pascal][0m Total time 0.01873636245727539
+[32m[Pascal][0m Total time 0.016210079193115234
+[32m[Pascal][0m Total time 0.01612234115600586
+[32m[Pascal][0m Total time 0.01639842987060547
+[32m[Pascal][0m Total time 0.016200780868530273
+[32m[Pascal][0m Cores: 4 Input: 1 
+[32m[Pascal][0m Total time 0.06729888916015625
+[32m[Pascal][0m Total time 0.06896567344665527
+[32m[Pascal][0m Total time 0.06913256645202637
+[32m[Pascal][0m Total time 0.06814336776733398
+[32m[Pascal][0m Total time 0.0705864429473877
+[32m[Pascal][0m Cores: 4 Input: 2 
+[32m[Pascal][0m Total time 0.20075535774230957
+[32m[Pascal][0m Total time 0.2012622356414795
+[32m[Pascal][0m Total time 0.19769048690795898
+[32m[Pascal][0m Total time 0.19838714599609375
+[32m[Pascal][0m Total time 0.19752836227416992
+[32m[Pascal][0m Cores: 4 Input: 3 
+[32m[Pascal][0m Total time 0.7423660755157471
+[32m[Pascal][0m Total time 0.7588064670562744
+[32m[Pascal][0m Total time 0.7541933059692383
+[32m[Pascal][0m Total time 0.7525966167449951
+[32m[Pascal][0m Total time 0.7461593151092529
+[32m[Pascal][0m Cores: 1 Input: 0 
+[32m[Pascal][0m Total time 0.0429844856262207
+[32m[Pascal][0m Total time 0.04235386848449707
+[32m[Pascal][0m Total time 0.04191994667053223
+[32m[Pascal][0m Total time 0.041603803634643555
+[32m[Pascal][0m Total time 0.04431605339050293
+[32m[Pascal][0m Cores: 1 Input: 1 
+[32m[Pascal][0m Total time 0.19855308532714844
+[32m[Pascal][0m Total time 0.20393848419189453
+[32m[Pascal][0m Total time 0.20324277877807617
+[32m[Pascal][0m Total time 0.19928479194641113
+[32m[Pascal][0m Total time 0.20288372039794922
+[32m[Pascal][0m Cores: 1 Input: 2 
+[32m[Pascal][0m Total time 0.6251637935638428
+[32m[Pascal][0m Total time 0.6195359230041504
+[32m[Pascal][0m Total time 0.64023756980896
+[32m[Pascal][0m Total time 0.6175150871276855
+[32m[Pascal][0m Total time 0.6185004711151123
+[32m[Pascal][0m Cores: 1 Input: 3 
+[32m[Pascal][0m Total time 2.409353494644165
+[32m[Pascal][0m Total time 2.409458637237549
+[32m[Pascal][0m Total time 2.4108242988586426
+[32m[Pascal][0m Total time 2.409398078918457
+[32m[Pascal][0m Total time 2.4703001976013184
+[32m[Pascal][0m ***** Done! *****
+[32m[Pascal][0m Saving data
+[32m[Pascal][0m Running with ['cores', 'input', 'repetitions']
+[32m[Pascal][0m Cores: 16 Input: 0 
+[32m[Pascal][0m Total time 0.010600090026855469
+[32m[Pascal][0m Total time 0.0084075927734375
+[32m[Pascal][0m Total time 0.00717926025390625
+[32m[Pascal][0m Total time 0.009801864624023438
+[32m[Pascal][0m Total time 0.007719755172729492
+[32m[Pascal][0m Cores: 16 Input: 1 
+[32m[Pascal][0m Total time 0.01965928077697754
+[32m[Pascal][0m Total time 0.020328044891357422
+[32m[Pascal][0m Total time 0.02059197425842285
+[32m[Pascal][0m Total time 0.020457983016967773
+[32m[Pascal][0m Total time 0.020214080810546875
+[32m[Pascal][0m Cores: 16 Input: 2 
+[32m[Pascal][0m Total time 0.049924373626708984
+[32m[Pascal][0m Total time 0.04781389236450195
+[32m[Pascal][0m Total time 0.048305511474609375
+[32m[Pascal][0m Total time 0.048354387283325195
+[32m[Pascal][0m Total time 0.04752659797668457
+[32m[Pascal][0m Cores: 16 Input: 3 
+[32m[Pascal][0m Total time 0.16840267181396484
+[32m[Pascal][0m Total time 0.16908860206604004
+[32m[Pascal][0m Total time 0.169830322265625
+[32m[Pascal][0m Total time 0.1712033748626709
+[32m[Pascal][0m Total time 0.17086410522460938
+[32m[Pascal][0m Cores: 4 Input: 0 
+[32m[Pascal][0m Total time 0.017168283462524414
+[32m[Pascal][0m Total time 0.014260292053222656
+[32m[Pascal][0m Total time 0.014432430267333984
+[32m[Pascal][0m Total time 0.014098405838012695
+[32m[Pascal][0m Total time 0.013796091079711914
+[32m[Pascal][0m Cores: 4 Input: 1 
+[32m[Pascal][0m Total time 0.058846235275268555
+[32m[Pascal][0m Total time 0.05526614189147949
+[32m[Pascal][0m Total time 0.05598783493041992
+[32m[Pascal][0m Total time 0.05681109428405762
+[32m[Pascal][0m Total time 0.05598783493041992
+[32m[Pascal][0m Cores: 4 Input: 2 
+[32m[Pascal][0m Total time 0.1619429588317871
+[32m[Pascal][0m Total time 0.16431641578674316
+[32m[Pascal][0m Total time 0.16575837135314941
+[32m[Pascal][0m Total time 0.1625971794128418
+[32m[Pascal][0m Total time 0.16321873664855957
+[32m[Pascal][0m Cores: 4 Input: 3 
+[32m[Pascal][0m Total time 0.6089754104614258
+[32m[Pascal][0m Total time 0.60886549949646
+[32m[Pascal][0m Total time 0.6097688674926758
+[32m[Pascal][0m Total time 0.6084067821502686
+[32m[Pascal][0m Total time 0.6110117435455322
+[32m[Pascal][0m Cores: 1 Input: 0 
+[32m[Pascal][0m Total time 0.04290604591369629
+[32m[Pascal][0m Total time 0.04183197021484375
+[32m[Pascal][0m Total time 0.0414586067199707
+[32m[Pascal][0m Total time 0.0418553352355957
+[32m[Pascal][0m Total time 0.04176688194274902
+[32m[Pascal][0m Cores: 1 Input: 1 
+[32m[Pascal][0m Total time 0.20279431343078613
+[32m[Pascal][0m Total time 0.2037038803100586
+[32m[Pascal][0m Total time 0.20369791984558105
+[32m[Pascal][0m Total time 0.21088814735412598
+[32m[Pascal][0m Total time 0.20252680778503418
+[32m[Pascal][0m Cores: 1 Input: 2 
+[32m[Pascal][0m Total time 0.6166019439697266
+[32m[Pascal][0m Total time 0.6153993606567383
+[32m[Pascal][0m Total time 0.6194255352020264
+[32m[Pascal][0m Total time 0.6160902976989746
+[32m[Pascal][0m Total time 0.6247165203094482
+[32m[Pascal][0m Cores: 1 Input: 3 
+[32m[Pascal][0m Total time 2.4013030529022217
+[32m[Pascal][0m Total time 2.4206080436706543
+[32m[Pascal][0m Total time 2.410919666290283
+[32m[Pascal][0m Total time 2.4775943756103516
+[32m[Pascal][0m Total time 2.449479579925537
+[32m[Pascal][0m ***** Done! *****
+[32m[Pascal][0m Saving data

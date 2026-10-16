@@ -1,0 +1,30 @@
+heatCommon.c:
+heatOriginal.c:
+solve:
+     12, #omp target teams loop
+         12, Generating "nvkernel_solve_F1L12_2" GPU kernel
+             Generating NVIDIA GPU code
+           17, Loop parallelized across teams, threads(128) collapse(2) /* blockIdx.x threadIdx.x */
+           18,   /* blockIdx.x threadIdx.x collapsed */
+         12, Generating Multicore code
+           17, Loop parallelized across threads
+heatCommon.c:
+heatPersistente.c:
+solve:
+     12, #omp target teams loop
+         12, Generating "nvkernel_solve_F1L12_2" GPU kernel
+             Generating NVIDIA GPU code
+           17, Loop parallelized across teams, threads(128) collapse(2) /* blockIdx.x threadIdx.x */
+           18,   /* blockIdx.x threadIdx.x collapsed */
+         12, Generating Multicore code
+           17, Loop parallelized across threads
+heatCommon.c:
+heatContiguo.c:
+solve:
+     12, #omp target teams loop
+         12, Generating "nvkernel_solve_F1L12_2" GPU kernel
+             Generating NVIDIA GPU code
+           17, Loop parallelized across teams, threads(128) collapse(2) /* blockIdx.x threadIdx.x */
+           18,   /* blockIdx.x threadIdx.x collapsed */
+         12, Generating Multicore code
+           17, Loop parallelized across threads

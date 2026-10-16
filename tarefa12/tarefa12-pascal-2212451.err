@@ -1,0 +1,4 @@
+navierStokesV2.c:1:73: error: expected identifier or ‘(’ before numeric constant
+ /* Versao 2: Paralelismo por linhas com SIMD e contornos preservados. */4
+                                                                         ^
+make: *** [Makefile:7: navierStokesV2] Error 1
