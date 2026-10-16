@@ -135,7 +135,16 @@ int main(int argc,char **argv) {
         return 1; 
     }
 
-    printf("%d,%d,%d,%d,%.9f,%.17g,%.17g\n",ver,n,passos,reais,tempo,soma,pico);
+    printf(
+        "%d,%d,%d,%d,%.9f,%.17g,%.17g\n",
+        ver,
+        n,
+        passos,
+        reais,
+        tempo,
+        soma,
+        pico
+    );
     
     liberarMemoria(g);return 0;
 }
