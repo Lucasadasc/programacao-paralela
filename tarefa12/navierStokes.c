@@ -80,9 +80,9 @@ static int validar(void) {
                 if (c<2 && (g.u[k]!=(c==1?1.5:0) || g.v[k]!=(c==1?0.5:0))) falhas++;
                 if (c==2 && (g.u[k]<0 || g.u[k]>2 || fabs(g.v[k]-g.u[k]*0.5)>1e-12)) falhas++;
             }
-            liberar(g);
+            liberarMemoria(g);
         }
-        liberar(ref);
+        liberarMemoria(ref);
     }
     printf("Validacao V%d: %s (%d falhas)\n",VERSAO,falhas?"FALHOU":"OK",falhas);return falhas?1:0;
 }
@@ -131,7 +131,7 @@ int main(int argc,char **argv) {
     }
     if (!isfinite(soma) || pico>2 || pico<0) { 
         fputs("Resultado numerico invalido\n",stderr);
-        liberar(g);
+        liberarMemoria(g);
         return 1; 
     }
 
