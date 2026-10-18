@@ -1,7 +1,10 @@
 # Tarefa 13 — afinidade de threads
 
 Avaliar como a afinidade altera a escalabilidade do Navier–Stokes no mesmo
-no da tarefa 12 (slide 66, pagina 64 do PDF). O job solicita **r2n50**.
+no da tarefa 12 (slide 66, pagina 64 do PDF). Para evitar a espera pelo r2n50,
+o job permite qualquer no da particao `amd-512`. Todas as politicas executam
+no mesmo no alocado. Confira o hardware em `cpu.txt` e registre essa diferenca
+em relacao ao enunciado ao apresentar os resultados.
 
 ## Implementacao e comparacao
 

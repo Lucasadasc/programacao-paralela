@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=tarefa13-afinidade
 #SBATCH --partition=amd-512
-#SBATCH --nodelist=r2n50
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
