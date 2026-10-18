@@ -8,7 +8,9 @@ void evoluir(Grade *g, int passos) {
         #pragma omp parallel for schedule(static)
         for (int i=1;i<n-1;i++) {
             #pragma omp simd
-            for (int j=1;j<n-1;j++) { ATUALIZAR; }
+            for (int j=1;j<n-1;j++) { 
+                ATUALIZAR; 
+            }
         }
         double *t=u;u=un;un=t;t=v;v=vn;vn=t;
     }

@@ -10,7 +10,9 @@ void evoluir(Grade *g, int passos) {
             #pragma omp for schedule(static)
             for (int i=1;i<n-1;i++) {
                 #pragma omp simd
-                for (int j=1;j<n-1;j++) { ATUALIZAR; }
+                for (int j=1;j<n-1;j++) { 
+                    ATUALIZAR; 
+                }
             }
             /* Barreira do omp for termina todas as escritas antes da troca.
                Ponteiros privados dispensam single e segunda barreira. */
