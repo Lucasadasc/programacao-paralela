@@ -24,7 +24,7 @@ sempre com `OMP_PLACES=cores`. Nao se altera o solver entre politicas.
 
 ## Executar
 
-Requer Linux, GCC com OpenMP e Python 3 (somente biblioteca padrao).
+Requer Linux, GCC com OpenMP e Python 3.6 ou superior (somente biblioteca padrao).
 
 ```bash
 make validar

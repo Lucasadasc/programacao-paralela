@@ -19,6 +19,18 @@ def positivo(texto):
     return valor
 
 
+def lado_para_pontos(pontos):
+    """Menor lado cujo quadrado cobre os pontos, sem exigir Python 3.8."""
+    baixo, alto = 0, pontos
+    while baixo < alto:
+        meio = (baixo + alto) // 2
+        if meio * meio < pontos:
+            baixo = meio + 1
+        else:
+            alto = meio
+    return baixo
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--threads', nargs='+', type=positivo, default=[1, 4, 8, 16, 32])
@@ -36,8 +48,7 @@ def main():
     if any(n < 6 or n > 16382 for n in a.lados):
         p.error('--lados deve estar entre 6 e 16382 (pontos internos)')
     raiz = Path(__file__).resolve().parent
-    fraca = {th: max(6, math.isqrt(a.base_fraca * th) +
-                    (math.isqrt(a.base_fraca * th)**2 < a.base_fraca * th)) for th in a.threads}
+    fraca = {th: max(6, lado_para_pontos(a.base_fraca * th)) for th in a.threads}
     if max(fraca.values()) > 16382:
         p.error('malha fraca excede o limite do solver')
     # Mesma entrada com uma thread para a referencia de cada speedup.
@@ -62,7 +73,8 @@ def main():
             if th == 1:
                 subprocess.run([str(raiz / 'navierStokes'), '--validar'], env=env, check=True)
             r = subprocess.run([str(raiz / 'afinidade')], env=env, check=True,
-                               capture_output=True, text=True)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               universal_newlines=True)
             (a.saida / f'afinidade-{politica}-{th}.txt').write_text(r.stdout + r.stderr)
     tarefas = [(pol, th, n, rep) for pol in a.politicas for th, n in sorted(pares)
                for rep in range(1, a.repeticoes + 1)]
@@ -77,7 +89,8 @@ def main():
         for indice, (pol, th, n, rep) in enumerate(tarefas, 1):
             env = dict(envbase, OMP_PROC_BIND=pol, OMP_NUM_THREADS=str(th))
             r = subprocess.run([str(raiz / 'navierStokes'), str(n + 2), str(a.passos), str(th)],
-                               env=env, check=True, capture_output=True, text=True)
+                               env=env, check=True, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, universal_newlines=True)
             col = next(csv.reader([r.stdout.strip()]))
             if len(col) != 9 or int(col[3]) != th:
                 raise RuntimeError(f'saida inesperada: {r.stdout} {r.stderr}')
