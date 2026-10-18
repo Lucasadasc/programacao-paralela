@@ -33,3 +33,6 @@ sbatch executarPascal.slurm
 `make pascal` gera `navierPascal1`, `navierPascal2` e `navierPascal3`, usando
 os mesmos fontes separados. Esses executaveis recebem `PONTOS_INTERNOS PASSOS`
 e usam o numero de threads definido pelo Analyzer.
+
+A análise dos gráficos do PascalViewer e a comparação das três versões estão em
+[Análise dos resultados](analise_resultados.md).
