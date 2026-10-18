@@ -1,0 +1,3 @@
+gcc -O3 -std=c17 -fopenmp -ffp-contract=off -Wall -Wextra -Wpedantic -DVERSAO=3 navierStokes.c navierStokesV3.c -o navierStokes -lm
+gcc -O3 -std=c17 -fopenmp -ffp-contract=off -Wall -Wextra -Wpedantic afinidade.c -o afinidade
+gcc -O3 -std=c17 -fopenmp -ffp-contract=off -Wall -Wextra -Wpedantic  -DUSAR_PASCAL -DVERSAO=3 navierStokes.c navierStokesV3.c -o navierPascal  -lmpascalops -lm

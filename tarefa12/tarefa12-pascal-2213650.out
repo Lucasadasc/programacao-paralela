@@ -1,0 +1,7 @@
+./navierStokesV1 --validar
+Validacao V1: OK (0 falhas)
+./navierStokesV2 --validar
+Validacao V2: OK (0 falhas)
+./navierStokesV3 --validar
+Validacao V3: OK (0 falhas)
+make: Nothing to be done for 'pascal'.

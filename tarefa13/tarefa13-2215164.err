@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "executarExperimentos.py", line 116, in <module>
+    main()
+  File "executarExperimentos.py", line 40, in main
+    (math.isqrt(a.base_fraca * th)**2 < a.base_fraca * th)) for th in a.threads}
+  File "executarExperimentos.py", line 40, in <dictcomp>
+    (math.isqrt(a.base_fraca * th)**2 < a.base_fraca * th)) for th in a.threads}
+AttributeError: module 'math' has no attribute 'isqrt'
+srun: error: r2n20: task 0: Exited with exit code 1

@@ -1,0 +1,5 @@
+PaScal Analyzer indisponivel: pascalanalyzer nao foi encontrado no PATH do job.
+No terminal do NPAD, localize o env.sh da instalacao do PaScal e submeta com:
+  sbatch --export=ALL,PASCAL_ENV=/caminho/real/do/PaScal/env.sh executarPascal.slurm
+Se o PaScal for disponibilizado por modulo, carregue-o antes de submeter.
+Definir PASCAL_ENV nao instala a ferramenta; o arquivo deve existir no no de execucao.
