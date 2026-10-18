@@ -19,6 +19,8 @@ void evoluir(Grade *g, int passos) {
             double *t=u;u=un;un=t;t=v;v=vn;vn=t;
         }
     }
-    if (passos%2) { double *t=u;u=un;un=t;t=v;v=vn;vn=t; }
+    if (passos%2) { 
+        double *t=u;u=un;un=t;t=v;v=vn;vn=t; 
+    }
     g->u=u;g->v=v;g->un=un;g->vn=vn;
 }
