@@ -1,0 +1,8 @@
+thread=0 equipe=8 cpu=0 bind=4 cpus=0,128,
+thread=1 equipe=8 cpu=132 bind=4 cpus=4,132,
+thread=6 equipe=8 cpu=152 bind=4 cpus=24,152,
+thread=7 equipe=8 cpu=156 bind=4 cpus=28,156,
+thread=2 equipe=8 cpu=136 bind=4 cpus=8,136,
+thread=3 equipe=8 cpu=140 bind=4 cpus=12,140,
+thread=4 equipe=8 cpu=144 bind=4 cpus=16,144,
+thread=5 equipe=8 cpu=148 bind=4 cpus=20,148,

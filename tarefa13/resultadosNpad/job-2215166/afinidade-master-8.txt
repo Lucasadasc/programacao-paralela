@@ -1,0 +1,8 @@
+thread=7 equipe=8 cpu=0 bind=2 cpus=0,128,
+thread=0 equipe=8 cpu=128 bind=2 cpus=0,128,
+thread=1 equipe=8 cpu=0 bind=2 cpus=0,128,
+thread=3 equipe=8 cpu=128 bind=2 cpus=0,128,
+thread=4 equipe=8 cpu=128 bind=2 cpus=0,128,
+thread=6 equipe=8 cpu=0 bind=2 cpus=0,128,
+thread=2 equipe=8 cpu=128 bind=2 cpus=0,128,
+thread=5 equipe=8 cpu=0 bind=2 cpus=0,128,
