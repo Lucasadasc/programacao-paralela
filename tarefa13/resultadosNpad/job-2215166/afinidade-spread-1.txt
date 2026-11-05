@@ -1,1 +1,0 @@
-thread=0 equipe=1 cpu=128 bind=4 cpus=0,128,

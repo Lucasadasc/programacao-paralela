@@ -1,4 +1,0 @@
-thread=0 equipe=4 cpu=128 bind=4 cpus=0,128,
-thread=1 equipe=4 cpu=8 bind=4 cpus=8,136,
-thread=3 equipe=4 cpu=24 bind=4 cpus=24,152,
-thread=2 equipe=4 cpu=16 bind=4 cpus=16,144,
