@@ -44,7 +44,8 @@ cp navierStokes.c navierStokes.h navierStokesV{1,2,3}.c Makefile executarPascal.
 pascalanalyzer -h > "$resultado/pascal-ajuda.txt"
 gcc --version > "$resultado/compilador.txt"
 lscpu > "$resultado/cpu.txt"
-env | sort | sed -n '/^OMP_/p; /^SLURM_/p' > "$resultado/ambiente.txt"
+# Registrar somente configuracoes e recursos, sem dados pessoais ou hosts.
+env | sort | sed -n -E '/^OMP_/p; /^SLURM_(CPUS_PER_TASK|CPUS_ON_NODE|JOB_CPUS_PER_NODE|NTASKS|NNODES|JOB_NUM_NODES|THREADS_PER_CORE|MEM_PER_NODE|HINT)=/p' > "$resultado/ambiente.txt"
 cores=${CORES_PASCAL:-1,4,8,16,32}
 passos=${PASSOS:-300}
 repeticoes=${REPETICOES:-5}
@@ -56,4 +57,6 @@ for versao in 1 2 3; do
         pascalanalyzer "./navierPascal${versao}" -t man \
         -c "$cores" -i "$entradas" -r "$repeticoes" \
         -o "$resultado/versao${versao}.json"
+    # O PaScal registra o hostname automaticamente no JSON.
+    sed -i -E 's/("hostname"[[:space:]]*:[[:space:]]*)"[^"]*"/\1"host-anonimizado"/g' "$resultado/versao${versao}.json"
 done

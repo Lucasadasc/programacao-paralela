@@ -78,5 +78,5 @@ done
 
 cp "${caminho_resultado}" "${diretorio_saida}/"
 cp "${caminho_resumo}" "${diretorio_saida}/"
-echo "Resultados brutos: ${diretorio_saida}/${arquivo}"
-echo "Medianas: ${diretorio_saida}/${arquivo_resumo}"
+echo "Resultados brutos: saidaNpad/${arquivo}"
+echo "Medianas: saidaNpad/${arquivo_resumo}"

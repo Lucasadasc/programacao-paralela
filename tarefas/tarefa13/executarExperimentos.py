@@ -6,7 +6,6 @@ import json
 import math
 import os
 from pathlib import Path
-import platform
 import random
 import statistics
 import subprocess
@@ -55,9 +54,15 @@ def main():
     pares = {(th, n) for th in a.threads for n in a.lados}
     pares |= {(th, n) for th, n in fraca.items()} | {(1, n) for n in fraca.values()}
     a.saida.mkdir(parents=True, exist_ok=False)
-    metadados = dict(vars(a), saida=str(a.saida), hostname=platform.node(),
+    campos_slurm = {'SLURM_CPUS_PER_TASK', 'SLURM_CPUS_ON_NODE',
+                    'SLURM_JOB_CPUS_PER_NODE', 'SLURM_NTASKS', 'SLURM_NNODES',
+                    'SLURM_JOB_NUM_NODES', 'SLURM_THREADS_PER_CORE',
+                    'SLURM_MEM_PER_NODE', 'SLURM_HINT'}
+    # Registrar recursos sem identificar usuario, conta ou infraestrutura interna.
+    metadados = dict(vars(a), saida=a.saida.name,
                      cpus_permitidas=sorted(os.sched_getaffinity(0)),
-                     ambiente={k: v for k, v in os.environ.items() if k.startswith(('OMP_', 'SLURM_'))},
+                     ambiente={k: v for k, v in os.environ.items()
+                               if k.startswith('OMP_') or k in campos_slurm},
                      fraca=fraca)
     (a.saida / 'configuracao.json').write_text(json.dumps(metadados, indent=2))
     envbase = os.environ.copy()

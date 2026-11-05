@@ -77,7 +77,7 @@ verifica os resultados e o runner compara soma/pico entre politicas/threads;
 
 - `medidas.csv`: cada repeticao, com tempos em segundos.
 - `resumo.csv`: media, desvio amostral, speedup e eficiencia por regiao.
-- `configuracao.json`: parametros, hostname, ambiente e CPUs permitidas.
+- `configuracao.json`: parametros, configuracoes de OpenMP, recursos Slurm e CPUs permitidas, sem usuario, conta ou hostname.
 - `afinidade-POLITICA-THREADS.txt`: CPU instantanea e mascara permitida de
   cada thread em um programa de diagnostico separado. E uma verificacao da
   configuracao, nao um rastreamento das threads do solver.

@@ -165,5 +165,5 @@ MPI_Test a cada 100    tempo_maximo = 0.563619 s | tempo_medio = 0.563341 s | T[
 MPI_Test a cada 100    tempo_maximo = 0.562769 s | tempo_medio = 0.562495 s | T[0] = 100.000000
 MPI_Test a cada 100    tempo_maximo = 0.556317 s | tempo_medio = 0.556066 s | T[0] = 100.000000
 MPI_Test a cada 100    tempo_maximo = 0.576441 s | tempo_medio = 0.576111 s | T[0] = 100.000000
-Resultados brutos: /home/ladscardoso/projetos/programacao-paralela/tarefa15/saidaNpad/resultados-n8-p8-job2122413.csv
-Medianas: /home/ladscardoso/projetos/programacao-paralela/tarefa15/saidaNpad/medianas-n8-p8-job2122413.csv
+Resultados brutos: /home/usuario-npad/projetos/programacao-paralela/tarefa15/saidaNpad/resultados-n8-p8-job2122413.csv
+Medianas: /home/usuario-npad/projetos/programacao-paralela/tarefa15/saidaNpad/medianas-n8-p8-job2122413.csv

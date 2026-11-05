@@ -22,4 +22,6 @@ for politica in false true close spread master; do
     # O Analyzer configura OMP_NUM_THREADS em cada execucao.
     pascalanalyzer ./navierPascal -t man -c "$cores" -i "$entradas" \
         -r "$repeticoes" -o "$resultado/afinidade-${politica}.json"
+    # Preservar as medidas sem publicar o hostname interno.
+    sed -i -E 's/("hostname"[[:space:]]*:[[:space:]]*)"[^"]*"/\1"host-anonimizado"/g' "$resultado/afinidade-${politica}.json"
 done
